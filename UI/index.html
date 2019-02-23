@@ -5,25 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/index.css">
     <title>EPIC Mail</title>
 </head>
 
 <body>
+    <header id="head-content">
+        EPIC_Mail
+    </header>
     <div class="sign_up-body">
-        <section>
+        <section id="carousel">
+            <div>Imagine Humans are real</div>
+        </section>
+        <section id='form_display'>
             <form action="" id="form">
-                <div>EPIC_Mail</div>
-                <p>Create your EPIC_Mail account</p>
-                <input type="text" class="form_text" id="firstName" name="firstName" placeholder="First name">
-                <input type="text" class="form_text" id="lastName" name="lastName" placeholder="Last name">
-                <input type="text" class="form_text" id="username" placeholder="Username" value="@epic_mail">
+                <div class="title_part">
+                    <div class="title_content">EPIC_Mail</div>
+                    <p class="title_content">Create your EPIC_Mail account</p>
+                </div>
+
+                <div class="first_part-input">
+                    <input type="text" class="form_text" id="firstName" name="firstName" placeholder="First name">
+                    <input type="text" class="form_text" id="lastName" name="lastName" placeholder="Last name">
+                </div>
+
+                <div class="second_part-input">
+                    <input type="text" class="form_text" id="userName" name="userName"
+                        placeholder="Username @epic_mail">
+                </div>
                 <p class="input_definition">You can use letters, numbers & periods</p>
-                <input type="password" class="form_text" id="password" name="password" placeholder="Password">
-                <input type="password" class="form_text" id="confirm_password" placeholder="Confirm"
-                    name="confirm_password">
+
+
+                <div class="third_part-input">
+                    <input type="password" class="form_text" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form_text" id="confirm_password" name="confirm_password"
+                        placeholder="Confirm">
+                </div>
+
+
                 <p class="input_definition">Use 8 or more characters with a mix of letters, numbers & symbols</p>
-                <a href="#">Sign in instead</a>
-                <button class="sign_up">Sign up</button>
+
+                <div class="fourth_part-action">
+                    <a href="#">Sign in instead</a>
+                    <button class="sign_up">Sign up</button>
+                </div>
 
             </form>
         </section>

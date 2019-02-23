@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+:root {
+    --form_margin-left: 20px;
+    --form_margin-bottom: 30px;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    all: unset;
+    cursor: pointer;
+    color: rgb(17, 53, 151);
+}
+
+#head-content {
+    padding-left: 10px;
+    background: red;
+    color: white;
+}
+
+.sign_up-body {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 5% 0.7fr 1fr 5%;
+    grid-template-rows: 5% 1fr;
+    justify-content: center;
+    align-content: center;
+}
+
+#carousel {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 3px;
+    height: 100%;
+    width: 100%;
+}
+
+.title_part {
+    margin-left: var(--form_margin-left);
+    margin-bottom: var(--form_margin-bottom);
+}
+
+.title_part > * {
+    padding: 5px;
+}
+
+#form_display {
+    grid-column: 3;
+    grid-row: 2;
+    align-items: center;
+    margin: 5%;
+    border: 1px solid rgb();
+    padding: 10px;
+    box-shadow: 3px 3px 5px 6px #ccc;
+    padding-bottom: 40px;
+}
+
+.form_text {
+    border-style: none;
+    border-radius: 3px;
+    border: 1px solid rgb(221, 209, 209);
+    height: 30px;
+    width: 28%;
+    padding: 2px;
+    margin-left: var(--form_margin-left);
+    margin-top: var(--form_margin-bottom);
+    padding-left: 5px;
+}
+
+/* .form_text[value] {
+    text-align: end;
+}  */
+
+.form_text#userName {
+    width: 59%;
+}
+
+.first_part-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.input_definition {
+    margin-left: var(--form_margin-left);
+    padding-top: 5px;
+    font-size: 13px;
+    color: rgb(120, 110, 110);
+}
+
+.third-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.fourth_part-action {
+    width: 60%;
+    margin-top: 50px;
+    margin-left: var(--form_margin-left);
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.sign_up {
+    all: unset;
+    background: rgb(17, 53, 151);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}

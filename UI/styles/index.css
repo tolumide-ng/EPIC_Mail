@@ -18,27 +18,19 @@ a {
     color: rgb(17, 53, 151);
 }
 
-#head-content {
+/* #head-content {
     padding-left: 10px;
     background: red;
     color: white;
-}
+} */
 
 .sign_up-body {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: 5% 0.7fr 1fr 5%;
-    grid-template-rows: 5% 1fr;
+    grid-template-columns: 5% 0.9fr 1fr 5%;
+    grid-template-rows: 2vh 1fr;
     justify-content: center;
     align-content: center;
-}
-
-#carousel {
-    grid-column: 2;
-    grid-row: 1;
-    margin-top: 3px;
-    height: 100%;
-    width: 100%;
 }
 
 .title_part {
@@ -48,6 +40,7 @@ a {
 
 .title_part > * {
     padding: 5px;
+    color: blue;
 }
 
 #form_display {
@@ -55,10 +48,11 @@ a {
     grid-row: 2;
     align-items: center;
     margin: 5%;
-    border: 1px solid rgb();
     padding: 10px;
     box-shadow: 3px 3px 5px 6px #ccc;
+    border-radius: 5px;
     padding-bottom: 40px;
+    padding-top: 30px;
 }
 
 .form_text {
@@ -72,10 +66,6 @@ a {
     margin-top: var(--form_margin-bottom);
     padding-left: 5px;
 }
-
-/* .form_text[value] {
-    text-align: end;
-}  */
 
 .form_text#userName {
     width: 59%;
@@ -95,11 +85,17 @@ a {
     color: rgb(120, 110, 110);
 }
 
-.third-input {
+.third_part-input {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
+    align-content: center;
+}
+
+#not_visible {
+    height: 30px;
+    margin-top: 30px;
+    margin-left: 10px;
 }
 
 .fourth_part-action {
@@ -119,3 +115,73 @@ a {
     border-radius: 3px;
     cursor: pointer;
 }
+
+/* CAROUSEL DESIGN */
+
+#carousel {
+    grid-column: 2;
+    grid-row: 1;
+    position: relative;
+    height: 500px;
+    width: 100%;
+    margin: 0 auto;
+    top: 30px;
+}
+
+.carousel_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.carousel_track-container {
+    background: lightgreen;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel_track {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    height: 100%;
+    position: relative;
+    transition: transform 250ms ease-in;
+}
+
+.carousel_slide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/* .carousel_button {
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: green;
+    z-index: 999;
+} */
+.carousel_button img {
+    width: 12px;
+    height: 50px;
+}
+
+.carousel_button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 0;
+}
+
+.carousel_button-left {
+    left: -20px;
+}
+
+.carousel_button-right {
+    right: -20px;
+}
+

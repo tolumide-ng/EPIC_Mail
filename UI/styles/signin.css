@@ -94,25 +94,19 @@
     cursor: pointer;
 }
 
+
 /* NAVIGATION BAR */
 
-a {
-    all: unset;
-    font-size: 1.1em;
-}
-
-.img {
+.logo .img {
     height: 50px;
 }
 
 #header {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
     background: #01395C;
-    text-align: center;
     position: fixed;
-    width: 100%;
     z-index: 99;
+    width: 100%;
+    text-align: center;
 }
 
 .nav-toggle {
@@ -156,14 +150,14 @@ a {
 
 nav {
     position: absolute;
-    text-align: center;
+    text-align: left;
     top: 100%;
     left: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(40,0,0,0.4);
     width: 100%;
     transform: scale(1, 0);
     transform-origin: top;
-    transition: transform 300ms ease-in-out;
+    transition: transform 400ms ease-in-out;
 }
 
 nav ul {
@@ -175,74 +169,63 @@ nav ul {
 nav li {
     margin-bottom: 1em;
     margin-left: 1em;
-    cursor: pointer;
-}
-
-li a {
-    cursor: pointer;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    font-size: 1.1em;
-    /* opacity: 0;
-    transform: opacity 150ms ease-in-out */
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+}
+
+nav a:hover {
+    color: #F28C81;
 }
 
 .nav-toggle:checked ~ nav {
     transform: scale(1, 1);
 }
 
-.nav-toggle:checked ~ nav {
+.nav-toggle:checked ~ nav a {
     opacity: 1;
     transition: opacity 250ms ease-in-out 250ms;
 }
 
-@media screen and (min-width: 900px) {
+
+@media screen and (min-width: 800px) {
     .nav-toggle-label {
         display: none;
     }
-    header {
+
+    #header {
         display: grid;
-        grid-template-columns: 1fr auto minmax(600px, 1fr) 1fr;
+        grid-template-columns: 1fr auto minmax(600px, 3fr);
     }
-    .logo{
-        grid-column: 2/ 3;
+
+    .logo {
+        grid-column: 2/3;
     }
+
     nav {
         all: unset;
-        grid-column: 3/ 4;
+        grid-column: 3/4;
+        display: flex;
+        justify-content:  flex-end;
+        align-items: center;
+    }
+
+    nav ul {
         display: flex;
         justify-content: flex-end;
-        align-items: center;
+    }
+
+    nav li {
+        margin-right: 3em;
+        padding-top: 10px;
     }
     nav a {
         opacity: 1;
-        position: relative;
-    }
-    nav ul {
-        display: flex;
-    }
-    nav li {
-        margin-left: 3em;
-        margin-bottom: 0;
-    }
-    nav a::before {
-        content: '';
-        display: block;
-        height: 5px;
-        background: white;
-        position: absolute;
-        top: -.75em;
-        left: 0;
-        right: 0;
-        transform:  scale(0, 1);
-         transform-origin: top; 
-        transition: transform ease-in-out 250ms;
-    }
-
-    nav a:hover::before{
-        transform: scale(1,1);
     }
 }

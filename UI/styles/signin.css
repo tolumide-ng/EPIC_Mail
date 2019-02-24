@@ -17,8 +17,8 @@
     display: grid;
     grid-template-columns: 10% 80% 10%;
     grid-template-rows: 10% 90%;
-    margin-top: 30px;
     justify-content: center;
+    padding-top: 100px;
     align-content: center;
 }
 
@@ -85,4 +85,164 @@
     margin-bottom: 30px;
     flex-shrink: 100px;
     text-align: center;
+}
+
+#reset_password {
+    all: unset;
+    color: blue;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* NAVIGATION BAR */
+
+a {
+    all: unset;
+    font-size: 1.1em;
+}
+
+.img {
+    height: 50px;
+}
+
+#header {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    background: #01395C;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block;
+    background: white;
+    height: 2px;
+    width: 2em;
+    border-radius: 2px;
+    position: relative;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: '';
+    position: absolute;
+}
+
+.nav-toggle-label span::before {
+    bottom: 7px;
+}
+
+.nav-toggle-label span::after {
+    top: 7px;
+}
+
+nav {
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 300ms ease-in-out;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    margin-bottom: 1em;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+li a {
+    cursor: pointer;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    /* opacity: 0;
+    transform: opacity 150ms ease-in-out */
+}
+
+.nav-toggle:checked ~ nav {
+    transform: scale(1, 1);
+}
+
+.nav-toggle:checked ~ nav {
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+}
+
+@media screen and (min-width: 900px) {
+    .nav-toggle-label {
+        display: none;
+    }
+    header {
+        display: grid;
+        grid-template-columns: 1fr auto minmax(600px, 1fr) 1fr;
+    }
+    .logo{
+        grid-column: 2/ 3;
+    }
+    nav {
+        all: unset;
+        grid-column: 3/ 4;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    nav a {
+        opacity: 1;
+        position: relative;
+    }
+    nav ul {
+        display: flex;
+    }
+    nav li {
+        margin-left: 3em;
+        margin-bottom: 0;
+    }
+    nav a::before {
+        content: '';
+        display: block;
+        height: 5px;
+        background: white;
+        position: absolute;
+        top: -.75em;
+        left: 0;
+        right: 0;
+        transform:  scale(0, 1);
+         transform-origin: top; 
+        transition: transform ease-in-out 250ms;
+    }
+
+    nav a:hover::before{
+        transform: scale(1,1);
+    }
 }

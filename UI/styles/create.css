@@ -1,10 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
-:root {
-    --form_margin-left: 20px;
-    --form_margin-bottom: 30px;
-}
-
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -12,87 +5,174 @@
     font-family: 'Lato', sans-serif;
 }
 
+body {
+    background: white;
+}
 
-#sign_in-body {
-    display: grid;
-    grid-template-columns: 10% 80% 10%;
-    grid-template-rows: 10% 90%;
-    justify-content: center;
+.form_container {
+    height: 100vh;
+    width: 100%;
+    padding: 60px;
     padding-top: 100px;
-    align-content: center;
+    display: grid;
+    grid-template-columns: 0.3fr 0.7fr;
+    grid-template-rows: 1fr;
 }
 
-#form {
-    grid-column: 2;
-    grid-row: 2;
-    align-items: center;
-    margin: 5%;
-    padding: 10px;
-    box-shadow: 3px 3px 5px 6px #ccc;
-    border-radius: 5px;
-    padding-bottom: 40px;
-    padding-top: 30px;
-    /* background: green; */
+
+/* REGISTER USERS CONTAINERS */
+#user_container {
+    grid-column: 1;
+    box-shadow: 3px 3px 5px 4px #ccc;
+    width: 100%;
+    padding: 1em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 100%;
+    margin-bottom: 1em;
 }
 
-.form_input {
+#add_new_user {
     border-style: none;
-    height: 35px;
     border-radius: 3px;
+    border: 1px solid rgb(221, 209, 209);
+    height: 30px;
+    width: 70%;
+    padding: 2px;
+    padding-left: 5px;
+    margin-right: 1.5em;
+}
+.howToUse {
+    margin-bottom: 0.6em;
+    font-style: oblique;
+    text-align: start;
+    color: black;
+}
+
+#add_user {
+    all: unset;
+    color: white;
+    background: #FF6138;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 20%;
+}
+
+#list {
+    list-style: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.list_flex_container {
+    display: flex;
+    width: 100%;
+    background: #F1E4B3;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0.3em;
+    padding-left: 10px;
+    padding-right: 3px;
+    border-radius: 8px;
+}
+
+.each_user {
+    font-weight: bold;
+}
+
+.remove_name {
+    all: unset;
+    background: #2F3440;
+    padding: 0.1em;
+    padding-bottom: 0.2em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* GROUP TABLE AND DISPLAY */
+
+#groupsAndDisplay {
+    margin-left: 3%;
+    grid-row: 1;
+    grid-column: 2;
+    display: grid;
+    height: 100%;
+    grid-template-rows: 0.1fr 0.9fr;
+    grid-template-columns: 1fr;
+    box-shadow: 3px 3px 3px 3px #ccc;
+    padding: 1em;
+    padding-top: 1.5em;
+}
+
+#groupsAndName {
+    grid-row: 1;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.groupInput {
+    border-style: none;
+    border-radius: 3px;
+    border: 1px solid rgb(221, 209, 209);
+    height: 30px;
     width: 28%;
     padding: 2px;
-    margin-left: var(--form_margin-left);
-    border: 1px solid rgba(0,0,0,0.3)
+    padding-left: 5px;
+    margin-right: 1.5em;
 }
 
-#text {
-    margin-left: var(--form_margin-left);
-    display: flex;
-    flex-direction: row;
-    padding: 15px;
-    justify-content: center;
-    align-items: center;
-    font-size: large;
-    font-style: oblique;
-}
-
-#submit_button {
+#submitGroupAndName {
     all: unset;
-    background: #FF0044;
     color: white;
+    background: #FF6138;
     padding: 5px;
+    font-weight: bold;
     border-radius: 3px;
     cursor: pointer;
-    width: 13%;
-    text-align: center;
-    margin-left: var(--form_margin-left);
 }
 
-#submit_button a {
-    all: unset;
-    color: white;
+.epic_text {
+    color: green;
 }
 
-#input_details {
+#information {
+    color: red;
+    font-weight: bold;
+}
+
+#groupsAndUsersSection {
+    grid-template-columns: 1;
+    grid-template-rows: 2;
+    margin-top: 2em;
+}
+
+.groupsAndUsersList {
     display: flex;
     flex-direction: row;
-    padding: 15px;
+    flex-wrap: wrap;
+}
+
+.groupContainer {
+    display: flex;
     justify-content: center;
-    align-items: center;
+    width: 20%;
+    flex-direction: column;
+    margin: 1em;
+    background: #F0F8FF;
+    padding: 5px;
 }
 
-#input_details > * {
-    margin-bottom: 30px;
-    flex-shrink: 100px;
-    text-align: center;
+.groupnameAndUsername {
+    margin-bottom: 0.5em;
 }
 
-#reset_password {
-    all: unset;
-    color: blue;
-    padding: 10px;
-    cursor: pointer;
-}
+
 
 
 /* NAVIGATION BAR */

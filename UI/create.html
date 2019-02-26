@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/create.css">
+    <title>EPIC_Mail</title>
+</head>
+
+<body>
+    <header id="header">
+
+        <input type="checkbox" name="nav-toggle" class="nav-toggle" id="nav-toggle" class="nav-toggle">
+
+        <nav>
+            <ul>
+                <li><a href="./index.html">EPIC_Mail</a></li>
+                <li><a href="./home">home</a></li>
+                <li><a href="#">Groups</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="./index.html">sign up</a></li>
+            </ul>
+        </nav>
+
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+        </label>
+    </header>
+
+    <div class="form_container">
+        <section id="user_container">
+            <p class="howToUse">Register username (valid email) here</p>
+            <label for="add_new_user">
+                <input type="text" id="add_new_user" placeholder="Username">
+                <button type="submit" id="add_user">Add User</button>
+            </label>
+            <ul id="list">
+                <!-- <div class="list_flex_container">
+                    <li class="each_user"> Okadigbo@gmail.com </li>
+                    <button class="remove_name">Remove</button>
+                </div>
+
+                <div class="list_flex_container">
+                    <li class="each_user"> Opeoluwa@epic_mail.com </li>
+                    <button class="remove_name">Remove</button>
+                </div> -->
+            </ul>
+        </section>
+
+
+
+        <section id="groupsAndDisplay">
+            <section id="group_table">
+                <p class="howToUse">Enter a group name and registered username</p>
+                <div id='groupsAndName'>
+                    <!-- <div id='groupNameDiv' class="groupTitle"> Name of Group -->
+                    <input type='text' id='groupNameInput' class="groupInput form_input" placeholder="Group Name">
+                    <!-- </div> -->
+
+                    <!-- <div id='groupUserNameDiv' class="groupTitle"> UserName -->
+                    <input type='text' id='groupUserNameInput' class="groupInput form_input" placeholder="Username">
+                    <!-- </div> -->
+                    <button type='submit' id='submitGroupAndName'>Add to List </button>
+                    </div>
+                <p class="epic_text">- EPIC_Mail  -     <span id='information'></span></p>
+
+
+
+
+                <section id='groupsAndUsersSection'>
+                    <form action=''>
+                        <div class='groupsAndUsersList'>
+                            <div class="groupContainer">
+                                <p class='groupnameAndUsername'>North Carli</p>
+                                <select name='north carli' id="northcarli" class='userNameContainer'>
+                                    <option class='userNameInformation' value='tolumideshopein@gmail.com'>
+                                        tolumideshopein@gmail.com
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </section>
+        </section>
+
+
+
+
+    </div>
+
+    <script src="./scripts/create.js"></script>
+</body>
+
+</html>

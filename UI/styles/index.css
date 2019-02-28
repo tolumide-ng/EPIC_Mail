@@ -45,7 +45,30 @@ a {
 
 .title_part > * {
     padding: 5px;
-    color: blue;
+    font-weight: normal;
+}
+
+#mail_name {
+    color: orange;
+    letter-spacing: 3px;
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+#mail_name::first-letter{
+    color: rgb(38, 46, 158);
+}
+
+#three {
+    color: rgb(81, 161, 81);
+}
+
+#four {
+    color: rgb(216, 18, 18);
+}
+
+#five {
+    color: black;
 }
 
 #form_display {
@@ -195,3 +218,17 @@ a {
     right: -20px;
 }
 
+@media screen and (max-width: 1000px) {
+    .sign_up-body {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1;
+    }
+    #carousel {
+        display: none;
+    }
+    
+    #form_display {
+        grid-column: 1;
+    }
+}

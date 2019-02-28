@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+:root {
+    --form_margin-left: 20px;
+    --form_margin-bottom: 30px;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+/* body {
+    background: #EDEBE8;
+} */
+
+
+a {
+    all: unset;
+    cursor: pointer;
+    color: #01395C;
+}
+
+/* #head-content {
+    padding-left: 10px;
+    background: red;
+    color: white;
+} */
+
+.sign_up-body {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 5% 0.9fr 1fr 5%;
+    grid-template-rows: 0.1fr 1fr;
+    justify-content: center;
+    align-content: center;
+}
+
+.title_part {
+    margin-left: var(--form_margin-left);
+    margin-bottom: var(--form_margin-bottom);
+}
+
+.title_part > * {
+    padding: 5px;
+    font-weight: normal;
+}
+
+#mail_name {
+    color: orange;
+    letter-spacing: 3px;
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+#mail_name::first-letter{
+    color: rgb(38, 46, 158);
+}
+
+#three {
+    color: rgb(81, 161, 81);
+}
+
+#four {
+    color: rgb(216, 18, 18);
+}
+
+#five {
+    color: black;
+}
+
+#form_display {
+    background: #eff2f3;
+    grid-column: 3;
+    grid-row: 2;
+    align-items: center;
+    margin: 5%;
+    padding: 10px;
+    box-shadow: 3px 3px 5px 6px #ccc;
+    border-radius: 5px;
+    padding-bottom: 40px;
+    padding-top: 30px;
+}
+
+.form_text {
+    border-style: none;
+    border-radius: 3px;
+    border: 1px solid rgb(221, 209, 209);
+    height: 30px;
+    width: 28%;
+    padding: 2px;
+    margin-left: var(--form_margin-left);
+    margin-top: var(--form_margin-bottom);
+    padding-left: 5px;
+}
+
+.form_text#userName {
+    width: 59%;
+}
+
+.first_part-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.input_definition {
+    margin-left: var(--form_margin-left);
+    padding-top: 5px;
+    font-size: 13px;
+    color: rgb(120, 110, 110);
+}
+
+.third_part-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+#not_visible {
+    height: 30px;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.fourth_part-action {
+    width: 60%;
+    margin-top: 50px;
+    margin-left: var(--form_margin-left);
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.sign_up {
+    all: unset;
+    background: #01395C;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.sign_up a {
+    color: white;
+}
+
+/* CAROUSEL DESIGN */
+
+#carousel {
+    grid-column: 2;
+    grid-row: 2;
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin: 0 auto;
+    top: 60px;
+}
+
+.carousel_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.carousel_track-container {
+    background: lightgreen;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel_track {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    height: 100%;
+    position: relative;
+    transition: transform 250ms ease-in;
+}
+
+.carousel_slide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/* .carousel_button {
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: green;
+    z-index: 999;
+} */
+.carousel_button img {
+    width: 12px;
+    height: 50px;
+}
+
+.carousel_button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 0;
+}
+
+.carousel_button-left {
+    left: -20px;
+}
+
+.carousel_button-right {
+    right: -20px;
+}
+
+@media screen and (max-width: 1000px) {
+    .sign_up-body {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1;
+    }
+    #carousel {
+        display: none;
+    }
+    
+    #form_display {
+        grid-column: 1;
+    }
+}

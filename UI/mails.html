@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/mails.css">
+    <title>EPIC_Mail</title>
+</head>
+
+<body>
+    <header id="header">
+        <h1 class="logo">Logo</h1>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <nav>
+            <ul>
+                <li><a href="./index.html">EPIC_Mail</a></li>
+                <li><a href="./home">home</a></li>
+                <li><a href="#">Groups</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="./index.html">signup</a></li>
+            </ul>
+        </nav>
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+        </label>
+    </header>
+
+    <div id="mailsContainer">
+        <aside id="menuList">
+            <ul id="menuListContainer">
+                <li class="menuListContent" id="compose">Compose</li>
+                <li class="menuListContent" id="inbox">Inbox</li>
+                <li class="menuListContent" id="drafts">Drafts</li>
+                <li class="menuListContent" id="sent">Sent</li>
+            </ul>
+        </aside>
+
+        <div id="displayContainer">
+            <div class="mailContent" id="composeMessage">
+                <div id="messageTitle" class="composeMailContent">Compose Message</div>
+
+
+                <div id="receiver" class="composeMailContent">From: <span>thisUser@epic_mail.com</span></div>
+
+                <div class="formContent composeMailContent">
+                    <!-- <label for="recipient" id="to" class="recipient">Recipient: </label> -->
+                    <input type="text" placeholder="Recipient" name="recipient" class="recipient formInput" id="recipient">
+                </div>
+
+                <div class="formContent composeMailContent">
+                    <!-- <label for="subject" class="subject" id="mailSubject">Subject: </label> -->
+                    <input type="text" placeholder="Subject" name="subject" class="formInput subject" id="subject">
+                </div>
+
+                <div class="formMessage composeMailContent">
+                    <textarea name="" placeholder="Your email here" id="messageContent"></textarea>
+                </div>
+
+                <div id="buttons">
+                    <button id="draftButton" class="buttonDisplay">Save as draft</button>
+                    <button id="sendButton" class="buttonDisplay">Send</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./scripts/mails.js"></script>
+
+</html>

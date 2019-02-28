@@ -5,9 +5,9 @@
     font-family: 'Lato', sans-serif;
 }
 
-body {
+/* body {
     background: white;
-}
+} */
 
 .form_container {
     height: 100vh;
@@ -17,6 +17,7 @@ body {
     display: grid;
     grid-template-columns: 0.3fr 0.7fr;
     grid-template-rows: 1fr;
+    margin-bottom: 3%;
 }
 
 
@@ -32,32 +33,40 @@ body {
     margin-bottom: 1em;
 }
 
+#add_user_flex {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #add_new_user {
     border-style: none;
     border-radius: 3px;
     border: 1px solid rgb(221, 209, 209);
     height: 30px;
-    width: 70%;
+    width: 60%;
     padding: 2px;
     padding-left: 5px;
     margin-right: 1.5em;
 }
+
+#add_user {
+    border-style: none;
+    background: #FF6138;
+    font-weight: bold;
+    padding: 0.5em;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 .howToUse {
     margin-bottom: 0.6em;
     font-style: oblique;
     text-align: start;
     color: black;
-}
-
-#add_user {
-    all: unset;
-    color: white;
-    background: #FF6138;
-    padding: 5px;
-    font-weight: bold;
-    border-radius: 3px;
-    cursor: pointer;
-    width: 20%;
 }
 
 #list {
@@ -108,12 +117,15 @@ body {
     box-shadow: 3px 3px 3px 3px #ccc;
     padding: 1em;
     padding-top: 1.5em;
+    margin-bottom: 3%;
 }
 
 #groupsAndName {
     grid-row: 1;
     display: flex;
     margin-bottom: 1em;
+    justify-content: center;
+    align-items: center;
 }
 
 .groupInput {
@@ -166,6 +178,7 @@ body {
     margin: 1em;
     background: #F0F8FF;
     padding: 5px;
+    padding-bottom: 12px;
 }
 
 .groupnameAndUsername {
@@ -175,18 +188,13 @@ body {
 
 
 
-/* NAVIGATION BAR */
-
-.logo .img {
-    height: 50px;
-}
-
-#header {
+/* NAVIGATIONB BAR */
+header {
     background: #003542;
-    position: fixed;
-    z-index: 99;
-    width: 100%;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
 }
 
 .nav-toggle {
@@ -204,14 +212,14 @@ body {
 }
 
 .nav-toggle-label span,
-.nav-toggle-label span::before,
+.nav-toggle-label span::before, 
 .nav-toggle-label span::after {
     display: block;
     background: white;
     height: 2px;
     width: 2em;
     border-radius: 2px;
-    position: relative;
+    position: relative
 }
 
 .nav-toggle-label span::before,
@@ -233,8 +241,8 @@ nav {
     text-align: left;
     top: 100%;
     left: 0;
-    background: rgba(40,0,0,0.4);
     width: 100%;
+    background: #778899;
     transform: scale(1, 0);
     transform-origin: top;
     transition: transform 400ms ease-in-out;
@@ -261,7 +269,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #F28C81;
+    color: #000;
 }
 
 .nav-toggle:checked ~ nav {
@@ -273,39 +281,113 @@ nav a:hover {
     transition: opacity 250ms ease-in-out 250ms;
 }
 
-
 @media screen and (min-width: 800px) {
     .nav-toggle-label {
         display: none;
     }
 
-    #header {
+    header {
         display: grid;
-        grid-template-columns: 1fr auto minmax(600px, 3fr);
+        grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
     }
 
     .logo {
-        grid-column: 2/3;
+        grid-column: 2;
+        margin-right: 1em;
     }
-
+    
     nav {
         all: unset;
-        grid-column: 3/4;
+        grid-column: 3 / 4;
         display: flex;
-        justify-content:  flex-end;
+        justify-content: flex-end;
         align-items: center;
     }
 
     nav ul {
         display: flex;
-        justify-content: flex-end;
     }
 
     nav li {
-        margin-right: 3em;
-        padding-top: 10px;
+        margin-left: 3em;
+        margin-bottom: 0;
+        cursor: pointer;
     }
+
     nav a {
         opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: 1070px) {
+    .form_container {
+        height: 100vh;
+        width: 100%;
+        padding: 60px;
+        padding-top: 100px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.4fr 0.6fr;
+    }
+    
+    #user_container .howToUse {
+        text-align: center;
+    }
+
+    #user_container {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    #groupsAndDisplay {
+        grid-row: 2;
+        grid-column: 1;
+        margin-top: 2em;
+        margin-left: 0;
+    }
+    
+    #add_user_flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between
+    }
+
+    .list_flex_container {
+        width: 40%;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 10px;
+    }
+
+    .each_user {
+        margin-bottom: 6px;
+    }
+}
+
+
+@media screen and (max-width: 790px) {
+    #list {
+        display: flex;
+        background: rgb(80, 80, 155);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2em;
+        border-radius: 5px;
+    }
+
+    .list_flex_container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
     }
 }

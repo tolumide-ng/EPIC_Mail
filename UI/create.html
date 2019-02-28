@@ -11,19 +11,17 @@
 
 <body>
     <header id="header">
-
-        <input type="checkbox" name="nav-toggle" class="nav-toggle" id="nav-toggle" class="nav-toggle">
-
+        <h1 class="logo">Logo</h1>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
         <nav>
             <ul>
                 <li><a href="./index.html">EPIC_Mail</a></li>
                 <li><a href="./home">home</a></li>
                 <li><a href="#">Groups</a></li>
                 <li><a href="#">Contact</a></li>
-                <li><a href="./index.html">sign up</a></li>
+                <li><a href="./index.html">signup</a></li>
             </ul>
         </nav>
-
         <label for="nav-toggle" class="nav-toggle-label">
             <span></span>
         </label>
@@ -32,7 +30,7 @@
     <div class="form_container">
         <section id="user_container">
             <p class="howToUse">Register username (valid email) here</p>
-            <label for="add_new_user">
+            <label for="add_new_user" id="add_user_flex">
                 <input type="text" id="add_new_user" placeholder="Username">
                 <button type="submit" id="add_user">Add User</button>
             </label>

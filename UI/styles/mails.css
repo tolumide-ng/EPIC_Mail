@@ -163,7 +163,6 @@ nav a:hover {
 #menuList {
     grid-column: 2;
     grid-row: 1;
-    border: 1px solid yellow;
     height: 7vh;
     background-color: #4D566D;
 }
@@ -171,13 +170,11 @@ nav a:hover {
 #menuListContainer {
     list-style: none;
     display: flex;
-    border: 1px solid honeydew;
     justify-content: space-evenly;
 }
 
 .menuListContent {
     padding: 10px;
-    border: 1px solid violet;
     cursor: pointer;
     text-align: center;
     color: white;
@@ -266,6 +263,42 @@ nav a:hover {
     background: black;
     color: white;
 }
+
+
+.retract {
+    all: unset;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #FF0044;
+    color: white;
+    margin-top: 20px;
+}
+
+.draftButton{
+    all: unset;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #FF0044;
+    color: white;
+    margin-top: 20px;
+    margin-right: 80px;
+}
+
+.draftButton:active {
+    background: black;
+    color: white;
+}
+
 
 .visibility {
     display: none;

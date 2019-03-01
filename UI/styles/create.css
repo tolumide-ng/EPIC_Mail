@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -5,9 +7,9 @@
     font-family: 'Lato', sans-serif;
 }
 
-/* body {
-    background: white;
-} */
+.logo {
+    height: 50px;
+}
 
 .form_container {
     height: 100vh;
@@ -269,7 +271,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #000;
+    color: #F28C81;
 }
 
 .nav-toggle:checked ~ nav {

@@ -195,7 +195,7 @@ a {
     transform: translateY(-50%);
     border: 0;
     background: green;
-    z-index: 999;
+    z-index: 999
 } */
 .carousel_button img {
     width: 12px;

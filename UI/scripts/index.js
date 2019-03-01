@@ -18,7 +18,7 @@ const moveToSlide = (track, currentSlide, targetSlide) => {
     track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
     currentSlide.classList.remove('current-slide');
     targetSlide.classList.add('current-slide');
-}
+};
 
 // // //When I clik right, move slides to the right
 nextButton.addEventListener('click', e => {

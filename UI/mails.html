@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/mails.css">
+    <title>EPIC_Mail</title>
+</head>
+
+<body>
+    <header id="header">
+            <h1 class="logo">
+                    <img src="./img/transfer.svg" alt="" class="logo">
+                </h1>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <nav>
+            <ul>
+                <li><a href="./index.html">EPIC_Mail</a></li>
+                <li><a href="./mails.html">Mails</a></li>
+                <li><a href="./create.html">Create</a></li>
+                <li><a href="./create.html">Admin</a></li>
+                <li><a href="./index.html">signup</a></li>
+            </ul>
+        </nav>
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+        </label>
+    </header>
+
+    <div id="mailsContainer">
+        <aside id="menuList">
+            <ul id="menuListContainer">
+                <li class="menuListContent" id="compose">Compose</li>
+                <li class="menuListContent" id="inbox">Inbox</li>
+                <li class="menuListContent" id="draft">Draft</li>
+                <li class="menuListContent" id="sent">Sent</li>
+            </ul>
+        </aside>
+
+        <div id="displayContainer">
+            <!-- COMPOSE MAIL -->
+            <div class="mailContent compose">
+                <div id="messageTitle" class="composeMailContent">Compose Message</div>
+
+
+                <div id="receiver" class="composeMailContent">From: <span>thisUser@epic_mail.com</span></div>
+
+                <div class="formContent composeMailContent">
+                    <!-- <label for="recipient" id="to" class="recipient">Recipient: </label> -->
+                    <input type="text" placeholder="Recipient" name="recipient" class="recipient formInput"
+                        id="recipient">
+                </div>
+
+                <div class="formContent composeMailContent">
+                    <!-- <label for="subject" class="subject" id="mailSubject">Subject: </label> -->
+                    <input type="text" placeholder="Subject" name="subject" class="formInput subject" id="subject">
+                </div>
+
+                <div class="formMessage composeMailContent">
+                    <textarea name="" placeholder="Your email here" id="messageContent"></textarea>
+                </div>
+
+                <div id="buttons">
+                    <button id="draftButton" class="buttonDisplay">Save as draft</button>
+                    <button id="sendButton" class="buttonDisplay">Send</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPOSE MAIL -->
+    <div class="mailContent compose visibility">
+        <div id="messageTitle" class="composeMailContent">Compose Message</div>
+
+
+        <div id="receiver" class="composeMailContent">From: <span>thisUser@epic_mail.com</span></div>
+
+        <div class="formContent composeMailContent">
+            <!-- <label for="recipient" id="to" class="recipient">Recipient: </label> -->
+            <input type="text" placeholder="Recipient" name="recipient" class="recipient formInput" id="recipient">
+        </div>
+
+        <div class="formContent composeMailContent">
+            <!-- <label for="subject" class="subject" id="mailSubject">Subject: </label> -->
+            <input type="text" placeholder="Subject" name="subject" class="formInput subject" id="subject">
+        </div>
+
+        <div class="formMessage composeMailContent">
+            <textarea name="" placeholder="Your email here" id="messageContent"></textarea>
+        </div>
+
+        <div id="buttons">
+            <button id="draftButton" class="buttonDisplay">Save as draft</button>
+            <button id="sendButton" class="buttonDisplay">Send</button>
+        </div>
+
+    </div>
+
+
+    <!-- INBOX MAILS -->
+    <div class="mailContent inbox visibility">
+        <div class="inboxMessagesContainer">
+            <div class="inboxMessage">
+                <div class="address">Ibukunawoo@epic_mail.com
+                </div>
+                <div class="mailTitle">Would you like to join us at stockholm?</div>
+                <div class="messageContent visibility">Hello Maggi, Wouldn't you like to pay a visit
+                    to Stockholm, sure my friends would be glad to finally meet a personality
+                    with so much humor as you!
+                </div>
+            </div>
+
+            <div class="inboxMessage">
+                <div class="address">Adetoun@epic_mail.com
+                </div>
+                <div class="mailTitle">No Surprises?</div>
+                <div class="messageContent visibility">Haha Daadaa, isn't that supposed to be a surprise?
+                    Well, I would prefer Monaco though, btw... you still owe me home-cooked lunch (our bet on
+                    the last match ...hahaha).
+                </div>
+            </div>
+
+            <div class="inboxMessage" id="remember me now">
+                <div class="address">tokunbo@gmail.com
+                </div>
+                <div class="mailTitle">Deadline approaching!!</div>
+                <div class="messageContent visibility">
+                    El casso,
+                    wassup man, trust you're good, looool naaahhhhh. Howfar have you gone with the project,
+                    Just cheked your repo and didn't find nada. Hope you are not planning some magic again o.
+                    let's meet at the bar tonight though.
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- DRAFT MAILS -->
+    <div class="mailContent visibility draft">
+        <div class="draftMessagesContainer">
+            <div class="draftMessage">
+                <div class="address">
+                </div>
+                <div class="mailTitle">thoughts</div>
+                <div class="messageContent visibility">
+                    Maybe someday in life, all these pains would go away, and I would be
+                    able to tell the next generation that those feelings often leave eventually.
+                </div>
+            </div>
+
+            <div class="draftMessage">
+                <div class="address">Adetoun@epic_mail.com
+                </div>
+                <div class="mailTitle">No Surprises?</div>
+                <div class="messageContent visibility">Haha Daadaa, isn't that supposed to be a surprise?
+                    Well, I would prefer Monaco though, btw... you still owe me home-cooked lunch (our bet on
+                    the last match ...hahaha).
+                </div>
+            </div>
+
+            <div class="draftMessage" id="remember me now">
+                <div class="address">tokunbo@gmail.com
+                </div>
+                <div class="mailTitle">I would be in Tel Aviv in May</div>
+                <div class="messageContent visibility">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- SENT MAILS -->
+    <div class="mailContent visibility sent">
+        <div class="sentMessagesContainer">
+            <!-- ID for each of the sentMessages should be assigned as per content of address + mailTitle + createdTime in JS -->
+            <div class="sentMessage" id='enilolobo'>
+                <div class="address">Ibukunawoo@epic_mail.com
+                </div>
+                <div class="mailTitle">Would you like to join us at stockholm?</div>
+                <div class="messageContent visibility">Hello Maggi, Wouldn't you like to pay a visit
+                    to Stockholm, sure my friends would be glad to finally meet a personality
+                    with so much humor as you!
+                </div>
+            </div>
+
+            <div class="sentMessage">
+                <div class="address">Adetoun@epic_mail.com
+                </div>
+                <div class="mailTitle">Dinner for your birthday?</div>
+                <div class="messageContent visibility">Hey doodoo, So I'm having a hard time in choosing a
+                    destination for your birthday. I am down to the last two and it's between Monaco and Panama.
+                    Don't worry. I already spoke with the hospital's director.
+                </div>
+            </div>
+
+            <div class="sentMessage" id="remember me now">
+                <div class="address">tokunbo@gmail.com
+                </div>
+                <div class="mailTitle">Deadline approaching!!</div>
+                <div class="messageContent visibility">
+                    El casso,
+                    wassup man, trust you're good, looool naaahhhhh. Howfar have you gone with the project,
+                    Just cheked your repo and didn't find nada. Hope you are not planning some magic again o.
+                    let's meet at the bar tonight though.
+                </div>
+            </div>
+
+            <div class="sentMessage">
+                <div class="address">Chibuzor@gmail.com
+                </div>
+                <div class="mailTitle">So, I have 4 puppies now</div>
+                <div class="messageContent visibility">
+                    Vet Dude,
+                    My dog wife don born o, I heard my neighbour screaming this morning :)
+                </div>
+            </div>
+
+            <div class="sentMessage">
+                <div class="address">Aminat@epic_mail.com
+                </div>
+                <div class="mailTitle">I won't be joining you tonight</div>
+            </div>
+
+            <div class="sentMessage">
+                <div class="address">Rechab@epic_mail.com
+                </div>
+                <div class="mailTitle">Freebie classes for Newbiee developers</div>
+            </div>
+
+            <div class="sentMessage">
+                <div class="address">YusufEnitan@epic_mail.com
+                </div>
+                <div class="mailTitle">Would you like to contribute to this paper?</div>
+                <div class="messageContent visibility">
+                    Check out this new project I just reached a conclusion with, let's see if you can bring
+                    something
+                    much more interesting to the table so we can publish something together. It's been a while
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./scripts/mails.js"></script>
+
+</html>

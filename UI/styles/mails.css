@@ -7,6 +7,11 @@
     font-family: 'Lato', sans-serif;
 }
 
+.logo {
+    height: 50px;
+}
+
+
 /* NAVIGATIONB BAR */
 header {
     background: #003542;
@@ -88,7 +93,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #000;
+    color: #F28C81;;
 }
 
 .nav-toggle:checked ~ nav {
@@ -149,7 +154,6 @@ nav a:hover {
     padding: 15px;
     padding-top: 60px;
     margin: 0 2%;
-    /* background: rgb(141, 211, 141); */
     margin-bottom: 2%;
     display: grid;
     grid-template-columns: 0.3fr 0.7fr;
@@ -196,8 +200,7 @@ nav a:hover {
     overflow: auto;
 }
 
-.mailCcontent {
-    border: 1px solid brown;
+.mailContent {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -262,4 +265,97 @@ nav a:hover {
 #sendButton:active, #draftButton:active{
     background: black;
     color: white;
+}
+
+.visibility {
+    display: none;
+}
+
+
+
+/* SENT MAIL PART */
+.sentMessagesContainer {
+    overflow: auto;
+}
+
+.sentMessage {
+    display: grid;
+    padding: 0.5rem;
+    background: #92D1C8;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 0.2rem;
+    grid-template-columns: 0.3fr 0.7fr;
+    cursor: pointer;
+    justify-items: start;
+}
+
+.address {
+    margin-right: 40px;
+    grid-column: 1;
+}
+
+.mailTitle {
+    grid-column: 2;
+}
+
+/* display content on js file */
+.spaceContent {
+    margin: 10px 0;
+}
+
+.theMessageDisplayed {
+    margin: 10px;
+}
+
+
+/* INBOX MESSAGE */
+.inboxMessage {
+    display: grid;
+    padding: 0.5rem;
+    background: #92D1C8;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 0.2rem;
+    grid-template-columns: 0.3fr 0.7fr;
+    cursor: pointer;
+    justify-items: start;
+}
+
+
+/* DRAFT MESSAGE */
+.draftMessage {
+    display: grid;
+    padding: 0.5rem;
+    background: #92D1C8;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 0.2rem;
+    grid-template-columns: 0.3fr 0.7fr;
+    cursor: pointer;
+    justify-items: start;
+}
+
+
+@media screen and (max-width: 800px) {
+    .inboxMessage {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start
+    }
+
+    .draftMessage {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start
+    }
+
+    .sentMessage {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start
+    }
 }

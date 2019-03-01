@@ -12,6 +12,10 @@
     font-family: 'Lato', sans-serif;
 }
 
+.logo {
+    height: 50px;
+}
+
 
 #sign_in-body {
     display: grid;

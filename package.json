@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/tolumide-ng/EPIC_Mail#readme",
   "dependencies": {
+    "@babel/node": "^7.2.2",
     "@babel/polyfill": "^7.2.5",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
@@ -31,6 +32,10 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
     "eslint": "^5.15.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0"

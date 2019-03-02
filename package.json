@@ -20,5 +20,19 @@
   "bugs": {
     "url": "https://github.com/tolumide-ng/EPIC_Mail/issues"
   },
-  "homepage": "https://github.com/tolumide-ng/EPIC_Mail#readme"
+  "homepage": "https://github.com/tolumide-ng/EPIC_Mail#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
 }

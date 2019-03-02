@@ -1,0 +1,24 @@
+{
+  "name": "epic_mail",
+  "version": "1.0.0",
+  "description": "EPIC_Mail empowers it's users to exchange messages/information over the internet",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tolumide-ng/EPIC_Mail.git"
+  },
+  "keywords": [
+    "EPIC_Mail",
+    "ES-6",
+    "Nodejs"
+  ],
+  "author": "tolumide",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tolumide-ng/EPIC_Mail/issues"
+  },
+  "homepage": "https://github.com/tolumide-ng/EPIC_Mail#readme"
+}

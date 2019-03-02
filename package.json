@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build && node src/bin/production",
-    "coverage": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "dev-start": "nodemon src/bin/dev",
     "clean": "rm -rf build",
     "build": "cross-env npm run clean && mkdir build && babel src -s -d build",

@@ -1,0 +1,48 @@
+{
+  "name": "epic_mail",
+  "version": "1.0.0",
+  "description": "EPIC_Mail empowers it's users to exchange messages/information over the internet",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm run build && node src/bin/production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-start": "nodemon src/bin/dev",
+    "clean": "rm -rf build",
+    "build": "npm run clean && mkdir build && babel src -s -d build",
+    "production": "npm run build && node src/bin/production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tolumide-ng/EPIC_Mail.git"
+  },
+  "keywords": [
+    "EPIC_Mail",
+    "ES-6",
+    "Nodejs"
+  ],
+  "author": "tolumide",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tolumide-ng/EPIC_Mail/issues"
+  },
+  "homepage": "https://github.com/tolumide-ng/EPIC_Mail#readme",
+  "dependencies": {
+    "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "eslint": "^5.15.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}

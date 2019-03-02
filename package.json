@@ -4,7 +4,12 @@
   "description": "EPIC_Mail empowers it's users to exchange messages/information over the internet",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build && node src/bin/production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-start": "nodemon src/bin/dev",
+    "clean": "rm -rf build",
+    "build": "npm run clean && mkdir build && babel src -s -d build",
+    "production": "npm run build && node src/bin/production"
   },
   "repository": {
     "type": "git",

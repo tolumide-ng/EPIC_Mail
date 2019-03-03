@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/v1/auth/', usersRoutes);
+app.use('/api/v1/auth', usersRoutes);
 app.get('/', (req, res) => {
     return res.status(200).json({ message: "'YAY!' Welcome to EPIC_Mail"});
 });

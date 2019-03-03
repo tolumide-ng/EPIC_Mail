@@ -39,7 +39,7 @@ describe('Tests for userSignup endpoint', () => {
             })
     })
 
-    it('should  fail to validation to create new User', (done) => {
+    it('should  fail validation to create new User', (done) => {
         chai.request(server)
             .post(`/api/v1/auth/signup`)
             .send(incompleteUser)

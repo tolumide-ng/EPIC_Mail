@@ -2,8 +2,13 @@ import usersModels from './../models/usersModels';
 
 const User = {
     signup(req, res) {
-        const returnedInfo = usersModels.signup(req.body);
-        return res.status(200).json({ status: 200, data: [returnedInfo], });
+        const request = req.value.body;
+        const confirmUserExist = usersModels.findUser(request);
+        if (!confirmUserExist) {
+            const createdUser = usersModels.signup(request);
+            return res.status(201).json({ status: 201, data: [createdUser], });
+        }
+        return res.status(409).json({ status: 409, error: 'Email already exists' })
     }
 }
 

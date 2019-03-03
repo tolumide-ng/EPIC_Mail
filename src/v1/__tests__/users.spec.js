@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import server from './../../server';
 import mockData from './mockData'
 
-const { user, incompleteUser } = mockData;
+const { user, incompleteUser, userLogin, failedLogin, validationErrorLogin } = mockData;
 
 chai.use(chaiHttp);
 
@@ -48,6 +48,49 @@ describe('Tests for userSignup endpoint', () => {
             .send(incompleteUser)
             .end((req, res) => {
                 res.should.have.status(400);
+                done();
+            })
+    })
+})
+
+describe('User signin tests', () => {
+    it('should return a 200 status code', (done) => {
+        chai.request(server)
+            .post(`${userRoute}/login`)
+            .set('Accept', '/application/json')
+            .send(userLogin)
+            .end((req, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('data');
+                done();
+            })
+    })
+
+    it('should return a 400 status code for Validation error', (done) => {
+        chai.request(server)
+            .post(`${userRoute}/login`)
+            .set('Accept', '/application/json')
+            .send(validationErrorLogin)
+            .end((req, res) => {
+                res.should.have.status(400);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('error');
+                done();
+            })
+    })
+
+    it('should return unauthorized for fake login attempt', (done) => {
+        chai.request(server)
+            .post(`${userRoute}/login`)
+            .send(failedLogin)
+            .end((req, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('error');
                 done();
             })
     })

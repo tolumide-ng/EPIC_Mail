@@ -4,10 +4,10 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const signToken = user => {
+const signToken = userId => {
     return jwt.sign({
         iss: 'EPIC_Mail',
-        sub: user,
+        sub: userId,
         iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1)
     }, process.env.SECRET_KEY);
@@ -27,17 +27,19 @@ class User {
             lastName: data.lastName,
             password: data.password
         };
-        console.log(' what do you see now?')
         // Generate token
         const token = signToken(newUser.id)
-        console.log('did the token return?');
         this.users.push(newUser);
         return { token, newUser };
     }
 
 
-    findUser(data) {
-        return this.users.find(email => email => data.email);
+    findUser(email) {
+        return this.users.find(user => user.email === email);
+    }
+
+    findUserById(id) {
+        return this.users.find(user => user.id === id);
     }
 }
 

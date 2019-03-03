@@ -6,7 +6,7 @@ export default {
         return (req, res, next) => {
             const result = Joi.validate(req.body, schema);
             if(result.error) {
-                return res.status(400).json(result.error);
+                return res.status(400).json({error: result.error});
             }
             // req.value.body instead of req.value
             if(!req.value) {req.value = {}; }
@@ -21,6 +21,11 @@ export default {
             password: Joi.string().min(3).required(),
             firstName: Joi.string().required(),
             lastName: Joi.string().required()
+        }), 
+
+        loginSchema: Joi.object().keys({
+            email: Joi.string().email().required(),
+            password: Joi.strict().required()
         })
     }
 }

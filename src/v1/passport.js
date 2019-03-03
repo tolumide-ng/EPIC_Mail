@@ -39,20 +39,20 @@ passport.use(new LocalStrategy({
     usernameField: 'email'
 }, async (email, password, done) => {
     // Find the user with the given email
-    const checkUserExist = usersModels.findUserByEmail(email);
+    const user = usersModels.findUserByEmail(email);
 
     // If the email does not exist, handle it
-    if (!checkUserExist) {
+    if (!user) {
         return done(null, false);
     }
 
     // If the user is found, check if the password is correct 
-    const passwordMatch = bcrypt.compareSync(password, checkUserExist.password);
+    const passwordMatch = bcrypt.compareSync(password, user.password);
 
     // If not handle it 
     if (!passwordMatch) {
         return done(null, false);
     }
     // Otherwsise, success! return user
-    done(null, checkUserExist);
+    done(null, user);
 }))

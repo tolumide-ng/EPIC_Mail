@@ -19,6 +19,7 @@ class User {
     }
 
     signup(data) {
+        console.log('is this the error source?')
         const newUser = {
             id: uuid.v4(),
             email: data.email,
@@ -26,8 +27,10 @@ class User {
             lastName: data.lastName,
             password: data.password
         };
+        console.log(' what do you see now?')
         // Generate token
         const token = signToken(newUser.id)
+        console.log('did the token return?');
         this.users.push(newUser);
         return { token, newUser };
     }

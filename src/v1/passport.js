@@ -1,6 +1,7 @@
 import passport from 'passport';
 import derivedPassportJwt from 'passport-jwt';
-const JWTStrategy = derivedPassportJwt.Strategy
+const JWTStrategy = derivedPassportJwt.Strategy;
+import bcrypt from 'bcryptjs';
 import { ExtractJwt } from 'passport-jwt';
 import derivedPassportLocal from 'passport-local';
 const LocalStrategy = derivedPassportLocal;
@@ -22,12 +23,12 @@ passport.use(new JWTStrategy({
         const userExist = usersModels.findUserById(payload.sub);
 
         // If user doesn't exist, handle it 
-        if(!userExist) {
+        if (!userExist) {
             return done(null, false);
         }
         done(null, userExist);
 
-    } catch(err) {
+    } catch (err) {
         done(err, false);
     }
 }));
@@ -36,18 +37,22 @@ passport.use(new JWTStrategy({
 // LOCAL STRATEGY
 passport.use(new LocalStrategy({
     usernameField: 'email'
-}, async(email, password, done) => {
-    // Find the user givene the email
-    const checkUserExist = usersModels.findUser(email);
+}, async (email, password, done) => {
+    // Find the user with the given email
+    const checkUserExist = usersModels.findUserByEmail(email);
 
     // If the email does not exist, handle it
-    if(!checkUserExist) {
+    if (!checkUserExist) {
         return done(null, false);
     }
 
     // If the user is found, check if the password is correct 
+    const passwordMatch = bcrypt.compareSync(password, checkUserExist.password);
 
     // If not handle it 
-
-    // Otherwsise, handle it 
+    if (!passwordMatch) {
+        return done(null, false);
+    }
+    // Otherwsise, success! return user
+    done(null, checkUserExist);
 }))

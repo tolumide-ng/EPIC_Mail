@@ -3,7 +3,7 @@ import usersModels from './../models/usersModels';
 const User = {
     signup(req, res) {
         const request = req.value.body;
-        const confirmUserExist = usersModels.findUser(request.email);
+        const confirmUserExist = usersModels.findUserByEmail(request.email);
         if (!confirmUserExist) {
             const createdUser = usersModels.signup(request);
             return res.status(201).json({ status: 201, data: [createdUser] });
@@ -12,10 +12,9 @@ const User = {
     },
 
     login(req, res) {
-        console.log(' the user made it here');
-        return res.status(200).json({
-            message: ' User logged in'
-        })
+        const request = req.body;
+        const loginDetails = usersModels.userLogin(request);
+        return res.status(200).json({ status: 200, data: [loginDetails] })
     }
 }
 

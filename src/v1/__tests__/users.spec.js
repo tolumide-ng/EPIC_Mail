@@ -22,23 +22,24 @@ describe('Tests for userSignup endpoint', () => {
                 res.should.have.status(201);
                 res.should.be.json;
                 res.body.should.have.property('data');
+                res.body.should.be.a('object');
                 done();
             })
-    });
+    })
 
-    // it('should  fail to create a newUser with same email', (done) => {
-    //     chai.request(server)
-    //         .post(`${userRoute}/signup`)
-    //         .set('Accept', '/application/json')
-    //         .send(user)
-    //         .end((req, res) => {
-    //             res.should.have.status(409);
-    //             res.should.be.json;
-    //             res.body.should.have.property('error');
-    //             res.body.should.be.a('object');
-    //             done();
-    //         })
-    // });
+    it('should  fail to create a newUser with same email', (done) => {
+        chai.request(server)
+            .post(`${userRoute}/signup`)
+            .set('Accept', '/application/json')
+            .send(user)
+            .end((req, res) => {
+                res.should.have.status(409);
+                res.should.be.json;
+                res.body.should.have.property('error');
+                res.body.should.be.a('object');
+                done();
+            })
+    })
 
     it('should  fail validation to create new User', (done) => {
         chai.request(server)
@@ -49,5 +50,5 @@ describe('Tests for userSignup endpoint', () => {
                 res.should.have.status(400);
                 done();
             })
-    });
+    })
 })

@@ -15,7 +15,8 @@ const userRoute = '/api/v1/auth';
 describe('Tests for userSignup endpoint', () => {
     it('should successfully create a user', (done) => {
         chai.request(server)
-            .post(`/api/v1/auth/signup`)
+            .post(`${userRoute}/signup`)
+            .set('Accept', '/application/json')
             .send(user)
             .end((req, res) => {
                 res.should.have.status(201);
@@ -28,7 +29,8 @@ describe('Tests for userSignup endpoint', () => {
 
     it('should  fail to create a newUser with same email', (done) => {
         chai.request(server)
-            .post(`/api/v1/auth/signup`)
+            .post(`${userRoute}/signup`)
+            .set('Accept', '/application/json')
             .send(user)
             .end((req, res) => {
                 res.should.have.status(409);
@@ -41,7 +43,8 @@ describe('Tests for userSignup endpoint', () => {
 
     it('should  fail validation to create new User', (done) => {
         chai.request(server)
-            .post(`/api/v1/auth/signup`)
+            .post(`${userRoute}/signup`)
+            .set('Accept', '/application/json')
             .send(incompleteUser)
             .end((req, res) => {
                 res.should.have.status(400);

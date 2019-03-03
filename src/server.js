@@ -2,6 +2,7 @@ import express from 'express';
 import '@babel/polyfill';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import usersRoutes from './v1/routes/usersRoutes';
 
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Routes
+app.use('/api/v1/auth', usersRoutes);
 app.get('/', (req, res) => {
     return res.status(200).json({ message: "'YAY!' Welcome to EPIC_Mail"});
 });
@@ -22,12 +24,12 @@ app.get('/', (req, res) => {
 app.use((req, res, next) => {
     const error = new Error('Route not listed in endpoints, Not found');
     error.status = 400;
-    next(err);
+    next(error);
 })
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
-    res.json({ error: { message: `This error is thrown from ${error.message}` }});
+    res.json({ error: { message: `This error is thrown because ${error.message}` }});
 });
 
 const port = process.env.PORT || 3000;

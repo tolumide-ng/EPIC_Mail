@@ -85,7 +85,6 @@ describe('User signin tests', () => {
     it('should return unauthorized for fake login attempt', (done) => {
         chai.request(server)
             .post(`${userRoute}/login`)
-            .set('Accept', '/application/json')
             .send(failedLogin)
             .end((req, res) => {
                 res.should.have.status(404);

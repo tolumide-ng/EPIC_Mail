@@ -1,4 +1,17 @@
+import jwt from 'jsonwebtoken';
 import uuid from 'uuid';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const signToken = user => {
+    return jwt.sign({
+        iss: 'EPIC_Mail',
+        sub: user,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 1)
+    }, process.env.SECRET_KEY);
+}
 
 class User {
     constructor() {
@@ -13,9 +26,12 @@ class User {
             lastName: data.lastName,
             password: data.password
         };
+        // Generate token
+        const token = signToken(newUser.id)
         this.users.push(newUser);
-        return newUser;
+        return { token, newUser };
     }
+
 
     findUser(data) {
         return this.users.find(email => email => data.email);

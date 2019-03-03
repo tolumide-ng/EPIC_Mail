@@ -6,9 +6,9 @@ const User = {
         const confirmUserExist = usersModels.findUser(request);
         if (!confirmUserExist) {
             const createdUser = usersModels.signup(request);
-            return res.status(201).json({ status: 201, data: [createdUser], });
+            return res.status(201).json({ status: 201, data: [createdUser] });
         }
-        return res.status(409).json({ status: 409, error: 'Email already exists' })
+        return res.status(409).json({ status: 409, error: 'Email is already in use' })
     }
 }
 

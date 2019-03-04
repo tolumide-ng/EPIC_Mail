@@ -22,9 +22,14 @@ class Messages {
         return newMessage;
     }
 
-    sentMessages() {
+    allSentMails() {
         const allMessages = this.messages;
         return allMessages.filter(message => message.status == 'sent');
+    }
+
+    unreadMails(){
+        const unreadMessages = this.messages;
+        return unreadMessages.filter(message => message.status != 'read');
     }
 }
 

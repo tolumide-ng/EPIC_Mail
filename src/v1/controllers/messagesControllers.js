@@ -22,11 +22,19 @@ const Messages = {
     },
 
     findSentMessage(req, res) {
-        const allSentMessages = messagesModels.sentMessages();
+        const allSentMessages = messagesModels.allSentMails();
         if (allSentMessages.length < 1) {
             return res.status(404).json({ status: 404, error: 'There are no sent messages at the moment' });
         }
-        return res.status(200).json({ status: 200, data: allSentMessages });
+        return res.status(200).json({ status: 200, data: [allSentMessages] });
+    },
+
+    findUnreadMessages(req, res) {
+        const allUnreadMessages = messagesModels.unreadMails();
+        if(allUnreadMessages < 1) {
+            return res.status(404).json({ status: 404, error: 'There are no unread messages at the moment'})
+        }
+        return res.status(200).json({status: 404, data: [allUnreadMessages]});
     },
 }
 

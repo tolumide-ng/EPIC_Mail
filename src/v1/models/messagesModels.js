@@ -44,7 +44,7 @@ class Messages {
 
     deleteMail(id) {
         const theMessage = this.messages.find(message=> message.id === id);
-        const index = allmessages.indexOf(theMessage);
+        const index = this.messages.indexOf(theMessage);
         this.messages.splice(index, 1);
         return {};
     }

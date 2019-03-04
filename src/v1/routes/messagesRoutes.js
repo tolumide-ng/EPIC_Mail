@@ -27,5 +27,6 @@ router.get('/sent', messagesControllers.findSentMessage);
 router.get('/unread', messagesControllers.findUnreadMessages);
 router.get('/received', messagesControllers.findReceivedMails);
 router.get('/:id', messagesControllers.findSpecificMail);
+router.delete('/:id', messagesControllers.deleteSpecificMail);
 
 export default router;

@@ -59,7 +59,8 @@ const Messages = {
             return res.status(404).json({ status: 404, error: 'Failed Delete, specified message does not exist'})
         }
         messagesModels.deleteMail(req.params.id);
-        return res.status(204).json({data: 'Message deleted'})
+        //response here should be 204, but since specification requires a res.body, I would be using 200
+        return res.status(200).json({data: 'Message deleted'})
     }
 }
 

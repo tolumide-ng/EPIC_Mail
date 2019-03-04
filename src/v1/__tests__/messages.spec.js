@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import server from './../../server';
 import mockData from './mockData';
 
-const { incompleteMessage, userForMessageValidation, message, userForComposeMail } = mockData;
+const { incompleteMessage, userForMessageValidation, message, userForComposeMail, messageDraft } = mockData;
 
 chai.use(chaiHttp);
 
@@ -32,7 +32,19 @@ describe('User Compose messages', () => {
                         res.should.be.json;
                         res.body.should.have.property('data');
                         res.body.should.be.a('object');
-                        done();
+
+                        // test for a draft message without reciveremail/id
+                        chai.request(server)
+                            .post(`${messageRoute}/`)
+                            .set('Authorization', `${tokenContainer.token}`)
+                            .send(messageDraft)
+                            .end((req, res) => {
+                                res.should.have.status(400);
+                                res.should.be.json;
+                                res.body.should.have.property('error');
+                                res.body.should.be.a('object');
+                                done();
+                            })
                     })
             });
 
@@ -49,7 +61,6 @@ describe('Validation error to post message', () => {
             .send(userForMessageValidation)
             .end((req, res) => {
                 let [tokenContainer] = res.body.data;
-                console.log(tokenContainer);
 
                 chai.request(server)
                     .post(`${messageRoute}/`)

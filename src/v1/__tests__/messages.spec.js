@@ -104,4 +104,4 @@ describe('Test to get all sent emails', () => {
                 done();
             })
     })
-})
+});

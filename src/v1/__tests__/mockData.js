@@ -41,7 +41,9 @@ export default {
         subject: "Mediocrity at Felmish",
         message: "I really found the level of mediocrity at a so-called Flemish company very disappointing",
         parentMessageId: "None",
-        status: "Read"
+        status: "Read",
+        receiverId: '289h3g85-2389b934v',
+        recieverEmail: 'Malalumbu@sa.com',
     },
 
     incompleteMessage: {

@@ -21,7 +21,6 @@ passport.use(new JWTStrategy({
     try {
         // Find the user specified in the token
         const userExist = usersModels.findUserById(payload.sub);
-
         // If user doesn't exist, handle it 
         if (!userExist) {
             return done(null, false);

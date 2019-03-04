@@ -15,6 +15,13 @@ export default {
         password: 'lebronoe89'
     },
 
+    specificUser: {
+        email: 'lewandoski@gmail.com',
+        firstName: 'Raymond',
+        lastName: 'Enistein',
+        password: 'ballerao20n'
+    },
+
     userForMessageValidation: {
         email: 'Abramovich@gmail.com',
         firstName: 'DeleMovich',

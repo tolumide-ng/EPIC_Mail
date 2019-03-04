@@ -36,6 +36,11 @@ class Messages {
         const allMessages = this.messages;
         return allMessages.filter(message => message.status == 'sent' || 'read');
     }
+
+    specificMail(messageId) {
+        const allMessages = this.messages;
+        return allMessages.find(message => message.id === messageId);
+    }
 }
 
 export default new Messages ();

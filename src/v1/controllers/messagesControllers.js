@@ -43,6 +43,14 @@ const Messages = {
             return res.status(404).json({ status: 404, error: 'There are no received messages at the moment' });
         }
         return res.status(200).json({ status: 200, data: [allReceievedMessages] });
+    },
+
+    findSpecificMail(req, res) {
+        const specificMessage = messagesModels.specificMail(req.params.id);
+        if (!specificMessage) {
+            return res.status(404).json({ status: 404, error: 'There is no message with this messageId' });
+        }
+        return res.status(200).json({ status: 200, data: [specificMessage] })
     }
 }
 

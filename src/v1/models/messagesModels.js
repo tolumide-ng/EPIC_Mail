@@ -41,6 +41,13 @@ class Messages {
         const allMessages = this.messages;
         return allMessages.find(message => message.id === messageId);
     }
+
+    deleteMail(id) {
+        const theMessage = this.messages.find(message=> message.id === id);
+        const index = allmessages.indexOf(theMessage);
+        this.messages.splice(index, 1);
+        return {};
+    }
 }
 
 export default new Messages ();

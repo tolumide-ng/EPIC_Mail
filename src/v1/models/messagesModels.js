@@ -28,8 +28,13 @@ class Messages {
     }
 
     unreadMails(){
-        const unreadMessages = this.messages;
-        return unreadMessages.filter(message => message.status != 'read');
+        const allMessages = this.messages;
+        return allMessages.filter(message => message.status != 'read');
+    }
+
+    receivedMails() {
+        const allMessages = this.messages;
+        return allMessages.filter(message => message.status == 'sent' || 'read');
     }
 }
 

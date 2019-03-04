@@ -31,11 +31,19 @@ const Messages = {
 
     findUnreadMessages(req, res) {
         const allUnreadMessages = messagesModels.unreadMails();
-        if(allUnreadMessages < 1) {
-            return res.status(404).json({ status: 404, error: 'There are no unread messages at the moment'})
+        if (allUnreadMessages < 1) {
+            return res.status(404).json({ status: 404, error: 'There are no unread messages at the moment' })
         }
-        return res.status(200).json({status: 404, data: [allUnreadMessages]});
+        return res.status(200).json({ status: 200, data: [allUnreadMessages] });
     },
+
+    findReceivedMails(req, res) {
+        const allReceievedMessages = messagesModels.receivedMails();
+        if (allReceievedMessages.length < 1) {
+            return res.status(404).json({ status: 404, error: 'There are no received messages at the moment' });
+        }
+        return res.status(200).json({ status: 200, data: [allReceievedMessages] });
+    }
 }
 
 export default Messages;

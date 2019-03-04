@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from './../../server';
+import server from '../../server';
 import mockData from './mockData'
 
 const { user, incompleteUser, userLogin, failedLogin, validationErrorLogin } = mockData;
@@ -75,19 +75,6 @@ describe('User signin tests', () => {
             .send(validationErrorLogin)
             .end((req, res) => {
                 res.should.have.status(400);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('error');
-                done();
-            })
-    })
-
-    it('should return unauthorized for fake login attempt', (done) => {
-        chai.request(server)
-            .post(`${userRoute}/login`)
-            .send(failedLogin)
-            .end((req, res) => {
-                res.should.have.status(404);
                 res.should.be.json;
                 res.body.should.be.a('object');
                 res.body.should.have.property('error');

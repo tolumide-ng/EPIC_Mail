@@ -3,7 +3,8 @@
 
 - # EPIC_Mail
 
-- Checkout out this UI on [gh-pages](https://tolumide-ng.github.io/EPIC_Mail/UI/index.html)
+- Checkout this UI on [gh-pages](https://tolumide-ng.github.io/EPIC_Mail/UI/index.html)
+- Access the EPIC_Mail on [heroku](https://epic--mail.herokuapp.com/) via this link https://epic--mail.herokuapp.com/  
 
 Notes-
 - For the user to post a message, the user must have an account with EPIC_Mail

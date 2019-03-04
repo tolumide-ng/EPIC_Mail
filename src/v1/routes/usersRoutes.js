@@ -19,6 +19,6 @@ const passportLocal = function (req, res, next) {
 const router = express.Router();
 
 router.post('/signup', validateBody(schemas.authSchema), usersControllers.signup);
-router.post('/login', validateBody(schemas.loginSchema), passportJWT, usersControllers.login);
+router.post('/login', validateBody(schemas.loginSchema), passportLocal, usersControllers.login);
 
 export default router;

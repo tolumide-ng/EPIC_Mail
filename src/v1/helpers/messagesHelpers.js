@@ -15,7 +15,7 @@ export default {
     },
 
     schemas: {
-        authSchema: Joi.object.keys({
+        authSchema: Joi.object().keys({
             subject: Joi.string(),
             message: Joi.string().required(),
             parentMessageId: Joi.string().required(),

@@ -24,5 +24,6 @@ const router = express.Router();
 
 router.post('/', validateBody(schemas.authSchema), passportJWT, messagesControllers.createMessage);
 router.get('/sent', messagesControllers.findSentMessage);
+router.get('/unread', messagesControllers.findUnreadMessages);
 
 export default router;

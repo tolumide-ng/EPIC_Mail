@@ -3,7 +3,6 @@ import chaiHttp from 'chai-http';
 import server from './../../server';
 import mockData from './mockData';
 
-
 const { incompleteMessage, userForMessageValidation, message, userForComposeMail } = mockData;
 
 chai.use(chaiHttp);

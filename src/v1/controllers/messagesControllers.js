@@ -2,7 +2,7 @@ import messagesModels from './../models/messagesModels';
 
 const Messages = {
     createMessage(req, res) {
-        const request = req.body;
+        const request = req.value.body;
         const sendMessage = messagesModels.sendMail(request);
         return res.status(201).json({ status: 201, data: [sendMessage]});
     }

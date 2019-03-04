@@ -22,6 +22,6 @@ const passportJWT = function (req, res, next) {
 
 const router = express.Router();
 
-router.post('/', passportJWT, messagesControllers.createMessage);
+router.post('/', validateBody(schemas.authSchema), passportJWT, messagesControllers.createMessage);
 
 export default router;

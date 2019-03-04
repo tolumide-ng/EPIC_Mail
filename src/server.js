@@ -3,6 +3,7 @@ import '@babel/polyfill';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import usersRoutes from './v1/routes/usersRoutes';
+import messagesRoutes from './v1/routes/messagesRoutes';
 
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api/v1/auth', usersRoutes);
+app.use('/api/v1/messages', messagesRoutes);
+
 app.get('/', (req, res) => {
     return res.status(200).json({ message: "'YAY!' Welcome to EPIC_Mail"});
 });

@@ -13,6 +13,21 @@ const expect = chai.expect;
 const messageRoute = '/api/v1/messages';
 const userRoute = '/api/v1/auth'
 
+
+describe('Test to get all sent emails', () => {
+    it('should get a 404 status code', (done) => {
+        chai.request(server)
+            .get(`${messageRoute}/sent`)
+            .end((req, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                res.body.should.have.property('error');
+                res.body.should.be.a('object');
+                done();
+            })
+    })
+})
+
 describe('User Compose messages', () => {
 
     it('should successfully create a message', (done) => {
@@ -76,3 +91,17 @@ describe('Validation error to post message', () => {
             })
     })
 });
+
+describe('Test to get all sent emails', () => {
+    it('should successfully get all sent emails', (done) => {
+        chai.request(server)
+            .get(`${messageRoute}/sent`)
+            .end((req, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.have.property('data');
+                res.body.should.be.a('object');
+                done();
+            })
+    })
+})

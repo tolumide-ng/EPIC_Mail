@@ -38,6 +38,18 @@ describe('Test to get emails, should return 404', () => {
                 done();
             })
     })
+
+    it('should get a 404 status code for received messages', (done) => {
+        chai.request(server)
+            .get(`${messageRoute}/received`)
+            .end((req, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                res.body.should.have.property('error');
+                res.body.should.be.a('object');
+                done();
+            })
+    })
 })
 
 describe('User Compose messages', () => {
@@ -122,6 +134,18 @@ describe('Test to get all emails', () => {
     it('should successfully get all unread emails', (done) => {
         chai.request(server)
             .get(`${messageRoute}/unread`)
+            .end((req, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.have.property('data');
+                res.body.should.be.a('object');
+                done();
+            })
+    })
+
+    it('should successfully get all received emails', (done) => {
+        chai.request(server)
+            .get(`${messageRoute}/received`)
             .end((req, res) => {
                 res.should.have.status(200);
                 res.should.be.json;

@@ -62,6 +62,18 @@ describe('Test to get emails, should return 404', () => {
                 done();
             })
     })
+
+    it('should return a 404 status code if the specified id does not exist', (done) => {
+        chai.request(server)
+            .delete(`${messageRoute}/sdkwvnop20-2mvew9sd`)
+            .end((req, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                res.body.should.have.property('error');
+                res.body.should.be.a('object');
+                done();
+            })
+    })
 })
 
 describe('User Compose messages', () => {
@@ -186,8 +198,6 @@ describe('Get and delete a specific message', () => {
                     .end((req, res) => {
                         let [idContainer] = res.body.data;
 
-                        console.log(idContainer.id);
-                        console.log(idContainer)
                         // Find the message
                         chai.request(server)
                             .get(`${messageRoute}/${idContainer.id}`)
@@ -196,9 +206,19 @@ describe('Get and delete a specific message', () => {
                                 res.should.be.json;
                                 res.body.should.have.property('data');
                                 res.body.should.be.a('object');
-                                done();
+
+                                chai.request(server)
+                                    .delete(`${messageRoute}/${idContainer.id}`)
+                                    .end((req, res) => {
+                                        console.log(res.error);
+                                        res.should.have.status(200);
+                                        res.should.be.json;
+                                        res.body.should.have.property('data');
+                                        res.body.should.be.a('object');
+                                        done();
+                                    })
                             })
                     })
             })
-    })
+    });
 })

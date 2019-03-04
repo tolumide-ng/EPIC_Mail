@@ -51,6 +51,16 @@ const Messages = {
             return res.status(404).json({ status: 404, error: 'There is no message with this messageId' });
         }
         return res.status(200).json({ status: 200, data: [specificMessage] })
+    },
+
+    deleteSpecificMail(req, res) {
+        const specificMail = messagesModels.specificMail(req.params.id);
+        if(!specificMail) {
+            return res.status(404).json({ status: 404, error: 'Failed Delete, specified message does not exist'})
+        }
+        messagesModels.deleteMail(req.params.id);
+        //response here should be 204, but since specification requires a res.body, I would be using 200
+        return res.status(200).json({data: 'Message deleted'})
     }
 }
 

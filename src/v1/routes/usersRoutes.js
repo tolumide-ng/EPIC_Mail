@@ -5,12 +5,12 @@ import usersHelpers from './../helpers/usersHelpers';
 import usersControllers from '../controllers/usersControllers';
 const { validateBody, schemas } = usersHelpers;
 const passportConf = require('./../passport');
-// const passportJWT = passport.authenticate('local', { session: false });
-const passportJWT = function (req, res, next) {
-    passport.authenticate('local', {session: false}, function (err, user, info, next) {
+// const passportLocal = passport.authenticate('local', { session: false });
+const passportLocal = function (req, res, next) {
+    passport.authenticate('local', {session: false}, function (err, user, info) {
         if (err) { return next(err) }
         if (!user) {
-            return res.status(404).json({ status: 404, error: 'Auth Error, Email or password does not match' });
+            return res.status(401).json({ status: 401, error: 'Unauthorized, Email or password does not match' });
         }
     })(req, res, next)
     next();

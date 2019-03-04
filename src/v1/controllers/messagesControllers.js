@@ -19,16 +19,15 @@ const Messages = {
             const sendMessage = messagesModels.sendMail(request);
             return res.status(201).json({ status: 201, data: [sendMessage] });
         })(req, res)
-    }
+    },
 
-
-
-
-    // createMessage(req, res) {
-    //     const request = req.value.body;
-    //     const sendMessage = messagesModels.sendMail(request);
-    //     return res.status(201).json({ status: 201, data: [sendMessage]});
-    // }
+    findSentMessage(req, res) {
+        const allSentMessages = messagesModels.sentMessages();
+        if (allSentMessages.length < 1) {
+            return res.status(404).json({ status: 404, error: 'There are no sent messages at the moment' });
+        }
+        return res.status(200).json({ status: 200, data: allSentMessages });
+    },
 }
 
 export default Messages;

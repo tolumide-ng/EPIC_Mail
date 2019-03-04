@@ -5,3 +5,7 @@
 
 - Checkout out this UI on gh-pages: 
 https://tolumide-ng.github.io/EPIC_Mail/UI/index.html
+
+Notes-
+- For the user to post a message, the user must have an account with EPIC_Mail
+- User should copy the token obtained during signup or login and paste in 'Authentication' header to compose a message

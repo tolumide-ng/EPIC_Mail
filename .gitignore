@@ -4,3 +4,4 @@ build/
 /.nyc_output
 .env
 bash.exe.stackdump
+notes

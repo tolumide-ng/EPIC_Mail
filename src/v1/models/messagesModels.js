@@ -34,7 +34,7 @@ class Messages {
 
     receivedMails() {
         const allMessages = this.messages;
-        return allMessages.filter(message => message.status == 'sent' || 'read');
+        return allMessages.filter(message => message.status == 'sent' || message.status == 'read');
     }
 
     specificMail(messageId) {

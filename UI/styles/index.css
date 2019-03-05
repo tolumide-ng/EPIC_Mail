@@ -136,6 +136,24 @@ a {
     align-content: center;
 }
 
+.fourth_part-action > *:hover {
+    animation: userAction 1s ease-in-out 0s 
+}
+
+@keyframes userAction {
+    0% {
+        opacity: 0.8;
+        transform: scale(1.0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2)
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
+
 .sign_up {
     all: unset;
     background: #01395C;

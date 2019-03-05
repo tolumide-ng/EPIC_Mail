@@ -61,6 +61,13 @@ export default {
         status: "draft"
     },
 
+    messageSent: {
+        subject: "Mediocrity at Felmish",
+        message: "I really found the level of mediocrity at a so-called Flemish company very disappointing",
+        parentMessageId: "None",
+        status: "sent"
+    },
+
     incompleteMessage: {
         subject: "Mediocrity at Felmish",
         parentMessageId: "None",

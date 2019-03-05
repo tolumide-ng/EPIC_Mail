@@ -1,6 +1,18 @@
 const menuList = document.querySelector('#menuList');
 const displayContainer = document.querySelector('#displayContainer');
 
+// Compose Mail appears first when the Mail menu is clicked, so the action buttons should respond
+displayContainer.querySelector('#draftButton').addEventListener('click', e => {
+    displayContainer.innerHTML = '';
+    displayContainer.innerHTML = `<strong>Message saved as draft</strong>`
+});
+displayContainer.querySelector('#sendButton').addEventListener('click', e => {
+    displayContainer.innerHTML = '';
+    displayContainer.innerHTML = `<strong>Message sent</strong>`
+});
+
+
+// Toggle the feature in view to the clicked menu content when any of the page specific menu is clicked
 menuList.addEventListener('click', e => {
     if (e.target.closest('.menuListContent')) {
         const selectedContent = e.target.closest('.menuListContent').getAttribute('id');

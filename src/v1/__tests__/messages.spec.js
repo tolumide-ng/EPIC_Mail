@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import server from './../../server';
 import mockData from './mockData';
 
-const { incompleteMessage, userForMessageValidation, message, userForComposeMail, specificUser, messageDraft } = mockData;
+const { incompleteMessage, userForMessageValidation, message, userForComposeMail, specificUser, messageDraft, messageSent } = mockData;
 
 chai.use(chaiHttp);
 
@@ -96,17 +96,31 @@ describe('User Compose messages', () => {
                         res.body.should.have.property('data');
                         res.body.should.be.a('object');
 
-                        // test for a draft message without reciveremail/id
+                        //test for a draft message without reciveremail/id
                         chai.request(server)
                             .post(`${messageRoute}/`)
                             .set('Authorization', `${tokenContainer.token}`)
                             .send(messageDraft)
                             .end((req, res) => {
-                                res.should.have.status(400);
+                                console.log(res.error);
+                                res.should.have.status(201);
                                 res.should.be.json;
-                                res.body.should.have.property('error');
+                                res.body.should.have.property('data');
                                 res.body.should.be.a('object');
-                                done();
+
+
+                                //Sent message without a reciver should fail
+                                chai.request(server)
+                                    .post(`${messageRoute}/`)
+                                    .set('Authorization', `${tokenContainer.token}`)
+                                    .send(messageSent)
+                                    .end((req, res) => {
+                                        res.should.have.status(400);
+                                        res.should.be.json;
+                                        res.body.should.have.property('error');
+                                        res.body.should.be.a('object');
+                                        done();
+                                    })
                             })
                     })
             });

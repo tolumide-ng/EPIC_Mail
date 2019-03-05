@@ -1,6 +1,18 @@
 const menuList = document.querySelector('#menuList');
 const displayContainer = document.querySelector('#displayContainer');
 
+// Compose Mail appears first when the Mail menu is clicked, so the action buttons should respond
+displayContainer.querySelector('#draftButton').addEventListener('click', e => {
+    displayContainer.innerHTML = '';
+    displayContainer.innerHTML = `<strong>Message saved as draft</strong>`
+});
+displayContainer.querySelector('#sendButton').addEventListener('click', e => {
+    displayContainer.innerHTML = '';
+    displayContainer.innerHTML = `<strong>Message sent</strong>`
+});
+
+
+// Toggle the feature in view to the clicked menu content when any of the page specific menu is clicked
 menuList.addEventListener('click', e => {
     if (e.target.closest('.menuListContent')) {
         const selectedContent = e.target.closest('.menuListContent').getAttribute('id');
@@ -74,7 +86,9 @@ menuList.addEventListener('click', e => {
 
         <div class='spaceContent'> <strong> Message: </strong> <div class='theMessageDisplayed'> ${theDraftMessage.lastElementChild.textContent} </div> </div>
 
-        <button class='draftButton'>send</button> <button class='draftButton'>Delete</button>
+        <div class='buttonContainer'>
+        <button class='buttonsOfDraft'>send</button> <button class='buttonsOfDraft'>Delete</button>
+        </div>
         `;
         console.log(theDraftMessage.children);
     });
@@ -103,7 +117,10 @@ menuList.addEventListener('click', e => {
         <div class='spaceContent'> <strong> Subject: </strong> ${e.target.closest('.sentMessage').children[1].textContent} </div>
 
         <div class='spaceContent'> <strong> Message: </strong> <div class='theMessageDisplayed'> ${(e.target.closest('.sentMessage').lastElementChild.textContent)} </div> </div>
+        
+        <div class='buttonContainer'>
         <button class='retract'>Retract message</button>
+        </div>
         `;
             console.log((e.target.closest('.sentMessage').children));
         }

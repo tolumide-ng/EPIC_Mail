@@ -77,6 +77,31 @@
     color: white;
 }
 
+#reset_password {
+    all: unset;
+    color: blue;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#submit_button:hover, #reset_password:hover {
+    animation: userAction 1s ease-in-out 0s;
+}
+
+@keyframes userAction {
+    0% {
+        opacity: 0.8;
+        transform: scale(1.0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
+
 #input_details {
     display: flex;
     flex-direction: row;
@@ -89,13 +114,6 @@
     margin-bottom: 30px;
     flex-shrink: 100px;
     text-align: center;
-}
-
-#reset_password {
-    all: unset;
-    color: blue;
-    padding: 10px;
-    cursor: pointer;
 }
 
 

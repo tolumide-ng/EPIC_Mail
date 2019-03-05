@@ -143,8 +143,6 @@ nav a:hover {
     }
 }
 
-
-
 /* MAILS CONTAINER */
 #mailsContainer {
     padding: 15px;
@@ -280,7 +278,6 @@ nav a:hover {
     background: black;
     color: white;
 }
-
 
 .retract {
     all: unset;

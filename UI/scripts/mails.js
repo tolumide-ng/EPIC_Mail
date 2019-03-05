@@ -86,7 +86,9 @@ menuList.addEventListener('click', e => {
 
         <div class='spaceContent'> <strong> Message: </strong> <div class='theMessageDisplayed'> ${theDraftMessage.lastElementChild.textContent} </div> </div>
 
-        <button class='draftButton'>send</button> <button class='draftButton'>Delete</button>
+        <div class='buttonContainer'>
+        <button class='buttonsOfDraft'>send</button> <button class='buttonsOfDraft'>Delete</button>
+        </div>
         `;
         console.log(theDraftMessage.children);
     });
@@ -115,7 +117,10 @@ menuList.addEventListener('click', e => {
         <div class='spaceContent'> <strong> Subject: </strong> ${e.target.closest('.sentMessage').children[1].textContent} </div>
 
         <div class='spaceContent'> <strong> Message: </strong> <div class='theMessageDisplayed'> ${(e.target.closest('.sentMessage').lastElementChild.textContent)} </div> </div>
+        
+        <div class='buttonContainer'>
         <button class='retract'>Retract message</button>
+        </div>
         `;
             console.log((e.target.closest('.sentMessage').children));
         }

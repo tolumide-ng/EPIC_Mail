@@ -11,10 +11,9 @@ const Messages = {
                 return res.status(401).json({ status: 401, error: 'Authentication Error: Email or password does not match' });
             }
             const request = req.value.body;
-            if (request.status != 'draft' && !request.receiverId || !request.receiverEmail) {
+            if (request.status !== 'draft' && (!request.receiverEmail || !request.receiverId)) {
                 return res.status(400).json({ status: 400, error: 'receiverEmail or reciverId cannot be empty' });
             }
-            request.senderId = userExist.id;
             request.senderEmail = userExist.email;
             const sendMessage = messagesModels.sendMail(request);
             return res.status(201).json({ status: 201, data: [sendMessage] });
@@ -55,12 +54,12 @@ const Messages = {
 
     deleteSpecificMail(req, res) {
         const specificMail = messagesModels.specificMail(req.params.id);
-        if(!specificMail) {
-            return res.status(404).json({ status: 404, error: 'Failed Delete, specified message does not exist'})
+        if (!specificMail) {
+            return res.status(404).json({ status: 404, error: 'Failed Delete, specified message does not exist' })
         }
         messagesModels.deleteMail(req.params.id);
         //response here should be 204, but since specification requires a res.body, I would be using 200
-        return res.status(200).json({data: 'Message deleted'})
+        return res.status(200).json({ data: 'Message deleted' })
     }
 }
 

@@ -1,8 +1,7 @@
-/.nyc_output
-/build
+package-lock.json
 /node_modules
-/src
-/.env
+build/
+/.nyc_output
+.env
 bash.exe.stackdump
 notes
-package-lock.json

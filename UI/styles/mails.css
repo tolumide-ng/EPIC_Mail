@@ -397,7 +397,6 @@ nav a:hover {
 
 /* Adjust composeMail, inbox e.t.c menu when screen is at this size */
 @media screen and (max-width: 1200px) {
-
     #menuList {
         all: unset;
         grid-column: 2;

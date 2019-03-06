@@ -39,42 +39,47 @@
 
         <section id='form_display'>
             <div class="all_form_content">
-                <form action="" id="form">
+                <div id="form">
                     <div class="title_part">
                         <div class="title_content" id="mail_name">E<span id="two">P</span><span id="three">I</span><span id="four">C</span><span id="five">_Mail</span> </div>
                         <p class="title_content">Create your EPIC_Mail account</p>
                     </div>
 
                     <div class="first_part-input">
-                        <input type="text" class="form_text" id="firstName" name="firstName" placeholder="First name">
-                        <input type="text" class="form_text" id="lastName" name="lastName" placeholder="Last name">
+                        <input type="text" class="form_text" id="firstName" name="firstName" placeholder="First name"  >
+                        <input type="text" class="form_text" id="lastName" name="lastName" placeholder="Last name" >
                     </div>
 
                     <div class="second_part-input">
                         <input type="text" class="form_text" id="userName" name="userName"
-                            placeholder="Username @epic_mail">
+                            placeholder="Username @epic_mail" >
                     </div>
                     <p class="input_definition">You can use letters, numbers & periods</p>
 
 
                     <div class="third_part-input">
-                        <input type="password" class="form_text" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form_text" id="password" name="password" placeholder="Password" >
                         <input type="password" class="form_text" id="confirm_password" name="confirm_password"
-                            placeholder="Confirm">
+                            placeholder="Confirm" >
                         <img src="./img/visibility.svg" alt="password not visible" id="not_visible">
                     </div>
 
 
                     <p class="input_definition">Use 8 or more characters with a mix of letters, numbers & symbols</p>
 
+                    <div id="indication"></div>
+
+
                     <div class="fourth_part-action">
                         <a href="./signin.html">Sign in instead</a>
-                        <button class="sign_up"><a href="./signin.html">Sign up</a></button>
+                        <button class="sign_up">Sign up</button>
                     </div>
-                </form>
+                </div>
             </div>
         </section>
     </div>
+
+    <script src="./scripts/validations.js"></script>
     
     <script src="./scripts/index.js"></script>
 </body>

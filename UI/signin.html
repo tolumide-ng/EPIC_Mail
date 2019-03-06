@@ -5,28 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/nav.css">
     <link rel="stylesheet" href="./styles/signin.css">
     <title>EPIC_Mail-Login</title>
 </head>
 
 <body>
     <header id="header">
-            <h1 class="logo">
-                    <img src="./img/transfer.svg" alt="" class="logo">
-                </h1>
-        
+        <h1 class="logo">
+            <img src="./img/transfer.svg" alt="" class="logo">
+        </h1>
+
         <input type="checkbox" name="nav-toggle" class="nav-toggle" id="nav-toggle" class="nav-toggle">
 
         <nav>
             <ul>
-                <li><a href="./index.html">EPIC_Mail</a></li>
+                <li><a href="#">EPIC_Mail</a></li>
+                <li><a href="./index.html">SIGNUP</a></li>
             </ul>
         </nav>
 
         <label for="nav-toggle" class="nav-toggle-label">
             <span></span>
         </label>
-        
+
     </header>
 
     <div id="sign_in-body">
@@ -35,12 +37,13 @@
             <div id="input_details">
                 <input type="text" name="username" class="form_input" id="username" placeholder="Username">
                 <input type="password" name="password" class="form_input" id="password" placeholder="password">
-                <button type="submit" id="submit_button" class="submit_button"><a href="./create.html">Sign in</a></button>
+                <button type="submit" id="submit_button" class="submit_button">Sign in</button>
             </div>
+            <div id="indication"></div>
             <a href="./reset.html" id="reset_password">Reset password</a>
         </section>
     </div>
-
+    <script src="./scripts/login.js"></script>
 </body>
 
 </html>

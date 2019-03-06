@@ -18,11 +18,10 @@
         <input type="checkbox" id="nav-toggle" class="nav-toggle">
         <nav>
             <ul>
-                <li><a href="./index.html">EPIC_Mail</a></li>
+                <li><a href="#">EPIC_Mail</a></li>
                 <li><a href="./mails.html">Mails</a></li>
                 <li><a href="./create.html">Groups</a></li>
-                <li><a href="./create.html">Admin</a></li>
-                <li><a href="./index.html">signup</a></li>
+                <li><a href="./index.html">logout</a></li>
             </ul>
         </nav>
         <label for="nav-toggle" class="nav-toggle-label">
@@ -41,34 +40,44 @@
         </aside>
 
         <div id="displayContainer">
-            <!-- COMPOSE MAIL -->
-            <div class="mailContent compose">
-                <div id="messageTitle" class="composeMailContent">Compose Message</div>
-
-
-                <div id="receiver" class="composeMailContent">From: <span>thisUser@epic_mail.com</span></div>
-
-                <div class="formContent composeMailContent">
-                    <!-- <label for="recipient" id="to" class="recipient">Recipient: </label> -->
-                    <input type="text" placeholder="Recipient" name="recipient" class="recipient formInput"
-                        id="recipient">
+                <!-- INBOX MAILS -->
+    <div class="mailContent inbox ">
+        <div class="inboxMessagesContainer">
+            <div class="inboxMessage">
+                <div class="address">Ibukunawoo@epic_mail.com
                 </div>
-
-                <div class="formContent composeMailContent">
-                    <!-- <label for="subject" class="subject" id="mailSubject">Subject: </label> -->
-                    <input type="text" placeholder="Subject" name="subject" class="formInput subject" id="subject">
+                <div class="mailTitle">Would you like to join us at stockholm?</div>
+                <div class="messageContent visibility">Hello Maggi, Wouldn't you like to pay a visit
+                    to Stockholm, sure my friends would be glad to finally meet a personality
+                    with so much humor as you!
                 </div>
-
-                <div class="formMessage composeMailContent">
-                    <textarea name="" placeholder="Your email here" class="messageContent"></textarea>
-                </div>
-
-                <div id="buttons">
-                    <button id="draftButton" class="buttonDisplay">Save as draft</button>
-                    <button id="sendButton" class="buttonDisplay">Send</button>
-                </div>
-
             </div>
+
+            <div class="inboxMessage">
+                <div class="address">Adetoun@epic_mail.com
+                </div>
+                <div class="mailTitle">No Surprises?</div>
+                <div class="messageContent visibility">Haha Daadaa, isn't that supposed to be a surprise?
+                    Well, I would prefer Monaco though, btw... you still owe me home-cooked lunch (our bet on
+                    the last match ...hahaha).
+                </div>
+            </div>
+
+            <div class="inboxMessage" id="remember me now">
+                <div class="address">tokunbo@gmail.com
+                </div>
+                <div class="mailTitle">Deadline approaching!!</div>
+                <div class="messageContent visibility">
+                    El casso,
+                    wassup man, trust you're good, looool naaahhhhh. Howfar have you gone with the project,
+                    Just cheked your repo and didn't find nada. Hope you are not planning some magic again o.
+                    let's meet at the bar tonight though.
+                </div>
+            </div>
+
+
+        </div>
+    </div>
         </div>
     </div>
 

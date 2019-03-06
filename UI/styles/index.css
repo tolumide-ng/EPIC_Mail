@@ -114,6 +114,16 @@ a {
     color: rgb(120, 110, 110);
 }
 
+#indication {
+    margin-left: var(--form_margin-left);
+    padding: 0.5em;
+    color: red;
+    font-weight: bolder;
+    width: 60%;
+    margin-top: 0.2em;
+    text-align: center;
+}
+
 .third_part-input {
     display: flex;
     flex-direction: row;

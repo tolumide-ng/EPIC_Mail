@@ -82,8 +82,6 @@ API is documented on **swagger** can can be viewed at [EPIC_Mail](https://app.sw
 | GET       | Get a specific message      | /api/v1/messages/:msg-id  |
 | DELETE    | Delete a specific message   | /api/v1/messages/:msg-id  |
 
-
-
 ***
 
 ### Tools and Technologies used

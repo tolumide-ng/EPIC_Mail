@@ -69,6 +69,19 @@ $ npm run test
 ### API Information 
 EPIC_Mail is hosted on [heroku](https://epic--mail.herokuapp.com/)
 
+API is documented on **swagger** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis/tolumide-ng/EPIC_MAIL/1#/)
+
+| Method    |Description                  |Endpoint                   |
+| --------  |:---------------------------:| -------------------------:| 
+| POST      | User signup                 | /api/v1/auth/signup       |
+| POST      | User login                  | /api/v1/auth/login        |
+| POST      | Compose Mail                | /api/v1/messages          |
+| GET       | Get all sent messages       | /api/v1/messages/sent     |
+| GET       | Get all unread messages     | /api/v1/messages/unread   |
+| GET       | Get all received messages   | /api/v1/messages/received |
+| GET       | Get a specific message      | /api/v1/messages/:msg-id  |
+| DELETE    | Delete a specific message   | /api/v1/messages/:msg-id  |
+
 ***
 
 ### Tools and Technologies used

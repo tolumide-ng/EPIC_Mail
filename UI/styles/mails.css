@@ -7,6 +7,10 @@
     font-family: 'Lato', sans-serif;
 }
 
+body {
+    background: #EFF2E2;
+}
+
 /* MAILS CONTAINER */
 #mailsContainer {
     padding: 15px;
@@ -280,6 +284,10 @@
     background: pink;
 }
 
+#popupMessage {
+    color: peru;
+}
+
 /* Adjust composeMail, inbox e.t.c menu when screen is at this size */
 @media screen and (max-width: 1200px) {
     #menuList {
@@ -337,5 +345,9 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start
+    }
+
+    .messageContent {
+        height: 30vh;
     }
 }

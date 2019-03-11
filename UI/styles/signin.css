@@ -12,6 +12,11 @@
     font-family: 'Lato', sans-serif;
 }
 
+body {
+    background: #EFF2E2;
+}
+
+
 .logo {
     height: 50px;
 }

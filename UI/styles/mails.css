@@ -8,7 +8,7 @@
 }
 
 body {
-    background: #EFF2E2;
+    background: #EEF5F1;
 }
 
 /* MAILS CONTAINER */
@@ -130,22 +130,6 @@ body {
     font-size: 1rem;
 }
 
-/* #draftButton {
-    background: #FF0044;
-    color: white;
-}
-
-#sendButton {
-    background: rgb(83, 81, 192);
-    color: white;
-    padding: 5px 10px;
-}
-
-#sendButton:active, #draftButton:active{
-    background: black;
-    color: white;
-} */
-
 .buttonContainer {
     display: flex;
     flex-direction: row;
@@ -166,6 +150,11 @@ body {
     background: rgb(83, 81, 192);
     color: white;
     padding: 5px 10px;
+}
+
+#draftButton:active, #sendButton:active{
+    background: rgb(241, 241, 0);
+    color: black;
 }
 
 .retract {

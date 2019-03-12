@@ -5,3 +5,4 @@ build/
 .env
 bash.exe.stackdump
 notes
+.eslintignore

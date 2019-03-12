@@ -68,6 +68,6 @@ class Messages {
     specification requires a res.body, I would be using 200 */
     return res.status(200).json({ status: 200, data: 'Message deleted' });
   }
-};
+}
 
 export default new Messages();

@@ -46,7 +46,7 @@ class Messages {
     const theMessage = this.messages.find(message => message.id === id);
     const index = this.messages.indexOf(theMessage);
     this.messages.splice(index, 1);
-    return {};
+    return null;
   }
 }
 

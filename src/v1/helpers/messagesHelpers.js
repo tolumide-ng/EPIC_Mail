@@ -19,7 +19,7 @@ export default {
             subject: Joi.string().required(),
             message: Joi.string().required(),
             receiverId: Joi.string().min(7),
-            receiverEmail: Joi.string().email(),
+            // receiverEmail: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
             parentMessageId: Joi.string().required(),
             status: Joi.string().valid('draft', 'read', 'sent').insensitive().required()
         })

@@ -124,13 +124,26 @@ menuList.addEventListener('click', e => {
 
     } else if (selectedContent === 'compose') {
         displayContainer.querySelector('#draftButton').addEventListener('click', e => {
-            displayContainer.innerHTML = '';
-            displayContainer.innerHTML = `<strong>Message saved as draft</strong>`
+            // displayContainer.innerHTML = '';
+            // displayContainer.innerHTML = `<strong>Message saved as draft</strong>`
+
+            const popupMessage = document.querySelector('#popupMessage');
+            popupMessage.innerHTML='';
+            popupMessage.insertAdjacentHTML('afterbegin', '<p>Draft Saved</p>');
+            setTimeout(() => {
+                popupMessage.innerHTML = '';
+            }, 5000);
         });
 
         displayContainer.querySelector('#sendButton').addEventListener('click', e => {
-            displayContainer.innerHTML = '';
-            displayContainer.innerHTML = `<strong>Message sent</strong>`
+            // displayContainer.innerHTML = '';
+            // displayContainer.innerHTML = `<strong>Message sent</strong>`
+            const popupMessage = document.querySelector('#popupMessage');
+            popupMessage.innerHTML='';
+            popupMessage.insertAdjacentHTML('afterbegin', '<p>Message Sent</p>');
+            setTimeout(() => {
+                popupMessage.innerHTML = '';
+            }, 5000);
         });
     }
 

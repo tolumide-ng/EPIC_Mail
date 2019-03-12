@@ -18,7 +18,7 @@ app.use('/api/v1/auth', usersRoutes);
 app.use('/api/v1/messages', messagesRoutes);
 
 app.get('/', (req, res) => {
-    return res.status(200).json({ message: "'YAY!' Welcome to EPIC_Mail"});
+    return res.status(200).json({ status: 200, data: "'YAY!' Welcome to EPIC_Mail"});
 });
 
 
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
-    res.json({ error: { message: `This error is thrown because ${error.name}, ${error.message}` }});
+    res.json({ status: error.status||500, error: `This error is thrown because ${error.name}, ${error.message}` });
 });
 
 const port = process.env.PORT || 3000;

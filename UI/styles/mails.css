@@ -7,6 +7,10 @@
     font-family: 'Lato', sans-serif;
 }
 
+body {
+    background: #EEF5F1;
+}
+
 /* MAILS CONTAINER */
 #mailsContainer {
     padding: 15px;
@@ -126,22 +130,6 @@
     font-size: 1rem;
 }
 
-/* #draftButton {
-    background: #FF0044;
-    color: white;
-}
-
-#sendButton {
-    background: rgb(83, 81, 192);
-    color: white;
-    padding: 5px 10px;
-}
-
-#sendButton:active, #draftButton:active{
-    background: black;
-    color: white;
-} */
-
 .buttonContainer {
     display: flex;
     flex-direction: row;
@@ -162,6 +150,11 @@
     background: rgb(83, 81, 192);
     color: white;
     padding: 5px 10px;
+}
+
+#draftButton:active, #sendButton:active{
+    background: rgb(241, 241, 0);
+    color: black;
 }
 
 .retract {
@@ -280,6 +273,10 @@
     background: pink;
 }
 
+#popupMessage {
+    color: peru;
+}
+
 /* Adjust composeMail, inbox e.t.c menu when screen is at this size */
 @media screen and (max-width: 1200px) {
     #menuList {
@@ -337,5 +334,9 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start
+    }
+
+    .messageContent {
+        height: 30vh;
     }
 }

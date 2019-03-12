@@ -13,7 +13,7 @@
 }
 
 body {
-    background: #EFF2E2;
+    background: #EEF5F1;
 }
 
 
@@ -24,10 +24,10 @@ body {
 
 #sign_in-body {
     display: grid;
-    grid-template-columns: 10% 80% 10%;
-    grid-template-rows: 10% 90%;
+    grid-template-columns: 0.3fr 0.4fr 0.3fr;
+    grid-template-rows: 0.1fr 0.9fr;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 40px;
     align-content: center;
 }
 
@@ -36,11 +36,13 @@ body {
     grid-row: 2;
     align-items: center;
     margin: 5%;
-    padding: 10px;
     box-shadow: 3px 3px 5px 6px #ccc;
     border-radius: 5px;
-    padding-bottom: 40px;
+    padding-bottom: 10px;
     padding-top: 30px;
+    width: 80%;
+    height: 100%;
+    background: #EAEBED;
     /* background: green; */
 }
 
@@ -48,9 +50,9 @@ body {
     border-style: none;
     height: 35px;
     border-radius: 3px;
-    width: 28%;
+    width: 68%;
     padding: 2px;
-    margin-left: var(--form_margin-left);
+    /* margin-left: var(--form_margin-left); */
     border: 1px solid rgba(0,0,0,0.3)
 }
 
@@ -63,6 +65,8 @@ body {
     align-items: center;
     font-size: large;
     font-style: oblique;
+    text-align: center;
+    color: rgba(10, 60, 25, 0.8)
 }
 
 #submit_button {
@@ -85,7 +89,7 @@ body {
 #reset_password {
     all: unset;
     color: blue;
-    padding: 10px;
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -109,7 +113,7 @@ body {
 
 #input_details {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 15px;
     justify-content: center;
     align-items: center;
@@ -128,3 +132,49 @@ body {
     font-weight: bold;
 }
 
+
+@media screen and (max-width: 1200px) {
+    #submit_button {
+        all: unset;
+        background: #FF0044;
+        color: white;
+        padding: 5px;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 23%;
+        text-align: center;
+        margin-left: var(--form_margin-left);
+    }
+    
+}
+
+@media screen and (max-width: 1050px) {
+    #sign_in-body {
+        display: grid;
+        grid-template-columns: 0.2fr 0.6fr 0.2fr;
+        grid-template-rows: 0.1fr 0.9fr;
+        justify-content: center;
+        padding-top: 40px;
+        align-content: center;
+    }
+    
+}
+
+@media screen and (max-width: 700px) {
+    #sign_in-body {
+        display: grid;
+        grid-template-columns: 0.1fr 0.9fr;
+        grid-template-rows: 0.1fr 0.9fr;
+        justify-content: center;
+        padding-top: 20px;
+        align-content: center;
+    }
+
+    #indication {
+        padding: 0 10px;
+    }
+
+    .form_input {
+        width: 88%;
+    }
+}

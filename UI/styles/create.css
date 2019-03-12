@@ -42,7 +42,7 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 100%;
-    background: rgba(10, 100, 15, 0.2);
+    background: #EAEBED;
     margin-bottom: 1em;
 }
 
@@ -131,7 +131,7 @@ body {
     padding: 1em;
     padding-top: 1.5em;
     margin-bottom: 3%;
-    background: rgba(10, 100, 15, 0.2);
+    background: #EAEBED;
 }
 
 #groupsAndName {

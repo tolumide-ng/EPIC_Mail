@@ -5,15 +5,14 @@ function checkValidity(input) {
     const validInput = regexCheck.test(input);
     if (validInput) {
         indication.innerHTML = '';
-        location.href = './signin.html';
-        console.log(validInput);
-        return;
+        return location.href = './signin.html';
+        // console.log(validInput);
     }
     indication.innerHTML = 'Please enter a valid email address';
     return ;
 }
 
 resetButton.addEventListener('click', e => {
-    const userName = document.querySelector('#username');
+    const userName = document.querySelector('#username').value;
     checkValidity(userName);
-})
+});

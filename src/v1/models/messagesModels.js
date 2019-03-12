@@ -14,7 +14,7 @@ class Messages {
       senderId: data.senderId,
       receiverId: data.receiverId,
       senderEmail: data.senderEmail,
-      receiverEmail: data.receiverEmail,
+      // receiverEmail: data.receiverEmail,
       parentMessageId: data.parentMessageId,
       status: data.status,
     };

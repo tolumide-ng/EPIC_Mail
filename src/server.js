@@ -1,9 +1,15 @@
 import express from 'express';
 import '@babel/polyfill';
 import morgan from 'morgan';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import usersRoutes from './v1/routes/usersRoutes';
-import messagesRoutes from './v1/routes/messagesRoutes';
+import usersV1Routes from './v1/routes/usersRoutes';
+import messagesV1Routes from './v1/routes/messagesRoutes';
+
+dotenv.config();
+
+const usersRoutes = process.env.NODE_VERSION === 'v2' ? usersV2Routes : usersV1Routes;
+const messagesRoutes = process.env.NODE_VERSION === 'v2' ? messagesV2Routes : messagesV1Routes;
 
 
 const app = express();

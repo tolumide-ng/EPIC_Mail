@@ -3,8 +3,8 @@ import '@babel/polyfill';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import usersV1Routes from './v1/routes/usersRoutes';
-import messagesV1Routes from './v1/routes/messagesRoutes';
+import usersRoutes from './v1/routes/usersRoutes';
+import messagesRoutes from './v1/routes/messagesRoutes';
 
 
 dotenv.config();
@@ -18,10 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/v1/auth', usersV1Routes);
-app.use('/api/v1/messages', messagesV1Routes);
-// app.use('/api/v2/auth', usersV2Routes);
-// app.use('/api/v2/messages', messagesV2Routes);
+app.use('/api/v1/auth', usersRoutes);
+app.use('/api/v1/messages', messagesRoutes);
 
 app.get('/', (req, res) => res.status(200).json({ status: 200, data: "'YAY!' Welcome to EPIC_Mail" }));
 

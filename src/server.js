@@ -6,10 +6,8 @@ import bodyParser from 'body-parser';
 import usersV1Routes from './v1/routes/usersRoutes';
 import messagesV1Routes from './v1/routes/messagesRoutes';
 
-dotenv.config();
 
-const usersRoutes = process.env.NODE_VERSION === 'v2' ? usersV2Routes : usersV1Routes;
-const messagesRoutes = process.env.NODE_VERSION === 'v2' ? messagesV2Routes : messagesV1Routes;
+dotenv.config();
 
 
 const app = express();
@@ -20,8 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/v1/auth', usersRoutes);
-app.use('/api/v1/messages', messagesRoutes);
+app.use('/api/v1/auth', usersV1Routes);
+app.use('/api/v1/messages', messagesV1Routes);
+// app.use('/api/v2/auth', usersV2Routes);
+// app.use('/api/v2/messages', messagesV2Routes);
 
 app.get('/', (req, res) => res.status(200).json({ status: 200, data: "'YAY!' Welcome to EPIC_Mail" }));
 

@@ -4,14 +4,22 @@
   "description": "EPIC_Mail empowers it's users to exchange messages/information over the internet",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && node src/bin/production",
+    "start": "npm run build && node src/bin/v1/production",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "dev-start": "nodemon src/bin/dev",
+    "dev-start": "nodemon src/bin/v1/dev",
     "clean": "rm -rf build",
     "build": "cross-env npm run clean && mkdir build && babel src -s -d build",
     "test": "npm run build && nyc mocha build/v1/__tests__/*.js --timeout 10000 --exit",
-    "production": "npm run build && node src/bin/production"
+    "production": "npm run build && node src/bin/v1/production",
+    "start-v2": "npm run createTable && nodemon src/bin/v2/production",
+    "coverage-v2": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls-v2": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "dev-start-v2": "cross-env babel-watch src/bin/v2/dev",
+    "test-v2": "npm run build/v2 && nyc mocha build/v2/__tests__/*.js --timeout 10000 --exit",
+    "production-v2": "npm run build && node src/bin/v2/production",
+    "createTable": "npm run build && node build/v2/db/db createTheTables && node build/v2/db/db createTheTables",
+    "dropTable": "node build/v2/db/db dropTheTables"
   },
   "repository": {
     "type": "git",

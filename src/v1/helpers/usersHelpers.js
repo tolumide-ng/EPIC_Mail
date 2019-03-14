@@ -7,7 +7,7 @@ export default {
     if (result.error) {
       return res.status(400).json({ status: 400, error: result.error });
     }
-    // req.value.body instead of req.value
+    // req.value.body instead of req.body
     if (!req.value) { req.value = {}; }
     req.value.body = result.value;
     next();

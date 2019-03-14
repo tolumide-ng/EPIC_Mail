@@ -16,9 +16,9 @@
     "coverage-v2": "nyc report --reporter=text-lcov | coveralls",
     "coveralls-v2": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "dev-start-v2": "cross-env babel-watch src/bin/v2/dev",
-    "test-v2": "npm run build/v2 && nyc mocha build/v2/__tests__/*.js --timeout 10000 --exit",
+    "test-v2": "set NODE_ENV=test&&npm run build && npm run dropTable && npm run createTable && nyc mocha build/v2/__tests__/*.js --timeout 10000 --exit",
     "production-v2": "npm run build && node src/bin/v2/production",
-    "createTable": "npm run build && node build/v2/db/db createTheTables && node build/v2/db/db createTheTables",
+    "createTable": "node build/v2/db/db createTheTables && node build/v2/db/db createTheTables",
     "dropTable": "node build/v2/db/db dropTheTables"
   },
   "repository": {

@@ -2,3 +2,4 @@
 exclude_patterns:
 - "src/v1/__tests__/*.js"
 - "UI/"
+- "src/v2/"

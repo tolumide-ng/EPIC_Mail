@@ -27,6 +27,7 @@ body {
     grid-row: 2;
     height: 70vh;
     margin: 0 3em;
+    margin-right: 0;
 }
 
 #menuListContainer {
@@ -77,6 +78,7 @@ body {
     box-shadow: 3px 3px 5px 6px #ccc;
     padding: 20px 40px;
     overflow: auto;
+    background: #CFDBC9;
 }
 
 .mailContent {
@@ -286,6 +288,27 @@ body {
         height: 7vh;
         background: rgb(207, 207, 190);
         width: 100%;
+    }
+    .sentMessage, .draftMessage {
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+        justify-items: start;
+    }
+    .draftMessage {
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+        justify-items: start;
+    }
+    .address {
+        grid-column: 1;
+        font-weight: bold;
+        overflow-x: hidden;
+    }
+    .mailTitle {
+        grid-column: 2;
+        overflow: hidden;
+        background: #92D1C8;
+        margin-left: 10px;
     }
 
     #menuListContainer {

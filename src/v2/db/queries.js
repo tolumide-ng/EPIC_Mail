@@ -22,13 +22,31 @@ const createTable = {
             createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
             subject VARCHAR(100) NOT NULL,
             message VARCHAR(255) NOT NULL,
-            parentMessageId VARCHAR(100) NOT NULL,
+            parentMessageId INT NOT NULL,
             senderEmail VARCHAR(100) NOT NULL,
             receiverEmail VARCHAR(100) NOT NULL,
             status VARCHAR(100) NOT NULL,
             FOREIGN KEY (senderEmail) REFERENCES usersTable(email) ON DELETE CASCADE,
             FOREIGN KEY (receiverEmail) REFERENCES usersTable(email) ON DELETE CASCADE
         )`,
+
+  sentMessagesTable: `CREATE TABLE IF NOT EXISTS
+        sentMessagesTable(
+            senderId INT PRIMARY KEY NOT NULL,
+            messageId INT NOT NULL,
+            createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
+            FOREIGN KEY(senderId) REFERENCES usersTable(id) ON DELETE CASCADE,
+            FOREIGN KEY(messageId) REFERENCES messagesTable(id) ON DELETE CASCADE
+        )`,
+
+  inboxMessagesTable: `CREATE TABLE IF NOT EXISTS
+    inboxMessagesTable(
+      receiverId INT PRIMARY KEY NOT NULL,
+      messageId INT NOT NULL,
+      createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
+      FOREIGN KEY(receiverId) REFERENCES usersTable(id) ON DELETE CASCADE,
+      FOREIGN KEY(messageId) REFERENCES messagesTable(id) ON DELETE CASCADE
+    )`,
 
   groupTable: `CREATE TABLE IF NOT EXISTS
         groupTable(
@@ -48,16 +66,19 @@ const createTable = {
             FOREIGN KEY(memberId) REFERENCES usersTable(id) ON DELETE CASCADE,
             FOREIGN KEY(createdBy) REFERENCES usersTable(email) ON DELETE CASCADE
         )`,
+
+  alterMessagesTable: `ALTER TABLE messagesTable
+    ADD FOREIGN KEY(parentMessageId) REFERENCES messagesTable(id) ON DELETE SET NULL`,
 };
 
 const dropTable = {
   usersTable: 'DROP TABLE IF EXISTS  usersTable CASCADE',
   contactsTable: 'DROP TABLE IF EXISTS contactsTable CASCADE',
   messagesTable: 'DROP TABLE IF EXISTS messagesTable CASCADE',
-  //   sentMessagesTable: 'DROP TABLE IF EXISTS sentMessagesTable CASCADE',
-  //   inboxMessagesTable: 'DROP TABLE IF EXISTS inboxMessagesTable CASCADE',
   groupTable: 'DROP TABLE IF EXISTS groupTable CASCADE',
   groupMembersTable: 'DROP TABLE IF EXISTS groupMembersTable CASCADE',
+  sentMessagesTable: 'DROP TABLE IF EXISTS sentMessagesTable CASCADE',
+  inboxMessagesTable: 'DROP TABLE IF EXISTS inboxMessagesTable CASCADE',
 };
 
 export default {

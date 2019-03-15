@@ -19,5 +19,10 @@ export default {
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
     }),
+
+    loginSchema: Joi.object().keys({
+      email: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/).required(),
+      password: Joi.string().min(3).required(),
+    }),
   },
 };

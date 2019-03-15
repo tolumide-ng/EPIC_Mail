@@ -22,6 +22,7 @@ describe('Tests for userSignup endpoint', () => {
                 res.should.have.status(201);
                 res.should.be.json;
                 res.body.should.have.property('data');
+                expect(res.body.data[0]).to.have.property('token');
                 res.body.should.be.a('object');
                 done();
             })
@@ -64,6 +65,7 @@ describe('User signin tests', () => {
                 res.should.be.json;
                 res.body.should.be.a('object');
                 res.body.should.have.property('data');
+                expect(res.body.data[0]).to.have.property('token');
                 done();
             })
     })

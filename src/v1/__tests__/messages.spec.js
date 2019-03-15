@@ -94,6 +94,7 @@ describe('User Compose messages', () => {
                         res.should.have.status(201);
                         res.should.be.json;
                         res.body.should.have.property('data');
+                        expect(res.body.data[0]).to.have.property('id');
                         res.body.should.be.a('object');
 
                         //test for a draft message without reciveremail/id

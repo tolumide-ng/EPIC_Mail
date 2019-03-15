@@ -6,6 +6,7 @@ import mockData from './mockData';
 chai.use(chaiHttp);
 
 const should = chai.should();
+const { expect } = chai;
 
 const { user, incompleteUser, userLogin, faileduserLogin } = mockData;
 const userRoute = '/api/v2/auth';
@@ -20,12 +21,14 @@ describe('Successful User action', () => {
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.have.property('data');
+        expect(res.body.data[0]).to.be.a('object');
+        expect(res.body.data[0]).to.have.property('token');
         res.body.should.be.a('object');
         done();
       });
   });
 
-  it('should return a 201 statud code for a succesful login', (done) => {
+  it('should return a 200 status code for a succesful login', (done) => {
     chai.request(server)
       .post(`${userRoute}/login`)
       .set('Accept', '/application/json')
@@ -33,13 +36,12 @@ describe('Successful User action', () => {
       .end((req, res) => {
         res.should.have.status(200);
         res.should.be.json;
-        res.body.should.have.property('data');
+        expect(res.body).to.have.property('token');
         res.body.should.be.a('object');
         done();
       });
   });
 });
-
 
 
 describe('Failed User actions', () => {

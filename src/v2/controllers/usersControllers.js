@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 import db from '../db/index';
 
-dotenv.config()
+dotenv.config();
 
 const helper = {
   async hashPassword(password) {
@@ -14,7 +14,7 @@ const helper = {
   async isValid(password, validMailPassword) {
     return await bcrypt.compare(password, validMailPassword);
   },
-}
+};
 
 class User {
   static signToken(rows) {
@@ -56,26 +56,24 @@ class User {
     const request = req.value.body;
     const { email, password } = req.value.body;
     try {
-      const text = `SELECT * FROM usersTable WHERE email=$1`;
+      const text = 'SELECT * FROM usersTable WHERE email=$1';
       const { rows } = await db.query(text, [email]);
       if (!rows[0]) {
-        return res.status(401).json({ status: 401, error: `User authentication error, please confirm email/password` })
+        return res.status(401).json({ status: 401, error: 'User authentication error, please confirm email/password' });
       }
       const confirmPasswordMatch = await helper.isValid(password, rows[0].password);
-      console.log('this is input', password)
-      console.log(confirmPasswordMatch)
       if (!confirmPasswordMatch) {
-        return res.status(401).json({ status: 401, error: `User authentication error, please confirm email/password` })
+        return res.status(401).json({ status: 401, error: 'User authentication error, please confirm email/password' });
       }
       const token = User.signToken(password, rows[0].password);
       return res.status(200).json({ token });
     } catch (err) {
-      return res.status(400).json({ status: 400, error: `${err.name}, ${err.message}` })
+      return res.status(400).json({ status: 400, error: `${err.name}, ${err.message}` });
     }
     const token = await User.signToken(request.id);
     return res.status(200).json({ status: 200, data: [{ token }] });
     // There is no need for an error response here because all error cases has been handled by previous middlewares
   }
-};
+}
 
 export default new User();

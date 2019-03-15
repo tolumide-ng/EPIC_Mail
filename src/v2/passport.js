@@ -24,19 +24,21 @@ passport.use(new LocalStrategy({
 }, async (email, password, done) => {
   try {
     // Does the email exist?
-    const text = 'SELECT * FROM usersTable WHERE email=$1';
+    const text = `SELECT * FROM usersTable WHERE email=$1`;
     const { rows } = await db.query(text, [email]);
+    console.log(rows[0]);
 
     // If not, handle it
     if (!rows[0]) {
       return done(null, false);
     }
+    console.log('didi you come here again?')
     // User exists, confirm password
     const confirmPasswordMatch = helper.isValid(password, rows[0].password);
 
     // If not, handle it
-    if (!confirmPasswordMatch) {
-      return done(null, false);
+    if (rows[0] && !confirmPasswordMatch) {
+      return 'no usert'
     }
 
     // Everything is okay, return the user

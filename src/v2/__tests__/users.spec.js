@@ -6,9 +6,8 @@ import mockData from './mockData';
 chai.use(chaiHttp);
 
 const should = chai.should();
-const { expect } = chai;
 
-const { user, incompleteUser } = mockData;
+const { user, incompleteUser, userLogin, faileduserLogin } = mockData;
 const userRoute = '/api/v2/auth';
 
 describe('Successful User action', () => {
@@ -25,7 +24,22 @@ describe('Successful User action', () => {
         done();
       });
   });
+
+  it('should return a 201 statud code for a succesful login', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/login`)
+      .set('Accept', '/application/json')
+      .send(userLogin)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('data');
+        res.body.should.be.a('object');
+        done();
+      });
+  });
 });
+
 
 
 describe('Failed User actions', () => {
@@ -56,4 +70,19 @@ describe('Failed User actions', () => {
         done();
       });
   });
+
+  it('should return 401 for failed user login', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/login`)
+      .set('Accept', '/application/json')
+      .send(faileduserLogin)
+      .end((req, res) => {
+        res.should.have.status(401);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('error');
+        res.body.should.have.property('status');
+        done();
+      })
+  })
 });

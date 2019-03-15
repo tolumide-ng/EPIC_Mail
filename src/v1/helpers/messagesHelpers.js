@@ -1,8 +1,7 @@
 import Joi from 'joi';
 
 export default {
-    validateBody: (schema) => {
-        return (req, res, next) => {
+  validateBody: (schema) => (req, res, next) => {
             const result = Joi.validate(req.body, schema);
             if (result.error) {
                 return res.status(400).json({ status: 400, error: result.error })
@@ -11,17 +10,16 @@ export default {
             if (!req.value) { req.value = {}; }
             req.value['body'] = result.value;
             next();
-        }
-    },
+        },
 
-    schemas: {
-        authSchema: Joi.object().keys({
-            subject: Joi.string().required(),
-            message: Joi.string().required(),
-            receiverId: Joi.string().min(7),
-            // receiverEmail: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
-            parentMessageId: Joi.string().required(),
-            status: Joi.string().valid('draft', 'read', 'sent').insensitive().required()
-        })
-    }
-}
+  schemas: {
+    authSchema: Joi.object().keys({
+      subject: Joi.string().required(),
+      message: Joi.string().required(),
+      receiverId: Joi.string().min(7),
+      // receiverEmail: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
+      parentMessageId: Joi.string().required(),
+      status: Joi.string().valid('draft', 'read', 'sent').insensitive().required(),
+    }),
+  },
+};

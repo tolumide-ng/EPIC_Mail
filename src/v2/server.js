@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api/v2/auth', usersRoutes);
-// app.use('/api/v2/messages', messagesRoutes);
 
 app.get('/', (req, res) => res.status(200).json({ status: 200, data: "'YAY!' Welcome to EPIC_Mail (version 2)" }));
 

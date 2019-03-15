@@ -91,6 +91,7 @@ body {
     color: blue;
     margin-left: 10px;
     cursor: pointer;
+    margin-top: 1em;
 }
 
 #submit_button:hover, #reset_password:hover {
@@ -127,6 +128,7 @@ body {
 
 #indication {
     text-align: center;
+    margin-top: 1.5em;
     margin-bottom: 1em;
     color: red;
     font-weight: bold;

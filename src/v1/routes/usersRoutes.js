@@ -5,7 +5,7 @@ import usersHelpers from '../helpers/usersHelpers';
 import usersControllers from '../controllers/usersControllers';
 
 const { validateBody, schemas } = usersHelpers;
-const passportConf = require('./../passport');
+import passportConf from './../passport';
 // const passportLocal = passport.authenticate('local', { session: false });
 const passportLocal = function (req, res, next) {
   passport.authenticate('local', { session: false }, (err, user, info) => {

@@ -58,13 +58,54 @@ const Mail = {
         // Then the message status should change to read if it was not yet read
         if (rows[0].status === 'inbox' && rows[0].receiveremail === user.email) {
           const updateText = `UPDATE messagesTable
-          SET status=$1`;
-          const updateValue = ['read'];
+          SET status=$1 WHERE id=$2`;
+          const updateValue = ['read', rows[0].id];
           await db.query(updateText, updateValue);
         }
         return res.status(200).json({ status: 200, data: [rows[0]] });
       } catch (error) {
         return res.status(400).json({ status: 400, error: `${error.name}, ${error.message}` });
+      }
+    })(req, res);
+  },
+
+  async deleteSpecificMail(req, res) {
+    passport.authenticate('jwt', { session: false }, async (err, user) => {
+      if (err) { return res.status(400).json({ status: 400, error: err }); }
+      if (!user) {
+        return res.status(401).json({ status: 401, error: 'Unauthorized, Email or Password does not match' });
+      }
+      const text = `SELECT * FROM messagesTable 
+      WHERE id=$1 AND (receiverEmail=$2 OR senderEmail=$2)`;
+      try {
+        const values = [req.params.id, user.email];
+        const { rows } = await db.query(text, values);
+        if (!rows[0]) {
+          return res.status(404).json({ status: 404, error: `You do not have a mail with id=${req.params.id}` });
+        }
+        if (rows[0].receiveremail === null || rows[0].senderemail === null) {
+          const deleteText = `DELETE FROM 
+        messagesTable WHERE (receiverEmail=$1 OR senderEmail=$1) AND id=$2`;
+          const deleteValue = [user.email, req.params.id];
+          await db.query(deleteText, deleteValue);
+          res.status(200).json({ status: 200, data: 'Message deleted' });
+        }
+
+        if (rows[0].receiveremail || rows[0].senderemail === user.email) {
+          const nullValue = [null, rows[0].id, user.email];
+          const nullText = `UPDATE messagesTable
+              SET receiverEmail=$1 WHERE id=$2 AND receiverEmail=$3`;
+          await db.query(nullText, nullValue);
+        }
+        if (rows[0].senderemail === user.email) {
+          const nullValue = [null, rows[0].id, user.email];
+          const nullText = `UPDATE messagesTable
+              SET senderEmail=$1 WHERE id=$2 AND senderEmail=$3`;
+          await db.query(nullText, nullValue);
+        }
+        res.status(200).json({ status: 200, data: 'Message deleted' });
+      } catch (error) {
+        return res.status(400).json({ status: 400, error });
       }
     })(req, res);
   },

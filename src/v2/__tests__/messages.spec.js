@@ -97,28 +97,65 @@ describe('Succesful User message actions', () => {
         done();
       });
   });
+
+  it('should return a 200 status code for succesful deletion', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/2`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        expect(res.body).to.have.property('data');
+        expect(res.body).to.have.own.property('data', 'Message deleted');
+        done();
+      });
+  });
+
+  it('should return a 200 status code for successful deletion', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/3`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        expect(res.body).to.have.property('data');
+        expect(res.body).to.have.own.property('data', 'Message deleted');
+        done();
+      });
+  });
+
+  it('should return a 404 status code for failed deletion', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/3`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.own.property('error', `You do not have a mail with id=3`);
+        done();
+      });
+  });
 });
 
 
 describe('Failed Message attempts', () => {
-//   it('should return a 401 status code', (done) => {
-//     chai.request(server)
-//       .post(`${messagesRoute}/`)
-//       .set('Authorization', 'Bearer 2390t093ng3945gfakeToken123')
-//       .send(theDraft)
-//       .end((req, res) => {
-//         res.should.have.status(401);
-//         res.should.be.json;
-//         res.body.should.have.property('error');
-//         res.body.should.be.a('object');
-//         done();
-//       });
-//   });
+  it('should return a 401 status code', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .send(theDraft)
+      .end((req, res) => {
+        res.should.have.status(401);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        res.body.should.be.a('object');
+        done();
+      });
+  });
 
   it('should return a 422 status code', (done) => {
     chai.request(server)
       .post(`${messagesRoute}/`)
-      .set('Authorization', 'fakeToken123')
       .send(messageValidationError)
       .end((req, res) => {
         res.should.have.status(422);

@@ -1,5 +1,5 @@
 ## other configuration excluded from example...
 exclude_patterns:
-- "src/v1/__tests__/*.js"
+- "src/v2/__tests__/*.js"
 - "UI/"
-- "src/v2/"
+- "src/v1/"

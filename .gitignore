@@ -6,3 +6,4 @@ build/
 bash.exe.stackdump
 notes
 .eslintignore
+src/v1/

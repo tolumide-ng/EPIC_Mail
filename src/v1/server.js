@@ -3,8 +3,8 @@ import '@babel/polyfill';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import usersRoutes from './v1/routes/usersRoutes';
-import messagesRoutes from './v1/routes/messagesRoutes';
+import usersRoutes from './routes/usersRoutes';
+import messagesRoutes from './routes/messagesRoutes';
 
 
 dotenv.config();

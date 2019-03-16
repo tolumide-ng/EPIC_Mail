@@ -22,12 +22,11 @@ const createTable = {
             createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
             subject VARCHAR(100) NOT NULL,
             message VARCHAR(255) NOT NULL,
-            parentMessageId INT NOT NULL,
-            senderEmail VARCHAR(100) NOT NULL,
-            receiverEmail VARCHAR(100) NOT NULL,
+            parentMessageId INT,
+            senderEmail VARCHAR(100),
+            receiverEmail VARCHAR(100),
             status VARCHAR(100) NOT NULL,
-            FOREIGN KEY (senderEmail) REFERENCES usersTable(email) ON DELETE CASCADE,
-            FOREIGN KEY (receiverEmail) REFERENCES usersTable(email) ON DELETE CASCADE
+            FOREIGN KEY (senderEmail) REFERENCES usersTable(email) ON DELETE SET NULL
         )`,
 
   sentMessagesTable: `CREATE TABLE IF NOT EXISTS

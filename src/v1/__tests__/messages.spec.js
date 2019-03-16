@@ -1,16 +1,16 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from "../../server";
+import server from '../server';
 import mockData from './mockData';
 
 const {
- incompleteMessage, userForMessageValidation, message, userForComposeMail, specificUser, messageDraft, messageSent 
+  incompleteMessage, userForMessageValidation, message, userForComposeMail, specificUser, messageDraft, messageSent,
 } = mockData;
 
 chai.use(chaiHttp);
 
 const should = chai.should();
-const {expect} = chai;
+const { expect } = chai;
 
 const messageRoute = '/api/v1/messages';
 const userRoute = '/api/v1/auth';

@@ -21,5 +21,6 @@ const passportJWT = function (req, res, next) {
 const router = express.Router();
 
 router.post('/', validateBody(schemas.composeMail), passportJWT, messagesControllers.composeMail);
+router.get('/:id', messagesControllers.getSpecificMail);
 
 export default router;

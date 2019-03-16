@@ -52,6 +52,7 @@ describe('Succesful User message actions', () => {
         res.should.be.json;
         res.body.should.have.property('data');
         res.body.should.be.a('object');
+        expect(res.body.data[0].parentMessageId).to.not.be.null;
         done();
       });
   });
@@ -66,6 +67,33 @@ describe('Succesful User message actions', () => {
         res.should.be.json;
         res.body.should.have.property('data');
         res.body.should.be.a('object');
+        expect(res.body.data[0]).to.have.own.property('subject', 'Media and Telcoms');
+        done();
+      });
+  });
+
+  it('should return a 200 status code for an existing specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/1`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        expect(res.body.data[0]).to.have.property('message');
+        expect(res.body.data[0]).to.have.own.property('subject', 'Mediocrity at Felmish');
+        done();
+      });
+  });
+
+  it('should return a 404 status code for an non-existing specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/21`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.own.property('error', 'Not Found, you do not have a message with id=21');
         done();
       });
   });
@@ -100,4 +128,5 @@ describe('Failed Message attempts', () => {
         done();
       });
   });
+
 });

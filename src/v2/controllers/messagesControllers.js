@@ -58,8 +58,8 @@ const Mail = {
         // Then the message status should change to read if it was not yet read
         if (rows[0].status === 'inbox' && rows[0].receiveremail === user.email) {
           const updateText = `UPDATE messagesTable
-          SET status=$1 WHERE id=$2`;
-          const updateValue = ['read', rows[0].id];
+          SET status=$1`;
+          const updateValue = ['read'];
           await db.query(updateText, updateValue);
         }
         return res.status(200).json({ status: 200, data: [rows[0]] });
@@ -109,6 +109,26 @@ const Mail = {
       }
     })(req, res);
   },
+
+  async unreadReceivedMails(req, res) {
+    passport.authenticate('jwt', {session:false}, async(err, user) => {
+      if (err) { return res.status(400).json({ status: 400, error: err }); }
+      if (!user) {
+        return res.status(401).json({ status: 401, error: 'Unauthorized, Email or Password does not match' });
+      }
+      const text = `SELECT * FROM messagesTable WHERE receiverEmail=$1 AND status=$2`;
+      const values = [user.email, 'inbox'];
+      try {
+        const {rows} = await db.query(text, values);
+        if(!rows[0]){
+          return res.status(404).json({status: 404, error: `Not Found, You do not have any unread emails at the moment`});
+        }
+        return res.status(200).json({ status: 200, data: rows })
+      } catch (error) {
+        return res.status(400).json({status: 400, error })
+      }
+    })(req, res);
+  }
 };
 
 

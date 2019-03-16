@@ -10,7 +10,7 @@ const should = chai.should();
 const { expect } = chai;
 
 const {
-  theUser, theMessage, theDraft, withParentMessageId, messageValidationError,
+  theUser, theMessage, theDraft, withParentMessageId, messageValidationError, vivianUser, anotherUser, anotherMessage,
 } = mockData;
 const messagesRoute = '/api/v2/messages';
 const userRoute = '/api/v2/auth';
@@ -136,6 +136,20 @@ describe('Succesful User message actions', () => {
         done();
       });
   });
+
+  it('should return a 200 status code', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/unread`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        res.body.should.be.a('object');
+        expect(res.body).to.have.own.property('error', `Not Found, You do not have any unread emails at the moment`);
+        done();
+      });
+  });
 });
 
 
@@ -167,3 +181,66 @@ describe('Failed Message attempts', () => {
   });
 
 });
+
+
+
+describe('User/messages actions', () => {
+    const container = {};
+    before((done) => {
+        chai.request(server)
+          .post(`${userRoute}/signup`)
+          .set('Accept', '/application/json')
+          .send(vivianUser)
+          .end((req, res) => {
+            container.token = res.body.data[0].token;
+            done();
+          });
+      });
+
+      before((done) => {
+        chai.request(server)
+          .post(`${userRoute}/signup`)
+          .set('Accept', '/application/json')
+          .send(anotherUser)
+          .end((req, res) => {
+            container.receiverToken = res.body.data[0].token;
+            done();
+          });
+      });
+
+      before((done) => {
+        chai.request(server)
+          .post(`${messagesRoute}/`)
+          .set('Authorization', `${container.token}`)
+          .set('Accept', '/application/json')
+          .send(anotherMessage)
+          .end((req, res) => {
+            done();
+          });
+      });
+
+      before((done) => {
+        chai.request(server)
+          .post(`${messagesRoute}/`)
+          .set('Authorization', `${container.token}`)
+          .set('Accept', '/application/json')
+          .send(anotherMessage)
+          .end((req, res) => {
+            done();
+          });
+      });
+
+      it('should return a 200 status code', (done) => {
+        chai.request(server)
+          .get(`${messagesRoute}/unread`)
+          .set('Authorization', `${container.receiverToken}`)
+          .end((req, res) => {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('data');
+            res.body.should.be.a('object');
+            done();
+          });
+      });
+
+})

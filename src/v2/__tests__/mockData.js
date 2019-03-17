@@ -52,4 +52,24 @@ export default {
     parentMessageId: 1,
     receiverEmail: 'tolu@gmail.com',
   },
+
+vivianUser: {
+    email: 'elicBalcmani2tunes@gmail.com',
+    firstName: 'Vivian',
+    lastName: 'Aliyu',
+    password: 'efetogbore12',
+  },
+
+  anotherUser: {
+    email: 'girlie@gmail.com',
+    firstName: 'girli',
+    lastName: 'KÓleee',
+    password: 'thepassword'
+  },
+
+  anotherMessage: {
+    subject: 'Developers from 1821',
+    message: 'This is supposed to be a very long message, but I have nothing to write about this',
+    receiverEmail: 'girlie@gmail.com',
+  }
 };

@@ -10,5 +10,6 @@ const { validateBody, schemas } = groupHelpers
 const router = express.Router();
 
 router.post('/', validateBody(schemas.createGroup), groupsControllers.createGroup);
+router.get('/', groupsControllers.getAllGroups);
 
 export default router;

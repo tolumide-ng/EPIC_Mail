@@ -137,7 +137,7 @@ describe('Succesful User message actions', () => {
       });
   });
 
-  it('should return a 200 status code', (done) => {
+  it('should return a 404 status code', (done) => {
     chai.request(server)
       .get(`${messagesRoute}/unread`)
       .set('Authorization', `${generated.token}`)
@@ -147,6 +147,20 @@ describe('Succesful User message actions', () => {
         res.body.should.have.property('error');
         res.body.should.be.a('object');
         expect(res.body).to.have.own.property('error', `Not Found, You do not have any unread emails at the moment`);
+        done();
+      });
+  });
+
+  it('should return a 404 status code when there are no received emails', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/received`)
+      .set('Authorization', `${generated.token}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        res.body.should.be.a('object');
+        expect(res.body).to.have.own.property('error', `Not Found, You do not have any emails in your inbox at the moment`);
         done();
       });
   });
@@ -233,6 +247,19 @@ describe('User/messages actions', () => {
       it('should return a 200 status code', (done) => {
         chai.request(server)
           .get(`${messagesRoute}/unread`)
+          .set('Authorization', `${container.receiverToken}`)
+          .end((req, res) => {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('data');
+            res.body.should.be.a('object');
+            done();
+          });
+      });
+
+      it('should return a 200 status code to get all received emails', (done) => {
+        chai.request(server)
+          .get(`${messagesRoute}/received`)
           .set('Authorization', `${container.receiverToken}`)
           .end((req, res) => {
             res.should.have.status(200);

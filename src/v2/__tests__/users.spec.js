@@ -29,6 +29,7 @@ describe('Successful User action', () => {
   });
 
   it('should return a 200 status code for a succesful login', (done) => {
+    const container = {};
     chai.request(server)
       .post(`${userRoute}/login`)
       .set('Accept', '/application/json')
@@ -36,8 +37,10 @@ describe('Successful User action', () => {
       .end((req, res) => {
         res.should.have.status(200);
         res.should.be.json;
-        expect(res.body).to.have.property('token');
+        expect(res.body).to.have.property('data');
         res.body.should.be.a('object');
+        container.token = res.body.data[0].token;
+        expect(res.body.data[0]).to.have.own.property('token', `${container.token}`)
         done();
       });
   });

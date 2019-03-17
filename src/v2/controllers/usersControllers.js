@@ -66,7 +66,7 @@ class User {
         return res.status(401).json({ status: 401, error: 'User authentication error, please confirm email/password' });
       }
       const token = User.signToken(password, rows[0].password);
-      return res.status(200).json({ token });
+      return res.status(200).json({ status: 200, data: [{token}] });
     } catch (err) {
       return res.status(400).json({ status: 400, error: `${err.name}, ${err.message}` });
     }

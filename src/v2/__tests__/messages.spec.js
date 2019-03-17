@@ -252,6 +252,7 @@ describe('User/messages actions', () => {
             res.should.have.status(200);
             res.should.be.json;
             res.body.should.have.property('data');
+            expect(res.body.data[0]).to.have.own.property('status', 'inbox');
             res.body.should.be.a('object');
             done();
           });
@@ -266,6 +267,22 @@ describe('User/messages actions', () => {
             res.should.be.json;
             res.body.should.have.property('data');
             res.body.should.be.a('object');
+            expect(res.body.data[0]).to.have.own.property('receiveremail', 'girlie@gmail.com');
+            expect(res.body.data[0]).to.have.own.property('senderemail', 'elicBalcmani2tunes@gmail.com');
+            done();
+          });
+      });
+
+      it('should return a 200 status code to get all received emails', (done) => {
+        chai.request(server)
+          .get(`${messagesRoute}/sent`)
+          .set('Authorization', `${container.token}`)
+          .end((req, res) => {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('data');
+            res.body.should.be.a('object');
+            expect(res.body.data[0]).to.have.own.property('senderemail', 'elicBalcmani2tunes@gmail.com');
             done();
           });
       });

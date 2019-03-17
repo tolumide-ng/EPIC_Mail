@@ -15,6 +15,7 @@ router.get('/', groupsControllers.getAllGroups);
 router.patch('/:id/:name', groupsControllers.editGroupName);
 router.delete('/:id', groupsControllers.deleteSpecificGroup);
 router.delete('/:groupId/users/:userId', groupsControllers.deleteSpecificUserFromGroup);
+router.post('/:groupId/messages/', validateBody(schemas.broadCastMessage), groupsControllers.broadcastMessage);
 
 
 export default router;

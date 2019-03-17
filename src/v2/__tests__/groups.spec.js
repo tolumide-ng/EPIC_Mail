@@ -9,7 +9,7 @@ const should = chai.should();
 const { expect } = chai;
 
 const { groupCreatedBy, groupDetail, groupUser, groupDetailValidationError, secondGroupDetail,
- loginGroupUser, thirdGroupDetail, kevinUser, fourthGroupDetail, elicGroup, rebecaGroup,
+ loginGroupUser, thirdGroupDetail, kevinUser, fourthGroupDetail, elicGroup, rebecaGroup, broadcastMessage,
  } = mockData;
 
 const groupRoute = '/api/v2/groups';
@@ -384,5 +384,45 @@ describe('Populate all group contents', () => {
             })
     })
 
-    // User does not have authority to delete member of the group
+
+    // Send a broadcast message to a group
+    it('should return 201 status code', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/4/messages`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(broadcastMessage)
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(201);
+                expect(res.body.data[0]).to.have.own.property('subject', 'WuraAndFadaka');
+                done();
+            })
+    });
+
+    // There is no group with the specified id
+    it('should return 404 status code', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/17/messages`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(broadcastMessage)
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(404);
+                expect(res.body).to.have.own.property('error', 'Not Found: There is no group with the specified id');
+                done();
+            })
+    });
+
+    it('should return 404 status code', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/3/messages`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(broadcastMessage)
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(404);
+                expect(res.body).to.have.own.property('error', 'Not Found: There are no members in the specified group');
+                done();
+            })
+    });
 })

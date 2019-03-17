@@ -131,6 +131,11 @@ vivianUser: {
   elicGroup: {
     userEmailAddress: 'elicBalcmani2tunes@gmail.com',
     userRole: 'Hype man'
+  }, 
+
+  broadcastMessage: {
+    subject: "WuraAndFadaka",
+    message: "A great inspiration"
   }
 
 };

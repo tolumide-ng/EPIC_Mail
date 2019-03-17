@@ -305,6 +305,19 @@ describe('Group membership', () => {
             })
     })
 
+    // User does not have authority to delete members from this group
+    it('should return 401 status code', (done) => {
+        chai.request(server)
+            .delete(`${groupRoute}/3/users/1`)
+            .set('Authorization', `${groupContainer.token}`)
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(401);
+                expect(res.body).to.have.own.property('error', 'Unauthorized: You do not have authority to delete users from this group');
+                done();
+            })
+    })
+
     //Validation error for Incomplete information
     it('should return 422 status code', (done) => {
         chai.request(server)
@@ -341,4 +354,35 @@ describe('Populate all group contents', () => {
                 done();
             })
     })
+
+
+    // Succesfully delete the member of a group
+    it('should return 200 status code', (done) => {
+        chai.request(server)
+            .delete(`${groupRoute}/4/users/1`)
+            .set('Authorization', `${groupContainer.token}`)
+            .end((req, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.have.property('data');
+                // expect(res.body).to.have.own.property("error", "There is no user with userid=1 in the specified group");
+                done();
+            })
+    })
+
+    // Group to delete from does not exist
+    it('should return 404 status code', (done) => {
+        chai.request(server)
+            .delete(`${groupRoute}/22/users/1`)
+            .set('Authorization', `${groupContainer.token}`)
+            .end((req, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                res.body.should.have.property('error');
+                expect(res.body).to.have.own.property('error', 'There is no group with this id');
+                done();
+            })
+    })
+
+    // User does not have authority to delete member of the group
 })

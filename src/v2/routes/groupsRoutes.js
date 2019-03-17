@@ -14,6 +14,7 @@ router.post('/', validateBody(schemas.createGroup), groupsControllers.createGrou
 router.get('/', groupsControllers.getAllGroups);
 router.patch('/:id/:name', groupsControllers.editGroupName);
 router.delete('/:id', groupsControllers.deleteSpecificGroup);
+router.delete('/:groupId/users/:userId', groupsControllers.deleteSpecificUserFromGroup);
 
 
 export default router;

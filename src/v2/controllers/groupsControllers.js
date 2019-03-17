@@ -26,10 +26,10 @@ const Group = {
 
     async getAllGroups(req, res){
         passport.authenticate('jwt', {session: false}, async(err, user) => {
-            if(err) { return res.status(400).json({ status: 400, error: err });
+            if(err) { return res.status(400).json({ status: 400, error: err })};
             if(!user) {
                 return res.status(401).json({ status: 401, error: 'Unauthorized, Email or Password does not match' })
-            }}
+            }
             const text = `SELECT * FROM groupTable`;
             const values = [];
             try {
@@ -145,7 +145,7 @@ const Group = {
                             VALUES($1,$2,$3) returning *`;
                         const addMemberValue = [req.params.id, userExists[0].id, userRole]
                         const { rows: addMemberToGroup } = await db.query(addMemberText, addMemberValue);
-                        return res.status(201).json({ status: 201, data: [addMemberToGroup[0]] })
+                        return res.status(201).json({ status: 201, data: addMemberToGroup })
                         
                         }
                         
@@ -153,6 +153,46 @@ const Group = {
             } catch(error) {
                 return res.status(400).json({ status: 400, error})
             }
+        })(req, res);
+    },
+
+    async deleteSpecificUserFromGroup(req, res) {
+        passport.authenticate('jwt', {session: false}, async(err, user) => {
+            if(err) { return res.status(400).json({ status: 400, error: err })}
+            if(!user) {
+                return res.status(401).json({ status: 401, error: 'Unauthorized, Email or Password does not match'});
+            }
+
+           
+            const theGroupText=`SELECT * FROM groupTable WHERE id=$1`
+            const theGroupValue= [req.params.groupId];
+
+            try {
+                 // Search groupTable to see if the group exist, access the creator if it does
+                const { rows: theGroup } = await db.query(theGroupText, theGroupValue);
+                if(!theGroup[0]){
+                    return res.status(404).json({status: 404, error: 'There is no group with this id'})
+                }
+                // Group exists confirm and user owns the group
+                if(theGroup[0].createdby === user.email){
+                    const theMemberText = `SELECT * FROM groupMembersTable WHERE groupId=$1 AND userId=$2`
+                    const theMemberValue = [req.params.groupId, req.params.userId];
+                    const { rows: theMember } = await db.query(theMemberText, theMemberValue);
+                    // The member to be deleted does not exist in the group
+                    if(!theMember[0]){
+                        return res.status(404).json({ status: 404, error: `There is no user with userid=${req.params.userId} in the specified group`})
+                }
+                // Member exists, delete the member from the group
+                const deleteText = `DELETE FROM groupMembersTable WHERE groupId=$1 AND userId=$2 returning *`;
+                const deleteValues = [req.params.groupId, req.params.userId];
+                const { rows: deletedMember} = await db.query(deleteText, deleteValues);
+                return res.status(200).json({ status: 200, data: `Member deleted from group successfully`});
+                }
+                return res.status(401).json({ status: 401, error: 'Unauthorized: You do not have authority to delete users from this group'})
+            } catch(error){
+                res.status(400).json({ status: 400, error })
+            }
+            
         })(req, res);
     },
 

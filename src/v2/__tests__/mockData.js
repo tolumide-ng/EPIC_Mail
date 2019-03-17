@@ -85,6 +85,10 @@ vivianUser: {
     role: 'Sustaining developers growth',
   },
 
+  groupDetailValidationError: {
+    name: 'Developers in Michigan',
+  },
+
   groupUser: {
     email: 'vicotor@epic_mail.com',
     firstName: 'matthew',

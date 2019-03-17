@@ -54,7 +54,7 @@ const Mail = {
         if (!rows[0]) {
           return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${req.params.id}` });
         }
-        // If the receiver is the one mjaking a request to the specific message
+        // If the receiver is the one making a request to the specific message
         // Then the message status should change to read if it was not yet read
         if (rows[0].status === 'inbox' && rows[0].receiveremail === user.email) {
           const updateText = `UPDATE messagesTable

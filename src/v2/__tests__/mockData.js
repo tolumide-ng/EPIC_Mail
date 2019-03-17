@@ -95,4 +95,20 @@ vivianUser: {
     lastName: 'jamal',
     password: 'bountymoney',
   },
+
+  secondGroupDetail: {
+    name: 'Abuja boys',
+    role: 'Sweet boys, fresh guys'
+  },
+
+  loginGroupUser: {
+    email: 'vicotor@epic_mail.com',
+    password: 'bountymoney',
+  },
+
+  thirdGroupDetail: {
+    name: 'Lagos Dev community',
+    role: 'Instant communication, none-gender biased'
+  }
+
 };

@@ -287,4 +287,18 @@ describe('User/messages actions', () => {
           });
       });
 
+      it('should return a 404 status code when there are no sent emails', (done) => {
+        chai.request(server)
+          .get(`${messagesRoute}/sent`)
+          .set('Authorization', `${container.receiverToken}`)
+          .end((req, res) => {
+            res.should.have.status(404);
+            res.should.be.json;
+            res.body.should.have.property('error');
+            res.body.should.be.a('object');
+            expect(res.body).to.have.own.property('error', `Not Found, You do not have any sent emails at the moment`);
+            done();
+          });
+      });
+
 })

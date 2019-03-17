@@ -74,7 +74,7 @@ describe('Succesful User message actions', () => {
 
   it('should return a 200 status code for an existing specific message', (done) => {
     chai.request(server)
-      .get(`${messagesRoute}/1`)
+      .get(`${messagesRoute}/2`)
       .set('Authorization', `${generated.token}`)
       .end((req, res) => {
         res.should.have.status(200);

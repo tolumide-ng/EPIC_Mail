@@ -196,6 +196,42 @@ const Group = {
         })(req, res);
     },
 
+    async broadcastMessage(req, res) {
+        passport.authenticate('jwt', {session: false}, async(err, user) => {
+            if(err) { return res.status(400).json({ status: 400, error: err })}
+            if(!user) {
+                return res.status(401).json({ status: 401, error: 'Unauthorized, Email or Password does not match' })
+            }
+            const {subject, message, parentMessagedId} = req.value.body;
+            // Does the group exist?
+            const groupExistText = `SELECT * FROM groupTable WHERE id=$1`
+            const groupExistValue = [req.params.groupId];
+            try {
+                const { rows: groupExist} = await db.query(groupExistText, groupExistValue);
+                if(!groupExist[0]){
+                    return res.status(404).json({ status: 404, error: 'Not Found: There is no group with the specified id'})
+                }
+
+                // If group exist, are there any members in the group
+                const text = `SELECT userId FROM groupMembersTable WHERE groupId=$1`
+                const value = [req.params.groupId];
+                const { rows } = await db.query(text, value);
+                if(!rows[0]){
+                    return res.status(404).json({ status: 404, error: 'Not Found: There are no members in the specified group'});
+                }
+                // If there are members in the specified group, then get the members
+                const messageText = `INSERT INTO messagesTable(subject, message, parentMessageId, senderEmail, receiverEmail, status)
+                    VALUES($1, $2, $3, $4, $5, $6) returning *`;
+                const messageValue = [subject, message, parentMessagedId || null, user.email, `groupId=${req.params.groupId}`, 'inbox'];
+                const { rows: messageSent } = await db.query(messageText, messageValue);
+                    return res.status(201).json({status: 201, data: messageSent })
+
+            } catch (error) {
+                return res.status(400).json({ error: 400, error })
+            }
+        })(req, res);
+    }
+
 }
 
 export default Group;

@@ -20,6 +20,12 @@ export default {
         addGroupMember: Joi.object().keys({
             userEmailAddress: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/).required(),
             userRole: Joi.string().required(),
-        }), 
+        }),
+        
+        broadCastMessage: Joi.object().keys({
+            subject: Joi.string().required(),
+            message: Joi.string().required(),
+            parentMessagedId: Joi.number(),
+        })
     }
 }

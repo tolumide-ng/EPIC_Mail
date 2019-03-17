@@ -64,12 +64,31 @@ vivianUser: {
     email: 'girlie@gmail.com',
     firstName: 'girli',
     lastName: 'KÓleee',
-    password: 'thepassword'
+    password: 'thepassword',
   },
 
   anotherMessage: {
     subject: 'Developers from 1821',
     message: 'This is supposed to be a very long message, but I have nothing to write about this',
     receiverEmail: 'girlie@gmail.com',
-  }
+  }, 
+
+  groupCreatedBy: {
+    email: 'rebeccAnalize@epic_mail.com',
+    firstName: 'rebecca',
+    lastName: 'bounty',
+    password: 'bountymoney',
+  }, 
+
+  groupDetail: {
+    name: 'Developers in Michigan',
+    role: 'Sustaining developers growth',
+  },
+
+  groupUser: {
+    email: 'vicotor@epic_mail.com',
+    firstName: 'matthew',
+    lastName: 'jamal',
+    password: 'bountymoney',
+  },
 };

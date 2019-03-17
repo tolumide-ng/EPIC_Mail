@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import usersRoutes from './routes/usersRoutes';
 import messagesRoutes from './routes/messagesRoutes';
+import groupsRoutes from './routes/groupsRoutes';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/v2/auth', usersRoutes);
 app.use('/api/v2/messages', messagesRoutes);
+app.use('/api/v2/groups', groupsRoutes);
 
 app.get('/', (req, res) => res.status(200).json({ status: 200, data: "'YAY!' Welcome to EPIC_Mail (version 2)" }));
 

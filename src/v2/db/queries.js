@@ -52,6 +52,7 @@ const createTable = {
             id SERIAL NOT NULL UNIQUE,
             name VARCHAR(100) NOT NULL,
             createdBy VARCHAR(100) NOT NULL,
+            role VARCHAR (250),
             FOREIGN KEY(createdBy) REFERENCES usersTable(email) ON DELETE CASCADE,
             PRIMARY KEY(id, createdBy)
         )`,
@@ -59,10 +60,11 @@ const createTable = {
   groupMembersTable: `CREATE TABLE IF NOT EXISTS
         groupMembersTable(
             groupId INT NOT NULL PRIMARY KEY UNIQUE,
-            memberId INT NOT NULL,
+            userId INT NOT NULL,
             createdBy VARCHAR(100) NOT NULL,
+            userRole VARCHAR(100),
             FOREIGN KEY(groupId) REFERENCES groupTable(id) ON DELETE CASCADE,
-            FOREIGN KEY(memberId) REFERENCES usersTable(id) ON DELETE CASCADE,
+            FOREIGN KEY(userId) REFERENCES usersTable(id) ON DELETE CASCADE,
             FOREIGN KEY(createdBy) REFERENCES usersTable(email) ON DELETE CASCADE
         )`,
 

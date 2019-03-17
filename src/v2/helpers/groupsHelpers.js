@@ -17,10 +17,9 @@ export default {
             role: Joi.string().required()
         }),
 
-        groupMember: Joi.object().keys({
-            id: Joi.number().required(),
-            userId: Joi.number().required(),
-            userRole: Joi.string().required()
-        })
+        addGroupMember: Joi.object().keys({
+            userEmailAddress: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/).required(),
+            userRole: Joi.string().required(),
+        }), 
     }
 }

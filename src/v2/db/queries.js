@@ -59,13 +59,12 @@ const createTable = {
 
   groupMembersTable: `CREATE TABLE IF NOT EXISTS
         groupMembersTable(
-            groupId INT NOT NULL PRIMARY KEY UNIQUE,
+            groupId INT NOT NULL,
             userId INT NOT NULL,
-            createdBy VARCHAR(100) NOT NULL,
             userRole VARCHAR(100),
             FOREIGN KEY(groupId) REFERENCES groupTable(id) ON DELETE CASCADE,
             FOREIGN KEY(userId) REFERENCES usersTable(id) ON DELETE CASCADE,
-            FOREIGN KEY(createdBy) REFERENCES usersTable(email) ON DELETE CASCADE
+            PRIMARY KEY(groupId, userId)
         )`,
 
   alterMessagesTable: `ALTER TABLE messagesTable

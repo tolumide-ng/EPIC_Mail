@@ -8,7 +8,9 @@ chai.use(chaiHttp);
 const should = chai.should();
 const { expect } = chai;
 
-const { groupCreatedBy, groupDetail, groupUser, groupDetailValidationError, secondGroupDetail, loginGroupUser, thirdGroupDetail } = mockData;
+const { groupCreatedBy, groupDetail, groupUser, groupDetailValidationError, secondGroupDetail,
+ loginGroupUser, thirdGroupDetail, kevinUser, fourthGroupDetail, elicGroup, rebecaGroup,
+ } = mockData;
 
 const groupRoute = '/api/v2/groups';
 const userRoute = '/api/v2/auth';
@@ -203,6 +205,139 @@ describe('More user actions on groups', () => {
                 res.should.have.status(401);
                 res.should.be.json;
                 expect(res.body).to.have.own.property('error', `Unauthorized, You do not have the authority to delete this group`);
+                done();
+            })
+    })
+})
+
+
+
+const groupContainer = {};
+
+describe('Group membership', () => {
+    before((done) => {
+        chai.request(server)
+            .post(`${userRoute}/signup`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(kevinUser)
+            .end((req, res) => {
+                groupContainer.token = res.body.data[0].token;
+                done();
+            })
+    })
+
+    before((done) => {
+        chai.request(server)
+            .post(`${groupRoute}/`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(fourthGroupDetail)
+            .end((req, res) => {
+                done();
+            })
+    })
+
+    it('should successfully add a user to the group', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/4/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send({ userEmailAddress: 'vicotor@epic_mail.com', userRole: 'People Validation' })
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(201);
+                expect(res.body.data[0]).to.have.own.property('groupid', 4);
+                done();
+            })
+    })
+
+    // Add user valid user to a non-existing group
+    it('should not be able to add a user to a non-existing group', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/75/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send({ userEmailAddress: 'vicotor@epic_mail.com', userRole: 'People Validation' })
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(404);
+                expect(res.body).to.have.own.property('error', `Not Found: There is no group with id=75`);
+                done();
+            })
+    })
+
+    // Add a non-existing user to a valid group (404)
+    it('should not be able to add a user to a non-existing group', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/4/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send({ userEmailAddress: 'epokaipevj@epic_mail.com', userRole: 'Human Relations' })
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(404);
+                expect(res.body).to.have.own.property('error', `There is no registered user with the provided email`);
+                done();
+            })
+    })
+
+    // Add a user to a group they already exist (409)
+    it('should return 409 status code', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/4/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send({ userEmailAddress: 'vicotor@epic_mail.com', userRole: 'People Validation' })
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(409);
+                expect(res.body).to.have.own.property('error', 'Conflict: The email already exists in this group');
+                done();
+            })
+    });
+
+    // User does not have authority to add members to a group
+    it('should return 401 status code', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/3/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(elicGroup)
+            .end((req, res) => {
+                res.should.be.json;
+                res.should.have.status(401);
+                expect(res.body).to.have.own.property('error', 'Unauthorized: You do not have the authority to add a user to this group');
+                done();
+            })
+    })
+
+    //Validation error for Incomplete information
+    it('should return 422 status code', (done) => {
+        chai.request(server)
+            .post(`${groupRoute}/3/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send({userEmailAddress: 'vicotor@epic_mail.com'})
+            .end((req, res) => {
+                res.should.have.status(422);
+                res.should.be.json;
+                res.body.should.have.property('error');
+                expect(res.body.error).to.have.own.property("name", "ValidationError");
+                done();
+            })
+    })
+})
+
+describe('Populate all group contents', () => {
+    before((done) => {
+        chai.request(server)
+            .post(`${groupRoute}/4/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(elicGroup)
+            .end((req, res) => {
+                done();
+            })
+    }); 
+
+    before((done) => {
+        chai.request(server)
+            .post(`${groupRoute}/4/users`)
+            .set('Authorization', `${groupContainer.token}`)
+            .send(rebecaGroup)
+            .end((req, res) => {
                 done();
             })
     })

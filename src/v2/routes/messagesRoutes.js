@@ -12,6 +12,7 @@ const router = express.Router();
 router.post('/', validateBody(schemas.composeMail), messagesControllers.composeMail);
 router.get('/unread', messagesControllers.unreadReceivedMails);
 router.get('/received', messagesControllers.allReceivedMails);
+router.get('/sent', messagesControllers.allSentMails);
 router.get('/:id', messagesControllers.getSpecificMail);
 router.delete('/:id', messagesControllers.deleteSpecificMail);
 export default router;

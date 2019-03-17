@@ -109,6 +109,28 @@ vivianUser: {
   thirdGroupDetail: {
     name: 'Lagos Dev community',
     role: 'Instant communication, none-gender biased'
+  }, 
+
+  kevinUser: {
+    email: 'emeka@epic_mail.com',
+    firstName: 'emekas',
+    lastName: 'kevin',
+    password: 'eraser',
+  }, 
+
+  fourthGroupDetail: {
+    name: 'Byrant',
+    role: 'gang singns and cults'
+  },
+
+  rebecaGroup: { 
+    userEmailAddress: 'rebeccAnalize@epic_mail.com',
+    userRole: 'Qulaity Assurance'
+  }, 
+
+  elicGroup: {
+    userEmailAddress: 'elicBalcmani2tunes@gmail.com',
+    userRole: 'Hype man'
   }
 
 };

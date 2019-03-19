@@ -3,6 +3,7 @@ import Joi from 'joi';
 export default {
     validateBody: schema => (req, res, next) => {
         const result = Joi.validate(req.body, schema);
+        console.log(req.body);
         if(result.error) { 
             return res.status(422).json({ status: 422, error: result.error });
         }

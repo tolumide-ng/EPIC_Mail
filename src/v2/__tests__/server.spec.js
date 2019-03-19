@@ -25,7 +25,7 @@ describe('Server.js endpoints', () => {
     chai.request(server)
       .get('/aNonExistingRoute')
       .end((req, res) => {
-        res.should.have.status(400);
+        res.should.have.status(404);
         res.should.be.json;
         res.body.should.have.property('error');
         res.body.should.be.a('object');

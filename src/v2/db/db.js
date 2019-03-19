@@ -24,8 +24,6 @@ const createTheTables = async () => {
     await db.query(createTable.usersTable);
     await db.query(createTable.contactsTable);
     await db.query(createTable.messagesTable);
-    await db.query(createTable.sentMessagesTable);
-    await db.query(createTable.inboxMessagesTable);
     await db.query(createTable.alterMessagesTable);
     await db.query(createTable.groupTable);
     await db.query(createTable.groupMembersTable);
@@ -39,8 +37,6 @@ const dropTheTables = async () => {
     await db.query(dropTable.usersTable);
     await db.query(dropTable.contactsTable);
     await db.query(dropTable.messagesTable);
-    await db.query(dropTable.sentMessagesTable);
-    await db.query(dropTable.inboxMessagesTable);
     await db.query(dropTable.groupTable);
     await db.query(dropTable.groupMembersTable);
   } catch (err) {

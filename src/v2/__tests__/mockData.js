@@ -67,6 +67,11 @@ vivianUser: {
     password: 'thepassword',
   },
 
+  signInGirlie: {
+    email: 'girlie@gmail.com',
+    password: 'thepassword',
+  },
+
   anotherMessage: {
     subject: 'Developers from 1821',
     message: 'This is supposed to be a very long message, but I have nothing to write about this',

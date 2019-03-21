@@ -16,7 +16,7 @@ const helper = {
   },
 };
 
-class User {
+export default class User {
   static signToken(rows) {
     return jwt.sign({
       iss: 'tolumide',
@@ -26,33 +26,47 @@ class User {
     }, process.env.SECRET_KEY);
   }
 
-  async createUser(req, res) {
+  static async createUser(req, res) {
     const {
-      firstName, lastName, email, password,
+      firstName, lastName, email, password, secondaryEmail,
     } = req.value.body;
+
+    if (!email.endsWith('@epicmail.com')) {
+      return res.status(400).json({ status: 400, error: 'email must end with @epicmail.com' });
+    }
+    const modifyemail = email.toLowerCase();
+
     const searchText = 'SELECT * FROM usersTable WHERE email=$1';
     const searchValue = [email];
-    const text = `INSERT INTO usersTable(firstName, lastName, email, password)
-        VALUES($1, $2, $3, $4) returning *`;
+    const text = `INSERT INTO usersTable(firstName, lastName, email, password, secondaryEmail)
+        VALUES($1, $2, $3, $4, $5) returning *`;
     const theHashedPassword = await helper.hashPassword(password);
-    const values = [firstName, lastName, email, theHashedPassword];
-
+    const values = [firstName, lastName, modifyemail, theHashedPassword, secondaryEmail];
     try {
       const { rows } = await db.query(searchText, searchValue);
       if (!rows[0]) {
         const { rows } = await db.query(text, values);
         const token = await User.signToken(rows[0].id);
-        return res.status(201).json({ status: 201, data: [{ token, email: rows[0].email }] });
+        return res.status(201).json({
+          status: 201,
+          data: [{
+            token,
+            email: rows[0].email,
+            firstname: rows[0].firstname,
+            lastname: rows[0].lastname,
+            secondaryEmail: rows[0].secondaryemail,
+          }],
+        });
       }
       return res.status(409).json({ status: 409, error: 'Please use a different email, Email already exists' });
     } catch (err) {
-      return res.status(400).json({ status: 400, error: `${err.name}, ${err.message}` });
+      return res.status(500).json({ status: 400, error: `${err.name}, ${err.message}` });
     }
   }
 
 
   // Method to login the user
-  async login(req, res) {
+  static async login(req, res) {
     const request = req.value.body;
     const { email, password } = req.value.body;
     try {
@@ -65,15 +79,15 @@ class User {
       if (!confirmPasswordMatch) {
         return res.status(401).json({ status: 401, error: 'User authentication error, please confirm email/password' });
       }
-      const token = User.signToken(password, rows[0].password);
-      return res.status(200).json({ status: 200, data: [{token}] });
+      const token = await User.signToken(rows[0].id);
+      return res.status(200).json({
+        status: 200,
+        data: [{
+          token, email: rows[0].email, firstName: rows[0].firstname, lastName: rows[0].lastname,
+        }],
+      });
     } catch (err) {
       return res.status(400).json({ status: 400, error: `${err.name}, ${err.message}` });
     }
-    const token = await User.signToken(request.id);
-    return res.status(200).json({ status: 200, data: [{ token }] });
-    // There is no need for an error response here because all error cases has been handled by previous middlewares
   }
 }
-
-export default new User();

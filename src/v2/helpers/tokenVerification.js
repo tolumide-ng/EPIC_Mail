@@ -17,7 +17,7 @@ export default {
       req.token = bearerToken;
       next();
     } else {
-      return res.status(401).json({ status: 401, error: 'Unauthorized, Please ensure you are logged in first' });
+      return res.status(401).json({ status: 401, error: 'Unauthorized, Please include token in the header and prepend with `bearer `' });
     }
   },
 
@@ -27,15 +27,16 @@ export default {
         return res.status(401).json({ status: 401, error: 'Unauthorized, Email or Password does not match'});
       }
       try {
-        const getDetailsText = `SELECT * FROM usersTable WHERE id=$1`, getDetailsValue = [authData.sub];
+        const getDetailsText = `SELECT * FROM usersTable WHERE id=$1`;
+        const getDetailsValue = [authData.sub];
         const {rows: getDetails} = await db.query(getDetailsText, getDetailsValue);
         if(!getDetails[0]){
-          return res.status(404).json({ status: 404, error: 'Not Found: Please confirm email and password'})
+          return res.status(404).json({ status: 404, error: 'Unauthorized, session expired'})
         }
         req.decodedToken = getDetails[0];
         next();
       } catch(error) {
-        return res.status(400).json({ status: 400, error })
+        return res.status(500).json({ status: 500, error })
       }
     })
   }

@@ -1,15 +1,16 @@
 import express from 'express';
-import passport from 'passport';
 
 import usersHelpers from '../helpers/usersHelpers';
 import usersControllers from '../controllers/usersControllers';
-import passportConf from '../passport';
+import trimmerjs from '../helpers/trimmer';
 
-const { validateBody, schemas } = usersHelpers;
+const { trimmer } = trimmerjs;
+
+const { signUp, login } = usersHelpers;
 
 const router = express.Router();
 
-router.post('/signup', validateBody(schemas.authSchema), usersControllers.createUser);
-router.post('/login', validateBody(schemas.loginSchema), usersControllers.login);
+router.post('/signup', trimmer, signUp, usersControllers.createUser);
+router.post('/login', trimmer, login, usersControllers.login);
 
 export default router;

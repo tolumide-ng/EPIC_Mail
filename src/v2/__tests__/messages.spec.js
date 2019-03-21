@@ -148,7 +148,7 @@ describe('Get mail', () => {
       });
   });
 
-  Message sender checks messaged through id too
+  // Message sender checks messaged through id too
   it('should return a 200 status code on succesful get request', (done) => {
     chai.request(server)
       .get(`${messagesRoute}/${container.brendaMessageId}`)

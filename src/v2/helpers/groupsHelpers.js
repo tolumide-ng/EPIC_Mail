@@ -49,4 +49,18 @@ export default {
     next();
   },
 
+  renameGroup(req, res, next) {
+    const renameGroupSchema = Joi.object().keys({
+      name: Joi.string().required(),
+    });
+
+    const result = Joi.validate(req.body, renameGroupSchema);
+
+    if (result.error) {
+      return res.status(400).json({ status: 400, error: 'Only name is required' });
+    }
+    if (!req.value) { req.value = {}; }
+    req.value.body = result.value;
+    next();
+  },
 };

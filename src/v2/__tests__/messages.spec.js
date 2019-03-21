@@ -25,9 +25,22 @@ describe('ComposeMail Scenario', () => {
       .set('Accept', '/application/json')
       .send(eichUser)
       .end((req, res) => {
-        console.log(res.error);
         container.eichToken = res.body.data[0].token;
         globalDetail.eichToken = res.body.data[0].token;
+        done();
+      });
+  });
+  
+  // get sent messages when you have not sent any
+  it('should return a 404 status code', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/sent`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        expect(res.body).to.have.own.property('error', 'Not Found, You do not have any sent emails at the moment');
+        expect(res.body).to.have.property('error');
         done();
       });
   });
@@ -67,7 +80,6 @@ describe('ComposeMail Scenario', () => {
       .set('Authorization', `bearer ${container.eichToken}`)
       .send(eichsDraft)
       .end((req, res) => {
-        console.log(res.error);
         res.should.have.status(201);
         res.should.be.json;
         expect(res.body.data[0]).to.have.own.property('status', 'draft');
@@ -82,7 +94,6 @@ describe('ComposeMail Scenario', () => {
       .set('Accept', '/application/json')
       .send(alfred)
       .end((req, res) => {
-        console.log(res.error);
         container.alfredToken = res.body.data[0].token;
         globalDetail.alfredToken = res.body.data[0].token;
         done();
@@ -95,7 +106,6 @@ describe('ComposeMail Scenario', () => {
       .set('Authorization', `bearer ${container.eichToken}`)
       .send(eichsMessage)
       .end((req, res) => {
-        console.log(res.error);
         res.should.have.status(201);
         res.should.be.json;
         globalDetail.firstMessageId = res.body.data[0].id;
@@ -113,27 +123,12 @@ describe('Get mail', () => {
       .set('Accept', '/application/json')
       .send(brenda)
       .end((req, res) => {
-        console.log(res.body);
         container.brendaToken = res.body.data[0].token;
         globalDetail.brendaToken = res.body.data[0].token;
         done();
       });
   });
-
-  // get sent messages when you have not sent any
-  it('should return a 404 status code', (done) => {
-    chai.request(server)
-      .get(`${messagesRoute}/sent`)
-      .set('Authorization', `bearer ${container.brendaToken}`)
-      .end((req, res) => {
-        console.log(res.error);
-        res.should.have.status(404);
-        res.should.be.json;
-        expect(res.body.data[0]).to.have.own.property('error', 'Not Found, You do not have any sent emails at the moment');
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
+  
   // brenda sends one more message
   before((done) => {
     chai.request(server)
@@ -141,21 +136,19 @@ describe('Get mail', () => {
       .set('Authorization', `bearer ${container.brendaToken}`)
       .send(brendaMessage)
       .end((req, res) => {
-        console.log(res.body);
         container.brendaMessageId = res.body.data[0].id;
         globalDetail.brendaMessageId = res.body.data[0].id;
         done();
       });
   });
 
-  // Message sender checks messaged through id too
-  it('should return a 200 status code on succesful get request', (done) => {
+  // Message sender checks specific messaged through id too
+  it('should return a 200 status code on getting a specific message', (done) => {
     chai.request(server)
       .get(`${messagesRoute}/${container.brendaMessageId}`)
       .set('Authorization', `bearer ${container.brendaToken}`)
       .send(brendaMessage)
       .end((req, res) => {
-        console.log(res.error);
         res.should.have.status(200);
         res.should.be.json;
         expect(res.body.data[0]).to.have.own.property('status', 'inbox');
@@ -170,11 +163,36 @@ describe('Get mail', () => {
       .get(`${messagesRoute}/sent`)
       .set('Authorization', `bearer ${container.brendaToken}`)
       .end((req, res) => {
-        console.log(res.error);
         res.should.have.status(200);
         res.should.be.json;
         expect(res.body.data[0]).to.have.own.property('status', 'inbox');
         expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  // Checek all received unread messages
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/unread`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'inbox')
+        done();
+      });
+  });
+
+  // Checek all received unread messages but you have none
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/unread`)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        expect(res.body).to.have.own.property('error', 'Not Found, You do not have any unread emails at the moment')
         done();
       });
   });
@@ -185,10 +203,63 @@ describe('Get mail', () => {
       .get(`${messagesRoute}/${container.brendaMessageId}`)
       .set('Authorization', `bearer ${globalDetail.alfredToken}`)
       .end((req, res) => {
-        console.log(res.error);
         res.should.have.status(200);
         res.should.be.json;
         expect(res.body.data[0]).to.have.own.property('status', 'read');
+        done();
+      });
+  });
+
+  // Message receiver checks received message
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/received`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        done();
+      });
+  });
+
+  // Sender deletes specific message
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        // expect(res.body.data[0]).to.have.own.property('data', 'Message deleted');
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should return a 404 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.own.property('error', `You do not have a mail with id=${container.brendaMessageId}`)
+        done();
+      });
+  });
+
+  it('should return a 200 status code on deleting a specific message', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body).to.have.property('data');
         done();
       });
   });
@@ -199,7 +270,6 @@ describe('Get mail', () => {
       .get(`${messagesRoute}/75`)
       .set('Authorization', `bearer ${globalDetail.alfredToken}`)
       .end((req, res) => {
-        console.log(res.body);
         res.should.have.status(404);
         res.should.be.json;
         expect(res.body).to.have.own.property('error', 'Not Found, you do not have a message with id=75');
@@ -216,7 +286,6 @@ describe('Sign up a new user', () => {
       .set('Authorization', `bearer ${globalDetail.brendaToken}`)
       .send(brendaMessageToAlfred)
       .end((req, res) => {
-        console.log(res.body);
         container.brendaMessageToAlfredId = res.body.data[0].id;
         globalDetail.brendaMessageToAlfredId = res.body.data[0].id;
         done();
@@ -225,44 +294,13 @@ describe('Sign up a new user', () => {
 
   before((done) => {
     chai.request(server)
-      .post(`${tolumide}/signup`)
+      .post(`${userRoute}/signup`)
       .set('Accept', '/application/json')
       .send(tolumide)
       .end((req, res) => {
-        console.log(res.body);
         container.toluToken = res.body.data[0].token;
         globalDetail.toluToken = res.body.data[0].token;
         done();
       });
   });
-
-  // get received messages when you have not received any
-  it('should return a 404 status code', (done) => {
-    chai.request(server)
-      .get(`${messagesRoute}/received`)
-      .set('Authorization', `bearer ${globalDetail.toluToken}`)
-      .end((req, res) => {
-        console.log(res.error);
-        res.should.have.status(404);
-        res.should.be.json;
-        expect(res.body.data[0]).to.have.own.property('error', 'Not Found, You do not have any emails in your inbox at the moment');
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
-
-  // get received messages when you have not received any
-  // it('should return a 404 status code', (done) => {
-  //   chai.request(server)
-  //     .get(`${messagesRoute}/sent`)
-  //     .set('Authorization', `bearer ${globalDetail.toluToken}`)
-  //     .end((req, res) => {
-  //       console.log(res.error);
-  //       res.should.have.status(404);
-  //       res.should.be.json;
-  //       expect(res.body.data[0]).to.have.own.property('error', 'Not Found, You do not have any emails in your inbox at the moment');
-  //       expect(res.body).to.have.property('error');
-  //       done();
-  //     });
-  // });
 });

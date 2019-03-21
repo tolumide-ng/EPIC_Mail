@@ -5,7 +5,6 @@ import usersControllers from '../controllers/usersControllers';
 import trimmerjs from '../helpers/trimmer';
 
 const { trimmer } = trimmerjs;
-
 const { signUp, login } = usersHelpers;
 
 const router = express.Router();

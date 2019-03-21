@@ -103,143 +103,87 @@ export default {
     password: 'Alfonso',
   },
 
-  //   theMessage: {
-  //     subject: 'Mediocrity at Felmish',
-  //     message: 'I really found the level of mediocrity at a so-called Flemish company very disappointing',
-  //     receiverEmail: 'oladunjoye@gmail.com',
-  //   },
+  Basheer: {
+    email: 'olabash@epicmail.com',
+    secondaryEmail: 'ALhamdiddd@gmail.com',
+    firstName: 'Aminah',
+    lastName: 'Saelif',
+    password: 'Alfonso',
+  },
 
-  //   theDraft: {
-  //     subject: 'Media and Telcoms',
-  //     message: 'My bias regarding the new telecommunication startups in the industry woul affect my objectiev judgement',
-  //   },
+  chwuks: {
+    email: 'chukwudi@epicmail.com',
+    secondaryEmail: 'Ume@gmail.com',
+    firstName: 'Rayban',
+    lastName: 'Kamir',
+    password: 'Alfonso',
+  },
 
-  //   withParentMessageId: {
-  //     subject: 'Developers from 1821',
-  //     parentMessageId: 1,
-  //     message: 'This is supposed to be a very long message, but I have nothing to write about this',
-  //     receiverEmail: 'tolu@gmail.com',
-  //   },
+  incompleteGroupDetails: {
+    name: 'Developers in Michigan',
+  },
 
-  //   messageValidationError: {
-  //     subject: 'Developers from 1821',
-  //     parentMessageId: 1,
-  //     receiverEmail: 'tolu@gmail.com',
-  //   },
+  chwuksGroup: {
+    name: 'Michigan developers',
+    role: 'Admin',
+  },
 
-  //   vivianUser: {
-  //     email: 'elicBalcmani2tunes@gmail.com',
-  //     firstName: 'Vivian',
-  //     lastName: 'Aliyu',
-  //     password: 'efetogbore12',
-  //   },
+  basheerGroup: {
+    name: 'Arab Money',
+    role: 'Admin',
+  },
 
-  //   anotherUser: {
-  //     email: 'girlie@gmail.com',
-  //     firstName: 'girli',
-  //     lastName: 'KÓleee',
-  //     password: 'thepassword',
-  //   },
+  editBasheerGroupName: {
+    name: 'Saudi Prince',
+  },
 
-  //   signInGirlie: {
-  //     email: 'girlie@gmail.com',
-  //     password: 'thepassword',
-  //   },
+  tomiwa: {
+    email: 'tomiwas@epicmail.com',
+    secondaryEmail: 'tomi@gmail.com',
+    firstName: 'tomiwa',
+    lastName: 'tomiwas',
+    password: 'Alfonso',
+  },
 
-  //   anotherMessage: {
-  //     subject: 'Developers from 1821',
-  //     message: 'This is supposed to be a very long message, but I have nothing to write about this',
-  //     receiverEmail: 'girlie@gmail.com',
-  //   },
+  bambam: {
+    email: 'bambam@epicmail.com',
+    secondaryEmail: 'teddy@gmail.com',
+    firstName: 'teddy',
+    lastName: 'bambam',
+    password: 'Alfonso',
+  },
 
-  //   groupCreatedBy: {
-  //     email: 'rebeccAnalize@epic_mail.com',
-  //     firstName: 'rebecca',
-  //     lastName: 'bounty',
-  //     password: 'bountymoney',
-  //   },
+  bambamAddToGroup: {
+    userEmailAddress: 'bambam@epicmail.com',
+    userRole: 'Guest',
+  },
 
-  //   groupDetail: {
-  //     name: 'Developers in Michigan',
-  //     role: 'Sustaining developers growth',
-  //   },
+  tomiwaAddToGroup: {
+    userEmailAddress: 'tomiwas@epicmail.com',
+    userRole: 'Guest',
+  },
 
-  //   groupDetailValidationError: {
-  //     name: 'Developers in Michigan',
-  //   },
+  unRegisteredMember: {
+    userEmailAddress: 'oladele@gmail.com',
+    userRole: 'Guest',
+  },
 
-  //   groupUser: {
-  //     email: 'vicotor@epic_mail.com',
-  //     firstName: 'matthew',
-  //     lastName: 'jamal',
-  //     password: 'bountymoney',
-  //   },
+  validationMember: {
+    userEmailAddress: 'oladele@gmail.com',
+  },
 
-  //   secondGroupDetail: {
-  //     name: 'Abuja boys',
-  //     role: 'Sweet boys, fresh guys',
-  //   },
+  alfredAddToGroup: {
+    userEmailAddress: 'alfred@epicmail.com',
+    userRole: 'Guest',
+  },
 
-  //   loginGroupUser: {
-  //     email: 'vicotor@epic_mail.com',
-  //     password: 'bountymoney',
-  //   },
+  broadcastMessage: {
+    subject: 'Welcome to Southesiaas',
+    message: 'The island og the bela',
+  },
 
-  //   thirdGroupDetail: {
-  //     name: 'Lagos Dev community',
-  //     role: 'Instant communication, none-gender biased',
-  //   },
-
-  //   kevinUser: {
-  //     email: 'emeka@epic_mail.com',
-  //     firstName: 'emekas',
-  //     lastName: 'kevin',
-  //     password: 'eraser',
-  //   },
-
-  //   fourthGroupDetail: {
-  //     name: 'Byrant',
-  //     role: 'gang singns and cults',
-  //   },
-
-  //   rebecaGroup: {
-  //     userEmailAddress: 'rebeccAnalize@epic_mail.com',
-  //     userRole: 'Qulaity Assurance',
-  //   },
-
-  //   elicGroup: {
-  //     userEmailAddress: 'elicBalcmani2tunes@gmail.com',
-  //     userRole: 'Hype man',
-  //   },
-
-  //   broadcastMessage: {
-  //     subject: 'WuraAndFadaka',
-  //     message: 'A great inspiration',
-  //   },
-
-  //   toluLoginsIn: {
-  //     email: 'toluwani@gmail.com',
-  //     password: 'efetogbore12',
-  //   },
-
-  //   signupBabs: {
-  //     email: 'babs@gmail.com',
-  //     firstName: 'babtunde',
-  //     lastName: 'wiii',
-  //     password: 'cinwel',
-  //   },
-
-  //   signupMo: {
-  //     email: 'mo@gmail.com',
-  //     firstName: 'Malcolm',
-  //     lastName: 'Balkman',
-  //     password: 'cinwel',
-  //   },
-
-  //   MoSentMessage: {
-  //     subject: 'We are employing?',
-  //     message: 'We are excited to announce to the public that we are on the lookout to employ the best and brightest minds',
-  //     receiverEmail: 'babs@gmail.com',
-  //   },
+  broadcastMessageValidation: {
+    subject: 'Arkansas',
+  },
 
 };

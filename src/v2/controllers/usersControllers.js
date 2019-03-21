@@ -35,13 +35,14 @@ export default class User {
       return res.status(400).json({ status: 400, error: 'email must end with @epicmail.com' });
     }
     const modifyemail = email.toLowerCase();
+    const modifySecondaryEmail = secondaryEmail.toLowerCase();
 
     const searchText = 'SELECT * FROM usersTable WHERE email=$1';
-    const searchValue = [email];
+    const searchValue = [modifyemail];
     const text = `INSERT INTO usersTable(firstName, lastName, email, password, secondaryEmail)
         VALUES($1, $2, $3, $4, $5) returning *`;
     const theHashedPassword = await helper.hashPassword(password);
-    const values = [firstName, lastName, modifyemail, theHashedPassword, secondaryEmail];
+    const values = [firstName, lastName, modifyemail, theHashedPassword, modifySecondaryEmail];
     try {
       const { rows } = await db.query(searchText, searchValue);
       if (!rows[0]) {
@@ -51,6 +52,7 @@ export default class User {
           status: 201,
           data: [{
             token,
+            id: rows[0].id,
             email: rows[0].email,
             firstname: rows[0].firstname,
             lastname: rows[0].lastname,
@@ -71,7 +73,7 @@ export default class User {
     const { email, password } = req.value.body;
     try {
       const text = 'SELECT * FROM usersTable WHERE email=$1';
-      const { rows } = await db.query(text, [email]);
+      const { rows } = await db.query(text, [email.toLowerCase()]);
       if (!rows[0]) {
         return res.status(401).json({ status: 401, error: 'User authentication error, please confirm email/password' });
       }

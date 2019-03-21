@@ -51,16 +51,20 @@ const Mail = {
     const user = req.decodedToken;
     const text = 'SELECT * FROM messagesTable WHERE id=$1 AND (receiverEmail=$2 OR senderEmail=$2)';
     const values = [req.params.id, user.email];
+    const idToNum = Number(req.params.id);
+    if (isNaN(idToNum)) {
+      return res.status(400).json({ status: 400, error: 'Bad request, please ensure the id is an integer' });
+    }
     try {
       const { rows } = await db.query(text, values);
       if (!rows[0]) {
-        return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${req.params.id}` });
+        return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${idToNum}` });
       }
 
       if (rows[0].status === 'inbox' && rows[0].receiveremail === user.email && rows[0].receiverstatus !== 'deleted') {
         const updateText = `UPDATE messagesTable
           SET status=$1 WHERE id=$2 AND receiverEmail=$3 returning *`;
-        const updateValue = ['read', req.params.id, user.email];
+        const updateValue = ['read', idToNum, user.email];
         const { rows: readMail } = await db.query(updateText, updateValue);
         const dbResponse = readMail[0];
         const responseText = {};
@@ -74,7 +78,7 @@ const Mail = {
       } if (rows[0].senderemail === user.email && rows[0].senderstatus !== 'deleted') {
         return res.status(200).json({ status: 200, data: [rows[0]] });
       }
-      return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${req.params.id}` });
+      return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${idToNum}` });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `${error.name}, ${error.message}` });
     }
@@ -83,6 +87,9 @@ const Mail = {
   async deleteSpecificMail(req, res) {
     const user = req.decodedToken;
     const text = 'SELECT * FROM messagesTable WHERE id=$1 AND (receiverEmail=$2 OR senderEmail=$2)';
+    if (isNaN(Number(req.params.id))) {
+      return res.status(400).json({ status: 400, error: 'Please ensure the messageId is an integer' });
+    }
     try {
       const values = [req.params.id, user.email];
       const { rows } = await db.query(text, values);

@@ -9,309 +9,298 @@ chai.use(chaiHttp);
 const should = chai.should();
 const { expect } = chai;
 
-const {
-  theUser, theMessage, theDraft, withParentMessageId, signInGirlie, messageValidationError, vivianUser, anotherUser, anotherMessage,
-} = mockData;
 const messagesRoute = '/api/v2/messages';
 const userRoute = '/api/v2/auth';
+const {
+  eichUser, loginEich, eichsMessage, alfred, eichsDraft, eichsBadMessage, eichsOtherMessage, alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide
+} = mockData;
 
-describe('Succesful User message actions', () => {
-  const generated = {};
+const globalDetail = {};
+
+describe('ComposeMail Scenario', () => {
+  const container = {};
   before((done) => {
     chai.request(server)
       .post(`${userRoute}/signup`)
       .set('Accept', '/application/json')
-      .send(theUser)
+      .send(eichUser)
       .end((req, res) => {
-        generated.token = res.body.data[0].token;
+        container.eichToken = res.body.data[0].token;
+        globalDetail.eichToken = res.body.data[0].token;
         done();
       });
   });
-  it('should return a 201 status code on succesful mail post', (done) => {
-    chai.request(server)
-      .post(`${messagesRoute}/`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .send(theMessage)
-      .end((req, res) => {
-        res.should.have.status(201);
-        res.should.be.json;
-        res.body.should.have.property('data');
-        res.body.should.be.a('object');
-        expect(res.body.data[0]).to.be.a('object');
-        done();
-      });
-  });
-
-  it('should return a 201 status code on succesful mail post', (done) => {
-    chai.request(server)
-      .post(`${messagesRoute}/`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .send(withParentMessageId)
-      .end((req, res) => {
-        res.should.have.status(201);
-        res.should.be.json;
-        res.body.should.have.property('data');
-        res.body.should.be.a('object');
-        expect(res.body.data[0].parentMessageId).to.not.be.null;
-        done();
-      });
-  });
-
-  it('should return a 201 status code on succesful mail post', (done) => {
-    chai.request(server)
-      .post(`${messagesRoute}/`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .send(theDraft)
-      .end((req, res) => {
-        res.should.have.status(201);
-        res.should.be.json;
-        res.body.should.have.property('data');
-        res.body.should.be.a('object');
-        expect(res.body.data[0]).to.have.own.property('subject', 'Media and Telcoms');
-        done();
-      });
-  });
-
-  it('should return a 200 status code for an existing specific message', (done) => {
-    chai.request(server)
-      .get(`${messagesRoute}/2`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .end((req, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        expect(res.body.data[0]).to.have.property('message');
-        expect(res.body.data[0]).to.have.property('subject');
-        // expect(res.body.data[0]).to.have.own.property('subject', 'Mediocrity at Felmish');
-        done();
-      });
-  });
-
-  it('should return a 404 status code for an non-existing specific message', (done) => {
-    chai.request(server)
-      .get(`${messagesRoute}/21`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .end((req, res) => {
-        res.should.have.status(404);
-        res.body.should.be.a('object');
-        expect(res.body).to.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Not Found, you do not have a message with id=21');
-        done();
-      });
-  });
-
-  it('should return a 200 status code for succesful deletion', (done) => {
-    chai.request(server)
-      .delete(`${messagesRoute}/2`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .end((req, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        expect(res.body).to.have.property('data');
-        expect(res.body).to.have.own.property('data', 'Message deleted');
-        done();
-      });
-  });
-
-  it('should return a 200 status code for successful deletion', (done) => {
-    chai.request(server)
-      .delete(`${messagesRoute}/3`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .end((req, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        expect(res.body).to.have.property('data');
-        expect(res.body).to.have.own.property('data', 'Message deleted');
-        done();
-      });
-  });
-
-  it('should return a 404 status code for failed deletion', (done) => {
-    chai.request(server)
-      .delete(`${messagesRoute}/3`)
-      .set('Authorization', `bearer ${generated.token}`)
-      .end((req, res) => {
-        res.should.have.status(404);
-        res.body.should.be.a('object');
-        expect(res.body).to.have.property('error');
-        expect(res.body).to.have.own.property('error', `You do not have a mail with id=3`);
-        done();
-      });
-  });
-
+  
+  // get sent messages when you have not sent any
   it('should return a 404 status code', (done) => {
     chai.request(server)
-      .get(`${messagesRoute}/unread`)
-      .set('Authorization', `bearer ${generated.token}`)
+      .get(`${messagesRoute}/sent`)
+      .set('Authorization', `bearer ${container.eichToken}`)
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;
-        res.body.should.have.property('error');
-        res.body.should.be.a('object');
-        expect(res.body).to.have.own.property('error', `Not Found, You do not have any unread emails at the moment`);
+        expect(res.body).to.have.own.property('error', 'Not Found, You do not have any sent emails at the moment');
+        expect(res.body).to.have.property('error');
         done();
       });
   });
 
-  it('should return a 404 status code when there are no received emails', (done) => {
+  it('should return a 404 status code on succesful mail post', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsOtherMessage)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', 'Receiver Not Found: Please ensure the receiverEmail is registered to epic mail');
+        done();
+      });
+  });
+
+  it('should return a validation error on post message', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsBadMessage)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', 'Only subject and message are required, include receiverEmail if the message is not a draft');
+        done();
+      });
+  });
+
+
+  it('should return a 201 status code on succesful draft post', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsDraft)
+      .end((req, res) => {
+        res.should.have.status(201);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'draft');
+        done();
+      });
+  });
+
+  // Create the receiver
+  before((done) => {
+    chai.request(server)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(alfred)
+      .end((req, res) => {
+        container.alfredToken = res.body.data[0].token;
+        globalDetail.alfredToken = res.body.data[0].token;
+        done();
+      });
+  });
+
+  it('should return a 201 status code on succesful mail post', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsMessage)
+      .end((req, res) => {
+        res.should.have.status(201);
+        res.should.be.json;
+        globalDetail.firstMessageId = res.body.data[0].id;
+        done();
+      });
+  });
+});
+
+describe('Get mail', () => {
+  const container = {};
+  // signup one more user (brenda) - email sender
+  before((done) => {
+    chai.request(server)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(brenda)
+      .end((req, res) => {
+        container.brendaToken = res.body.data[0].token;
+        globalDetail.brendaToken = res.body.data[0].token;
+        done();
+      });
+  });
+  
+  // brenda sends one more message
+  before((done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        container.brendaMessageId = res.body.data[0].id;
+        globalDetail.brendaMessageId = res.body.data[0].id;
+        done();
+      });
+  });
+
+  // Message sender checks specific messaged through id too
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'inbox');
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  // Get all sent messages
+  it('should return a 200 status code on succesful get request', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/sent`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'inbox');
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  // Checek all received unread messages
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/unread`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'inbox')
+        done();
+      });
+  });
+
+  // Checek all received unread messages but you have none
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/unread`)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        expect(res.body).to.have.own.property('error', 'Not Found, You do not have any unread emails at the moment')
+        done();
+      });
+  });
+
+  // Message receiver checks the mail too
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'read');
+        done();
+      });
+  });
+
+  // Message receiver checks received message
+  it('should return a 200 status code on getting a specific message', (done) => {
     chai.request(server)
       .get(`${messagesRoute}/received`)
-      .set('Authorization', `bearer ${generated.token}`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        done();
+      });
+  });
+
+  // Sender deletes specific message
+  it('should return a 200 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        // expect(res.body.data[0]).to.have.own.property('data', 'Message deleted');
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should return a 404 status code on getting a specific message', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${container.brendaToken}`)
+      .send(brendaMessage)
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;
-        res.body.should.have.property('error');
-        res.body.should.be.a('object');
-        expect(res.body).to.have.own.property('error', `Not Found, You do not have any emails in your inbox at the moment`);
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.own.property('error', `You do not have a mail with id=${container.brendaMessageId}`)
+        done();
+      });
+  });
+
+  it('should return a 200 status code on deleting a specific message', (done) => {
+    chai.request(server)
+      .delete(`${messagesRoute}/${container.brendaMessageId}`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .send(brendaMessage)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  // Message receiver/sender checks a not-existing mail
+  it('should return a 404 status code on getting all specific message', (done) => {
+    chai.request(server)
+      .get(`${messagesRoute}/75`)
+      .set('Authorization', `bearer ${globalDetail.alfredToken}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        expect(res.body).to.have.own.property('error', 'Not Found, you do not have a message with id=75');
         done();
       });
   });
 });
 
-
-describe('Failed Message attempts', () => {
-  it('should return a 401 status code', (done) => {
+describe('Sign up a new user', () => {
+  const container = {};
+  before((done) => {
     chai.request(server)
       .post(`${messagesRoute}/`)
-      .send(theDraft)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .send(brendaMessageToAlfred)
       .end((req, res) => {
-        res.should.have.status(401);
-        res.should.be.json;
-        res.body.should.have.property('error');
-        res.body.should.be.a('object');
+        container.brendaMessageToAlfredId = res.body.data[0].id;
+        globalDetail.brendaMessageToAlfredId = res.body.data[0].id;
         done();
       });
   });
 
-  it('should return a 422 status code', (done) => {
+  before((done) => {
     chai.request(server)
-      .post(`${messagesRoute}/`)
-      .send(messageValidationError)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(tolumide)
       .end((req, res) => {
-        res.should.have.status(422);
-        res.should.be.json;
-        res.body.should.have.property('error');
-        res.body.should.be.a('object');
+        container.toluToken = res.body.data[0].token;
+        globalDetail.toluToken = res.body.data[0].token;
         done();
       });
   });
-
 });
-
-
-
-describe('User/messages actions', () => {
-    const container = {};
-    before((done) => {
-        chai.request(server)
-          .post(`${userRoute}/signup`)
-          .set('Accept', '/application/json')
-          .send(vivianUser)
-          .end((req, res) => {
-            container.token = res.body.data[0].token;
-            done();
-          });
-      });
-
-      before((done) => {
-        chai.request(server)
-          .post(`${userRoute}/signup`)
-          .set('Accept', '/application/json')
-          .send(anotherUser)
-          .end((req, res) => {
-            container.receiverToken = res.body.data[0].token;
-            done();
-          });
-      });
-
-      before((done) => {
-        chai.request(server)
-          .post(`${messagesRoute}/`)
-          .set('Authorization', `bearer ${container.token}`)
-          .set('Accept', '/application/json')
-          .send(anotherMessage)
-          .end((req, res) => {
-            done();
-          });
-      });
-
-      before((done) => {
-        chai.request(server)
-          .post(`${messagesRoute}/`)
-          .set('Authorization', `bearer ${container.token}`)
-          .set('Accept', '/application/json')
-          .send(anotherMessage)
-          .end((req, res) => {
-            done();
-          });
-      });
-
-      it('should return a 200 status code', (done) => {
-        chai.request(server)
-          .get(`${messagesRoute}/unread`)
-          .set('Authorization', `bearer ${container.receiverToken}`)
-          .end((req, res) => {
-            res.should.have.status(200);
-            res.should.be.json;
-            res.body.should.have.property('data');
-            expect(res.body.data[0]).to.have.own.property('status', 'inbox');
-            res.body.should.be.a('object');
-            done();
-          });
-      });
-
-      before((done) => {
-        chai.request(server)
-          .post(`${userRoute}/login`)
-          .set('Accept', '/application/json')
-          .send(signInGirlie)
-          .end((req, res) => {
-            container.girlieToken = res.body.data[0].token;
-            done();
-          });
-      });
-
-      // it('should return a 200 status code to get all received emails', (done) => {
-      //   chai.request(server)
-      //     .get(`${messagesRoute}/received`)
-      //     .set('Authorization', `bearer ${container.girlieToken}`)
-      //     .end((req, res) => {
-      //       console.log(res.error);
-      //       res.should.have.status(200);
-      //       res.should.be.json;
-      //       res.body.should.have.property('data');
-      //       res.body.should.be.a('object');
-      //       expect(res.body.data[0]).to.have.own.property('receiveremail', 'girlie@gmail.com');
-      //       // expect(res.body.data[0]).to.have.own.property('senderemail', 'elicBalcmani2tunes@gmail.com');
-      //       done();
-      //     });
-      // });
-
-      it('should return a 200 status code to get all received emails', (done) => {
-        chai.request(server)
-          .get(`${messagesRoute}/sent`)
-          .set('Authorization', `bearer ${container.token}`)
-          .end((req, res) => {
-            res.should.have.status(200);
-            res.should.be.json;
-            res.body.should.have.property('data');
-            res.body.should.be.a('object');
-            expect(res.body.data[0]).to.have.own.property('senderemail', 'elicBalcmani2tunes@gmail.com');
-            done();
-          });
-      });
-
-      it('should return a 404 status code when there are no sent emails', (done) => {
-        chai.request(server)
-          .get(`${messagesRoute}/sent`)
-          .set('Authorization', `bearer ${container.receiverToken}`)
-          .end((req, res) => {
-            res.should.have.status(404);
-            res.should.be.json;
-            res.body.should.have.property('error');
-            res.body.should.be.a('object');
-            expect(res.body).to.have.own.property('error', `Not Found, You do not have any sent emails at the moment`);
-            done();
-          });
-      });
-
-})

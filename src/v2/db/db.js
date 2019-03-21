@@ -27,6 +27,7 @@ const createTheTables = async () => {
     await db.query(createTable.alterMessagesTable);
     await db.query(createTable.groupTable);
     await db.query(createTable.groupMembersTable);
+    await db.query(createTable.foreignReceiver)
   } catch (err) {
     console.log(`${err.name}, ${err.message}`);
   }

@@ -5,7 +5,8 @@ const createTable = {
             email VARCHAR(100) NOT NULL UNIQUE,
             firstName VARCHAR(100) NOT NULL,
             lastName VARCHAR(100) NOT NULL,
-            password VARCHAR(100) NOT NULL
+            password VARCHAR(100) NOT NULL,
+            secondaryEmail VARCHAR(100) NOT NULL
         )`,
 
   contactsTable: `CREATE TABLE IF NOT EXISTS
@@ -53,6 +54,9 @@ const createTable = {
 
   alterMessagesTable: `ALTER TABLE messagesTable
     ADD FOREIGN KEY(parentMessageId) REFERENCES messagesTable(id) ON DELETE SET NULL`,
+
+  foreignReceiver: `ALTER TABLE messagesTable
+    ADD FOREIGN KEY(receiverEmail) REFERENCES usersTable(email) ON DELETE SET NULL`,
 };
 
 const dropTable = {

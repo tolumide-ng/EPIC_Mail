@@ -8,7 +8,9 @@ chai.use(chaiHttp);
 const should = chai.should();
 const { expect } = chai;
 
-const { user, incompleteUser, userLogin, faileduserLogin } = mockData;
+const {
+  user, incompleteUser, userLogin, faileduserLogin, incompleteLogin,
+} = mockData;
 const userRoute = '/api/v2/auth';
 
 describe('Successful User action', () => {
@@ -40,7 +42,7 @@ describe('Successful User action', () => {
         expect(res.body).to.have.property('data');
         res.body.should.be.a('object');
         container.token = res.body.data[0].token;
-        expect(res.body.data[0]).to.have.own.property('token', `${container.token}`)
+        expect(res.body.data[0]).to.have.own.property('token', `${container.token}`);
         done();
       });
   });
@@ -62,16 +64,17 @@ describe('Failed User actions', () => {
       });
   });
 
-  it('should return a 422 status code for incomplete paramters', (done) => {
+  it('should return a 400 status code for incomplete paramters', (done) => {
     chai.request(server)
       .post(`${userRoute}/signup`)
       .set('Accept', '/application/json')
       .send(incompleteUser)
       .end((req, res) => {
-        res.should.have.status(422);
+        res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
         res.body.should.be.a('object');
+        expect(res.body).to.have.own.property('error', 'Only email, password, firstName, lastName and secondaryEmail are required');
         done();
       });
   });
@@ -88,6 +91,22 @@ describe('Failed User actions', () => {
         res.body.should.have.property('error');
         res.body.should.have.property('status');
         done();
-      })
-  })
+      });
+  });
+
+  it('should return validationError during login', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/login`)
+      .set('Accept', '/application/json')
+      .send(incompleteLogin)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('error');
+        res.body.should.have.property('status');
+        expect(res.body).to.have.own.property('error', 'Only email and password are required');
+        done();
+      });
+  });
 });

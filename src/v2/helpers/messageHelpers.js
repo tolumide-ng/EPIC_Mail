@@ -6,7 +6,7 @@ export default {
       subject: Joi.string().required(),
       message: Joi.string().required(),
       receiverEmail: Joi.string().regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
-    })
+    });
 
     const result = Joi.validate(req.body, composeMailSchema);
 

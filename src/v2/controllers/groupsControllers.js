@@ -220,6 +220,25 @@ const Group = {
     }
   },
 
+  // async passwordReset(req, res) {
+  //   const resetEmail = req.body.email;
+  //   const findSecondaryText = 'SELECT * FROM  usersTable WHERE email=$1';
+  //   const findSecondaryValue = [resetEmail];
+
+  //   const { rows: findSecondaryEmail } = await db.query(findSecondaryText, findSecondaryValue);
+  //   if (!findSecondaryEmail[0]) {
+  //     return res.status(404).json({ status: 404, error: 'Not Found: Email specified for reset password does not exist' });
+  //   }
+  //   const { email, secondaryemail } = findSecondaryEmail;
+
+  //   const resetText = 'INSERT INTO resetPassword(message, secondaryEmail, userEmail) VALUES($1, $2, $3) returning *';
+  //   const message = 'Please find the link to reset your password here: bit.ly, link expires in 24 hours, goodluck'
+  //   const resetValue = [message, secondaryemail, email];
+
+  //   // Insert the message the database
+  //   await db.query(resetText, resetValue);
+  //   return res.status(201).json({ status: 201, data: { message, email } });
+  // },
 };
 
 export default Group;

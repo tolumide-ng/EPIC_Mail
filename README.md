@@ -16,6 +16,14 @@ EPIC_Mail is a web application that empowers it's users to exchange messages/inf
 - Users can get all sent emails
 - Users can get specific email with the email's id
 - Users can delete a specific email
+- Users can create a group
+- User who created the group can add new members to a group they created 
+- User who created the group can delete a member in the group
+- Users can search for all groups present on epicmail
+- Users in the group can send a broadcast message to all members of the group
+- User who created the group can delete such group
+- User who created a group can delete such group
+
 
 ***
 
@@ -73,14 +81,14 @@ API is documented on **[swagger](https://inspector.swagger.io/)** can can be vie
 
 | Method    |Description                  | Endpoint                    |
 | --------  |:---------------------------:| ---------------------------:| 
-| POST      | User signup                 | `/api/v1/auth/signup`       |
-| POST      | User login                  | `/api/v1/auth/login`        |
-| POST      | Compose Mail                | `/api/v1/messages`          |
-| GET       | Get all sent messages       | `/api/v1/messages/sent`     |
-| GET       | Get all unread messages     | `/api/v1/messages/unread`   |
-| GET       | Get all received messages   | `/api/v1/messages/received` |
-| GET       | Get a specific message      | `/api/v1/messages/:msd-id`  |
-| DELETE    | Delete a specific message   | `/api/v1/messages/:msd-id`  |
+| POST      | User signup                 | `/api/v2/auth/signup`       |
+| POST      | User login                  | `/api/v2/auth/login`        |
+| POST      | Compose Mail                | `/api/v2/messages`          |
+| GET       | Get all sent messages       | `/api/v2/messages/sent`     |
+| GET       | Get all unread messages     | `/api/v2/messages/unread`   |
+| GET       | Get all received messages   | `/api/v2/messages/received` |
+| GET       | Get a specific message      | `/api/v2/messages/:msd-id`  |
+| DELETE    | Delete a specific message   | `/api/v2/messages/:msd-id`  |
 
 ***
 
@@ -91,8 +99,6 @@ API is documented on **[swagger](https://inspector.swagger.io/)** can can be vie
 - [Babel](https://babeljs.io/) - Free and open-source JavaScript compiler and configurable transpiler used in web development.
 - [JWT](https://jwt.io/) - A compact URL-safe means of representing claims to be transferred between two parties
 - [bcrypt.js](https://www.npmjs.com/package/bcryptjs) - A password hashing function written in Javascript
-- [passport.js](http://www.passportjs.org/) -  authentication middleware for Node.js.
-
 *** 
 
 ## Author

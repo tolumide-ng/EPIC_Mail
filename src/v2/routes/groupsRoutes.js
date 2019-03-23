@@ -11,7 +11,6 @@ const {
 } = groupHelpers;
 const { verifyToken, validateToken } = tokenVerification;
 
-
 const router = express.Router();
 
 router.post('/:id/users', verifyToken, validateToken, trimmer, addGroupMember, groupsControllers.addNewMember);
@@ -21,6 +20,5 @@ router.patch('/:id/name', trimmer, renameGroup, verifyToken, validateToken, grou
 router.delete('/:id', verifyToken, validateToken, groupsControllers.deleteSpecificGroup);
 router.delete('/:groupId/users/:userId', verifyToken, validateToken, groupsControllers.deleteSpecificUserFromGroup);
 router.post('/:groupId/messages/', verifyToken, validateToken, broadCastMessage, groupsControllers.broadcastMessage);
-
 
 export default router;

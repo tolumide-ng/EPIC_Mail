@@ -57,6 +57,16 @@ const createTable = {
 
   foreignReceiver: `ALTER TABLE messagesTable
     ADD FOREIGN KEY(receiverEmail) REFERENCES usersTable(email) ON DELETE SET NULL`,
+
+  resetPasswordTable: `CREATE TABLE IF NOT EXISTS
+      resetPasswordTable(
+        id SERIAL NOT NULL UNIQUE,
+        message VARCHAR(250),
+        secondaryEmail VARCHAR(100),
+        userEmail VARCHAR(100),
+        PRIMARY KEY(id),
+        FOREIGN KEY(userEmail) REFERENCES usersTable(email) ON DELETE CASCADE
+      )`,
 };
 
 const dropTable = {
@@ -65,6 +75,7 @@ const dropTable = {
   messagesTable: 'DROP TABLE IF EXISTS messagesTable CASCADE',
   groupTable: 'DROP TABLE IF EXISTS groupTable CASCADE',
   groupMembersTable: 'DROP TABLE IF EXISTS groupMembersTable CASCADE',
+  resetPasswordTable: 'DROP TABLE IF EXISTS resetPasswordTable CASCADE',
 };
 
 export default {

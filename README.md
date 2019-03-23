@@ -76,6 +76,7 @@ $ npm run test
 
 ### API Information 
 EPIC_Mail is hosted on [heroku](https://epic--mail.herokuapp.com/)
+EPIC_Mail version 2 is hosted on [heroku](https://the-epicmail.herokuapp.com)
 
 API is documented on **[swagger](https://inspector.swagger.io/)** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis/tolumide-ng/EPIC_Mail/1)
 

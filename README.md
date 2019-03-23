@@ -79,16 +79,27 @@ EPIC_Mail is hosted on [heroku](https://epic--mail.herokuapp.com/)
 
 API is documented on **[swagger](https://inspector.swagger.io/)** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis/tolumide-ng/EPIC_MAIL/1#/)
 
-| Method    |Description                  | Endpoint                    |
-| --------  |:---------------------------:| ---------------------------:| 
-| POST      | User signup                 | `/api/v2/auth/signup`       |
-| POST      | User login                  | `/api/v2/auth/login`        |
-| POST      | Compose Mail                | `/api/v2/messages`          |
-| GET       | Get all sent messages       | `/api/v2/messages/sent`     |
-| GET       | Get all unread messages     | `/api/v2/messages/unread`   |
-| GET       | Get all received messages   | `/api/v2/messages/received` |
-| GET       | Get a specific message      | `/api/v2/messages/:msd-id`  |
-| DELETE    | Delete a specific message   | `/api/v2/messages/:msd-id`  |
+| Method    |Description                          | Endpoint                                |
+| --------  |-------------------------------------| ----------------------------------------| 
+| POST      | User signup                         | `/api/v2/auth/signup`                   |
+| POST      | User login                          | `/api/v2/auth/login`                    |
+| POST      | Compose Mail                        | `/api/v2/messages`                      |
+| GET       | Get all sent messages               | `/api/v2/messages/sent`                 |
+| GET       | Get all unread messages             | `/api/v2/messages/unread`               |
+| GET       | Get all received messages           | `/api/v2/messages/received`             |
+| GET       | Get a specific message              | `/api/v2/messages/:msd-id`              |
+| DELETE    | Delete a specific message           | `/api/v2/messages/:msd-id`              |
+| POST      | Create a group                      | `/api/v2/groups/`                       |
+| GET       | Get all groups on epicMail          | `/api/v2/groups/`                       |
+| PATCH     | Edit a group                        | `/api/v2/groups/:id/name`               |
+| DELETE    | Delete a created group              | `/api/v2/groups/:id`                    |
+| POST      | Send Broadcast message to group     | `/api/v2/groups/:groupId/messages`      |
+| POST      | Add a user to the group             | `/api/v2/groups/:id/users`              |
+| DELETE    | Delete a group member from a group  | `/api/v2/groups/:groupId/users/:userId` |
+
+
+
+
 
 ***
 

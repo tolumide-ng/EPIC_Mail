@@ -27,7 +27,8 @@ const Validator = {
       const mails = (key === 'email' || key === 'secondaryEmail');
       const value = body[key];
       if (value.length <= 3) {
-        return res.status(444).json({ status: 444, error: 'Length of the value cannot be less than 3' });
+        const newLocal = 'Length of the value cannot be less than 3';
+        return res.status(400).json({ status: 400, error: newLocal });
       }
       if (key === 'password') {
         const validPassword = regAlphanumeric.test(value);
@@ -52,8 +53,8 @@ const Validator = {
       }
     });
     if (errorContents.length > 0) {
-      return res.status(444).json({
-        status: 444,
+      return res.status(400).json({
+        status: 400,
         error: `${errorContents}`,
       });
     }
@@ -61,6 +62,54 @@ const Validator = {
     req.value.body = req.body;
     next();
   },
+
+  loginValidator(req, res, next) {
+    const verfiedContent = {};
+    const errorContents = [];
+    const { body } = req;
+    const missingKeys = [];
+
+    // Ensure all details are supplied
+    const requiredDetails = ['email', 'password'];
+    requiredDetails.forEach((detail) => {
+      const found = Object.keys(body).find(objectKey => objectKey === detail);
+      if (!found) {
+        missingKeys.push(detail);
+      }
+    });
+    if (missingKeys.length > 0) {
+      return res.status(400).json({ status: 400, error: `${missingKeys} is required` });
+    }
+
+    // Ensure the content of each key is a valid entry
+    Object.keys(body).forEach((key) => {
+      const value = body[key];
+      if (key === 'password') {
+        const validPassword = regAlphanumeric.test(value);
+        if (!validPassword) {
+          errorContents.push(`${key} must be alphanumeric and length nust be more than 6`);
+        }
+        Object.assign(verfiedContent, { [key]: value });
+      }
+      if (key === 'email') {
+        const validEmail = regEmail.test(value);
+        if (!validEmail) {
+          errorContents.push(`Please ensure ${key} is a valid email`);
+        }
+        Object.assign(verfiedContent, { [key]: value.toLowerCase() });
+      }
+    });
+    if (errorContents.length > 0) {
+      return res.status(400).json({
+        status: 400,
+        error: `${errorContents}`,
+      });
+    }
+    if (!req.value) { req.value = {}; }
+    req.value.body = req.body;
+    console.log(req.value.body);
+    next();
+  }
 };
 
 

@@ -9,7 +9,7 @@ const should = chai.should();
 const { expect } = chai;
 
 const {
-  user, incompleteUser, userLogin, faileduserLogin, incompleteLogin,
+  user, incompleteUser, wrongRegExpName, userLogin, faileduserLogin, incompleteLogin, invalidEmailLogin, userInputLessThan3,
 } = mockData;
 const userRoute = '/api/v2/auth';
 
@@ -74,7 +74,52 @@ describe('Failed User actions', () => {
         res.should.be.json;
         res.body.should.have.property('error');
         res.body.should.be.a('object');
-        expect(res.body).to.have.own.property('error', 'Only email, password, firstName, lastName and secondaryEmail are required');
+        expect(res.body).to.have.own.property('error', 'lastName,secondaryEmail is required');
+        done();
+      });
+  });
+
+  it('should return a 400 status code for incomplete paramters', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(wrongRegExpName)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        res.body.should.be.a('object');
+        expect(res.body).to.have.own.property('error', 'Please ensure email is a valid email');
+        done();
+      });
+  });
+
+  it('should return a 400 status code for incomplete paramters', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(userInputLessThan3)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        res.body.should.be.a('object');
+        expect(res.body).to.have.own.property('error', 'Length of the value cannot be less than 3');
+        done();
+      });
+  });
+
+  it('should return 401 for failed user login', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/login`)
+      .set('Accept', '/application/json')
+      .send(faileduserLogin)
+      .end((req, res) => {
+        res.should.have.status(401);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('error');
+        res.body.should.have.property('status');
         done();
       });
   });
@@ -105,8 +150,24 @@ describe('Failed User actions', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('error');
         res.body.should.have.property('status');
-        expect(res.body).to.have.own.property('error', 'Only email and password are required');
+        expect(res.body).to.have.own.property('error', 'email is required');
         done();
       });
   });
+});
+
+it('should return validationError during login', (done) => {
+  chai.request(server)
+    .post(`${userRoute}/login`)
+    .set('Accept', '/application/json')
+    .send(invalidEmailLogin)
+    .end((req, res) => {
+      res.should.have.status(400);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('error');
+      res.body.should.have.property('status');
+      expect(res.body).to.have.own.property('error', 'Please ensure email is a valid email');
+      done();
+    });
 });

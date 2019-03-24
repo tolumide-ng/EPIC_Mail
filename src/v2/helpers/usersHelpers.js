@@ -31,6 +31,7 @@ export default {
     const result = Joi.validate(req.body, loginSchema);
 
     if (result.error) {
+      console.log(result.error);
       return res.status(400).json({ status: 400, error: 'Only email and password are required' });
     }
 

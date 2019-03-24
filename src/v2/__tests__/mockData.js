@@ -7,6 +7,14 @@ export default {
     password: 'efetogbore12',
   },
 
+  userInputLessThan3: {
+    email: 'toluwani@epicmail.com',
+    secondaryEmail: 'Okanlawon@gmail.com',
+    firstName: 'Malcolm',
+    lastName: 'ab',
+    password: 'efetogbore12',
+  },
+
   userLogin: {
     email: 'toluwani@epicmail.com',
     password: 'efetogbore12',
@@ -17,10 +25,23 @@ export default {
     password: 'fakepassword',
   },
 
+  invalidEmailLogin: { 
+    email: 'toluwani@epicmailcom',
+    password: 'fakepassword',
+  },
+
   incompleteUser: {
     email: 'toluwani@epicmail.com',
     firstName: 'Malcolm',
     password: 'efetogbore12',
+  },
+
+  wrongRegExpName: {
+    email: 'toluwani@epic.',
+    firstName: 'Habeeb',
+    lastName: 'Whyte', 
+    password: 'toii123',
+    secondaryEmail: 'talk@talki.com',
   },
 
   incompleteLogin: {

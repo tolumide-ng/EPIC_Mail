@@ -1,6 +1,6 @@
-const regString = (/^([a-zA-Z]){3,}$/);
+const regString = (/^([a-zA-Z\s]){3,}$/);
 const regEmail = (/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-const regAlphanumeric = (/^([a-zA-Z0-9\-.]{6,})$/);
+const regAlphanumeric = (/^([a-zA-Z0-9\-.\s]{6,})$/);
 
 const Validator = {
   signUpValidator(req, res, next) {
@@ -17,8 +17,12 @@ const Validator = {
         missingKeys.push(detail);
       }
     });
-    if (missingKeys.length > 0) {
+    if (missingKeys.length === 1) {
       return res.status(400).json({ status: 400, error: `${missingKeys} is required` });
+    }
+
+    if (missingKeys.length > 1) {
+      return res.status(400).json({ status: 400, error: `${missingKeys} are required` });
     }
 
     // Ensure the content of each key is a valid entry
@@ -26,14 +30,14 @@ const Validator = {
       const strings = (key === 'firstName' || key === 'lastName');
       const mails = (key === 'email' || key === 'secondaryEmail');
       const value = body[key];
-      if (value.length <= 3) {
+      if (value.length < 3) {
         const newLocal = 'Length of the value cannot be less than 3';
         return res.status(400).json({ status: 400, error: newLocal });
       }
       if (key === 'password') {
         const validPassword = regAlphanumeric.test(value);
         if (!validPassword) {
-          errorContents.push(`${key} must be alphanumeric and length nust be more than 6`);
+          errorContents.push(`${key} must be alphanumeric and length must be more than 6`);
         }
         Object.assign(verfiedContent, { [key]: value });
       }
@@ -109,7 +113,7 @@ const Validator = {
     req.value.body = req.body;
     console.log(req.value.body);
     next();
-  }
+  },
 };
 
 

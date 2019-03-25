@@ -96,7 +96,6 @@ const Mail = {
       if (!rows) {
         return res.status(404).json({ status: 404, error: `You do not have a mail with id=${req.params.id}` });
       }
-      console.log(rows);
       if ((rows[0].receiveremail === user.email || null) && (rows[0].receiverstatus === 'deleted')) {
         return res.status(404).json({ status: 404, error: `You do not have a mail with id=${req.params.id}` });
       }

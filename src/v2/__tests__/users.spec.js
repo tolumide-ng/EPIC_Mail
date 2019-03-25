@@ -74,7 +74,7 @@ describe('Failed User actions', () => {
         res.should.be.json;
         res.body.should.have.property('error');
         res.body.should.be.a('object');
-        expect(res.body).to.have.own.property('error', 'lastName,secondaryEmail is required');
+        expect(res.body).to.have.own.property('error', 'lastName,secondaryEmail are required');
         done();
       });
   });

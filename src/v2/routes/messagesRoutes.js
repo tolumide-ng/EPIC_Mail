@@ -1,16 +1,16 @@
 import express from 'express';
 
 import messagesControllers from '../controllers/messagesControllers';
-import messageHelpers from '../helpers/messageHelpers';
 import tokenVerification from '../helpers/tokenVerification';
 import trimmerjs from '../helpers/trimmer';
+import messageValidator from '../helpers/messageValidator';
 
 const { trimmer } = trimmerjs;
 const { verifyToken, validateToken } = tokenVerification;
-const { composeMail } = messageHelpers;
+const { composeMailValidator } = messageValidator;
 const router = express.Router();
 
-router.post('/', trimmer, composeMail, verifyToken, validateToken, messagesControllers.composeMail);
+router.post('/', trimmer, composeMailValidator, verifyToken, validateToken, messagesControllers.composeMail);
 router.get('/unread', verifyToken, validateToken, messagesControllers.unreadReceivedMails);
 router.get('/received', verifyToken, validateToken, messagesControllers.allReceivedMails);
 router.get('/sent', verifyToken, validateToken, messagesControllers.allSentMails);

@@ -96,6 +96,12 @@ export default {
     receiverEmail: 'kolawsi@gmail.com',
   },
 
+  eichsInvalidMessage: {
+    subject: 'Burundi of the future',
+    receiverEmail: 'kolawsi@gmailcom',
+    message: 'Welcome to Burundi, the land of the future'
+  },
+
   brenda: {
     email: 'brendafasey@epicmail.com',
     secondaryEmail: 'BrendaMaconkey@gmail.com',
@@ -199,12 +205,22 @@ export default {
   },
 
   broadcastMessage: {
+    subject: 'Welcome to Addis ababa, ore me',
+    message: 'Let us meet at the Cafe restaurant by 6pm, trust you are fine',
+  },
+
+  anotherBroadcastMessage: {
     subject: 'Welcome to Southesiaas',
     message: 'The island og the bela',
   },
 
   broadcastMessageValidation: {
     subject: 'Arkansas',
+  },
+
+  shortBroadcastMessage: {
+    subject: 'We',
+    message: 'Le',
   },
 
 };

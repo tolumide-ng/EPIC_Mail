@@ -36,18 +36,15 @@ const Group = {
     if (isNaN(idToNum)) {
       return res.status(400).json({ status: 400, error: 'Bad request: Please ensure that the groupId is an integer' });
     }
-    console.log(idToNum);
     const { name } = req.value.body;
     const text = 'SELECT * FROM groupTable WHERE id=$1';
     const values = [idToNum];
-    console.log('here mow');
     try {
       const { rows } = await db.query(text, values);
 
       if (!rows[0]) {
         return res.status(404).json({ status: 404, error: 'Not Found: Please check the provided groupId' });
       }
-      console.log('welcome back');
       if (rows[0].createdby !== user.email) {
         return res.status(403).json({ status: 403, error: 'Unauthorized, You do not have the authority to rename this group' });
       }

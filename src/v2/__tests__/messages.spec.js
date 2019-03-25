@@ -12,7 +12,7 @@ const { expect } = chai;
 const messagesRoute = '/api/v2/messages';
 const userRoute = '/api/v2/auth';
 const {
-  eichUser, loginEich, eichsMessage, alfred, eichsDraft, eichsBadMessage, eichsOtherMessage, alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide
+  eichUser, loginEich, eichsMessage, alfred, eichsDraft, eichsBadMessage, eichsInvalidMessage, eichsOtherMessage, alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide
 } = mockData;
 
 const globalDetail = {};
@@ -68,7 +68,21 @@ describe('ComposeMail Scenario', () => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Only subject and message are required, include receiverEmail if the message is not a draft');
+        expect(res.body).to.have.own.property('error', 'message is required');
+        done();
+      });
+  });
+
+  it('should return a validation error on post message', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsInvalidMessage)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', 'receiverEmail must be a valid email');
         done();
       });
   });

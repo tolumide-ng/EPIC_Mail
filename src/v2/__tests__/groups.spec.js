@@ -9,8 +9,8 @@ const should = chai.should();
 const { expect } = chai;
 
 const {
-  Basheer, chwuks, chwuksGroup, incompleteGroupDetails, basheerGroup, editBasheerGroupName, tomiwa, bambam,
-  validationMember, unRegisteredMember, tomiwaAddToGroup, bambamAddToGroup, alfredAddToGroup, broadcastMessageValidation, broadcastMessage
+  Basheer, chwuks, chwuksGroup, incompleteGroupDetails, basheerGroup, editBasheerGroupName, tomiwa, bambam, shortBroadcastMessage,
+  validationMember, anotherBroadcastMessage, unRegisteredMember, tomiwaAddToGroup, bambamAddToGroup, alfredAddToGroup, broadcastMessageValidation, broadcastMessage,
 } = mockData;
 
 const groupRoute = '/api/v2/groups';
@@ -71,7 +71,7 @@ describe('User Interaction with groups', () => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Only name and role are required');
+        expect(res.body).to.have.own.property('error', 'role is required');
         done();
       });
   });
@@ -173,7 +173,7 @@ describe('User Interaction with groups', () => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Only subject and message are required');
+        expect(res.body).to.have.own.property('error', 'message is required');
         done();
       });
   });
@@ -192,6 +192,19 @@ describe('User Interaction with groups', () => {
       });
   });
 
+    //Send broadacast message to every group member 
+    it('should fail to send a broadcast message beacasue the length is less than 3', (done) => {
+      chai.request(server)
+        .post(`${groupRoute}/${globalContainer.chwuksGroupId}/messages`)
+        .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
+        .send(shortBroadcastMessage)
+        .end((req, res) => {
+          res.should.have.status(400);
+          res.should.be.json;
+          res.body.should.have.property('error');
+          done();
+        });
+    });
 
   // It should not add an already existing member to the group
   it('should successfully add bambam to the group', (done) => {
@@ -275,6 +288,35 @@ describe('User Interaction with groups', () => {
       });
   });
 
+  // It shpuld fail to edit the group name owing to validation errors
+  it('should fail to edit the group name of existing group', (done) => {
+    chai.request(server)
+      .patch(`${groupRoute}/${globalContainer.basheerGroupId}/name`)
+      .set('Authorization', `bearer ${globalContainer.basheerToken}`)
+      .send({name: 'ot'})
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', `Length of name cannot be less than 3`);
+        done();
+      });
+  });
+
+  // It should fail to edit group name beacuse the new name is not supplied
+  it('should fail to edit group name because the group name is not supplied', (done) => {
+    chai.request(server)
+      .patch(`${groupRoute}/${globalContainer.basheerGroupId}/name`)
+      .set('Authorization', `bearer ${globalContainer.basheerToken}`)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', `name is required`);
+        done();
+      });
+  });
+
   it('should succesfully edit the name of an existing group', (done) => {
     chai.request(server)
       .patch(`${groupRoute}/${globalContainer.basheerGroupId}/name`)
@@ -339,7 +381,7 @@ describe('User Interaction with groups', () => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Only name is required');
+        expect(res.body).to.have.own.property('error', 'name is required');
         done();
       });
   });

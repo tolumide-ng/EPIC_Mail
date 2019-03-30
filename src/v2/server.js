@@ -1,4 +1,5 @@
 import express from 'express';
+// import cors from 'cors';
 import '@babel/polyfill';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
@@ -9,13 +10,25 @@ import groupsRoutes from './routes/groupsRoutes';
 
 dotenv.config();
 
-
 const app = express();
 
+// app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'),
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'),
+  res.header('Access-Control-Max-Age', 86400);
+
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+  }
+  next();
+});
 
 // Routes
 app.use('/api/v2/auth', usersRoutes);
@@ -31,7 +44,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   res.status(error.status || 500);
   res.json({ status: error.status || 500, error: `This error is thrown because ${error.name}, ${error.message}` });
 });

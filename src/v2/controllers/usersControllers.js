@@ -12,7 +12,8 @@ const helper = {
   },
 
   async isValid(password, validMailPassword) {
-    return await bcrypt.compare(password, validMailPassword);
+    const result = await bcrypt.compare(password, validMailPassword);
+    return result;
   },
 };
 
@@ -60,7 +61,7 @@ export default class User {
           }],
         });
       }
-      return res.status(409).json({ status: 409, error: 'Please use a different email, Email already exists' });
+      return res.status(409).json({ status: 409, error: 'Please use a different username, this username already exists' });
     } catch (err) {
       return res.status(500).json({ status: 400, error: `${err.name}, ${err.message}` });
     }

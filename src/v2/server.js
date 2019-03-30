@@ -37,17 +37,10 @@ app.use('/api/v2/groups', groupsRoutes);
 
 app.get('/', (req, res) => res.status(200).json({ status: 200, data: "'YAY!' Welcome to EPIC_Mail (version 2)" }));
 
-// Handle unavailable routes
-app.use((req, res, next) => {
-  const error = new Error('Route not listed in endpoints, Not found');
-  error.status = 404;
-  next(error);
-});
-
-app.use((error, req, res) => {
-  res.status(error.status || 500);
-  res.json({ status: error.status || 500, error: `This error is thrown because ${error.name}, ${error.message}` });
-});
+// Handle unlisted routes
+app.use('*', (req, res) => {
+  return res.status(404).json({ status: 404, error: `Route not listed on endpoint`});
+})
 
 const port = process.env.PORT || 3000;
 

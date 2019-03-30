@@ -35,6 +35,7 @@ describe('Failed group cases', () => {
     chai.request(server)
       .get(`${groupRoute}/`)
       .set('Authorization', `bearer ${globalContainer.basheerToken}`)
+      .set('Accept', '/application/json')
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;
@@ -178,7 +179,7 @@ describe('User Interaction with groups', () => {
       });
   });
 
-  //Send broadacast message to every group member 
+  // Send broadacast message to every group member
   it('should successfully send message to all members of the group', (done) => {
     chai.request(server)
       .post(`${groupRoute}/${globalContainer.chwuksGroupId}/messages`)
@@ -192,19 +193,19 @@ describe('User Interaction with groups', () => {
       });
   });
 
-    //Send broadacast message to every group member 
-    it('should fail to send a broadcast message beacasue the length is less than 3', (done) => {
-      chai.request(server)
-        .post(`${groupRoute}/${globalContainer.chwuksGroupId}/messages`)
-        .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
-        .send(shortBroadcastMessage)
-        .end((req, res) => {
-          res.should.have.status(400);
-          res.should.be.json;
-          res.body.should.have.property('error');
-          done();
-        });
-    });
+  // Send broadacast message to every group member
+  it('should fail to send a broadcast message beacasue the length is less than 3', (done) => {
+    chai.request(server)
+      .post(`${groupRoute}/${globalContainer.chwuksGroupId}/messages`)
+      .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
+      .send(shortBroadcastMessage)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        done();
+      });
+  });
 
   // It should not add an already existing member to the group
   it('should successfully add bambam to the group', (done) => {
@@ -293,12 +294,12 @@ describe('User Interaction with groups', () => {
     chai.request(server)
       .patch(`${groupRoute}/${globalContainer.basheerGroupId}/name`)
       .set('Authorization', `bearer ${globalContainer.basheerToken}`)
-      .send({name: 'ot'})
+      .send({ name: 'ot' })
       .end((req, res) => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', `Length of name cannot be less than 3`);
+        expect(res.body).to.have.own.property('error', 'Length of name cannot be less than 3');
         done();
       });
   });
@@ -312,7 +313,7 @@ describe('User Interaction with groups', () => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', `name is required`);
+        expect(res.body).to.have.own.property('error', 'name is required');
         done();
       });
   });
@@ -395,7 +396,7 @@ describe('User Interaction with groups', () => {
         res.should.have.status(403);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Unauthorized, You do not have the authority to delete this group')
+        expect(res.body).to.have.own.property('error', 'Unauthorized, You do not have the authority to delete this group');
         done();
       });
   });
@@ -420,7 +421,7 @@ describe('User Interaction with groups', () => {
         res.should.have.status(404);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', `Not Found, There is no group with id=${globalContainer.basheerGroupId}`)
+        expect(res.body).to.have.own.property('error', `Not Found, There is no group with id=${globalContainer.basheerGroupId}`);
         done();
       });
   });

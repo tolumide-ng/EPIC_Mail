@@ -24,6 +24,7 @@ describe('Server.js endpoints', () => {
   it('should return a status code of 500', (done) => {
     chai.request(server)
       .get('/aNonExistingRoute')
+      .set('Content-Type', 'application/json')
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;

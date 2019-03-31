@@ -45,9 +45,24 @@ describe('ComposeMail Scenario', () => {
       });
   });
 
-  it('should return a 404 status code on succesful mail post', (done) => {
+  it('should return a 404 status code when recipient does not exist', (done) => {
     chai.request(server)
       .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsOtherMessage)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', 'Receiver Not Found: Please ensure the receiverEmail is registered to epic mail');
+        done();
+      });
+  });
+
+  // User entered as recipient in save as draft does not exist
+  it('should return a 404 status code', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/draft`)
       .set('Authorization', `bearer ${container.eichToken}`)
       .send(eichsOtherMessage)
       .end((req, res) => {
@@ -91,6 +106,20 @@ describe('ComposeMail Scenario', () => {
   it('should return a 201 status code on succesful draft post', (done) => {
     chai.request(server)
       .post(`${messagesRoute}/`)
+      .set('Authorization', `bearer ${container.eichToken}`)
+      .send(eichsDraft)
+      .end((req, res) => {
+        res.should.have.status(201);
+        res.should.be.json;
+        expect(res.body.data[0]).to.have.own.property('status', 'draft');
+        done();
+      });
+  });
+
+  // Draft sent to the draft endpoint
+  it('should return a 201 status code on succesful draft post', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/draft`)
       .set('Authorization', `bearer ${container.eichToken}`)
       .send(eichsDraft)
       .end((req, res) => {

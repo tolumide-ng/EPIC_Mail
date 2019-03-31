@@ -8,26 +8,27 @@
 }
 
 body {
-    background: #EEF5F1;
+    height: 100vh;
 }
 
 /* MAILS CONTAINER */
 #mailsContainer {
-    padding: 15px;
-    padding-top: 60px;
-    margin: 0 2%;
-    margin-bottom: 2%;
     display: grid;
-    grid-template-columns: 0.3fr 0.7fr;
-    grid-template-rows: 0.1fr 0.9fr;
+    grid-template-columns: 0.1fr 0.9fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    /* background: orange; */
+    /* height: (100% -3em); */
+
 }
 
 #menuList {
+    background: #FFFFE9;
+    /* background: yellow; */
     grid-column: 1;
-    grid-row: 2;
-    height: 70vh;
-    margin: 0 3em;
-    margin-right: 0;
+    margin-top: 3em;
+    grid-row: 1;
+    /* height: (100% -3em); */
 }
 
 #menuListContainer {
@@ -35,19 +36,21 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin: 20% 25%;
+    align-items: flex-start;
+    padding-right: 1.3em;
+    /* background: purple; */
 }
 
 .menuListContent {
     padding: 0.4em;
     cursor: pointer;
-    text-align: center;
-    color: white;
+    width: 100%;
+    /* color: white; */
     font-size: 1.5em;
     font-family: 'lato', sans-serif;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
     margin-bottom: 0.7em;
-    background: #393E46;
+    /* background: #393E46; */
 }
 
 .menuListContent:hover{
@@ -72,28 +75,30 @@ body {
 }
 
 #displayContainer {
-    grid-row: 2;
+    /* grid-row: 2; */
     grid-column: 2;
-    height: 80vh;
-    box-shadow: 3px 3px 5px 6px #ccc;
-    padding: 20px 40px;
+    margin-top: 3em;
     overflow: auto;
-    background: #CFDBC9;
+    background: #FAFAE4;
+    width: 100%;
+    /* background: #CFDBC9; */
 }
 
 .mailContent {
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 2em;
 }
 
 #messageTitle {
-    background: #000;
+    background: #0E6681;
     color: white;
-    padding: 9px;
+    padding: 10px;
     padding-left: 2%;
     font-weight: bolder;
     letter-spacing: 1px;
+    font-size: 1.3em;
 }
 
 .composeMailContent {
@@ -144,12 +149,12 @@ body {
 }
 
 #draftButton {
-    background: #FF0044;
+    background: #395043;
     color: white;
 }
 
 #sendButton {
-    background: rgb(83, 81, 192);
+    background: #547562;
     color: white;
     padding: 5px 10px;
 }
@@ -224,6 +229,7 @@ body {
 .address {
     margin-right: 40px;
     grid-column: 1;
+    margin-left: 2em;
 }
 
 .mailTitle {
@@ -244,7 +250,7 @@ body {
 .inboxMessage {
     display: grid;
     padding: 0.5rem;
-    background: #92D1C8;
+    background: #FAFAB7;
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;

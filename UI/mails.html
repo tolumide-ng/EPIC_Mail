@@ -81,24 +81,22 @@
     </div>
 
     <!-- COMPOSE MAIL -->
-    <div class="mailContent compose visibility">
+    <form class="mailContent compose visibility" onsubmit="event.preventDefault()">
         <div id="messageTitle" class="composeMailContent">Compose Message</div>
 
 
-        <div id="receiver" class="composeMailContent">From: <span>thisUser@epic_mail.com</span></div>
+        <div id="sender" class="composeMailContent">From: <span></span></div>
 
         <div class="formContent composeMailContent">
-            <!-- <label for="recipient" id="to" class="recipient">Recipient: </label> -->
-            <input type="text" placeholder="Recipient" name="recipient" class="recipient formInput" id="recipient">
+            <input type="email" placeholder="Recipient" name="recipient" class="recipient formInput" id="recipient">
         </div>
 
         <div class="formContent composeMailContent">
-            <!-- <label for="subject" class="subject" id="mailSubject">Subject: </label> -->
             <input type="text" placeholder="Subject" name="subject" class="formInput subject" id="subject">
         </div>
 
         <div class="formMessage composeMailContent">
-            <textarea name="" placeholder="Your email here" class="messageContent"></textarea>
+            <textarea name="" placeholder="Your email here" class="messageContent" id='composedMessage'></textarea>
         </div>
 
         <div id="buttons">
@@ -107,7 +105,7 @@
             <button id="sendButton" class="buttonDisplay">Send</button>
         </div>
 
-    </div>
+    </form>
 
 
     <!-- INBOX MAILS -->
@@ -257,6 +255,6 @@
         </div>
     </div>
 </body>
+<script src="./scripts/server/composeMail.js"></script>
 <script src="./scripts/mails.js"></script>
-
 </html>

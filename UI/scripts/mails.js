@@ -51,7 +51,7 @@ menuList.addEventListener('click', e => {
 // invisible html elements
 
 
-menuList.addEventListener('click', e => {
+menuList.addEventListener('click', async e => {
     // if (e.target.closest('.menuListContent')) 
     const selectedContent = e.target.closest('.menuListContent').getAttribute('id');
 
@@ -123,31 +123,16 @@ menuList.addEventListener('click', e => {
         });
 
     } else if (selectedContent === 'compose') {
-        displayContainer.querySelector('#draftButton').addEventListener('click', e => {
-            // displayContainer.innerHTML = '';
-            // displayContainer.innerHTML = `<strong>Message saved as draft</strong>`
-
-            const popupMessage = document.querySelector('#popupMessage');
-            popupMessage.innerHTML='';
-            popupMessage.insertAdjacentHTML('afterbegin', '<p>Draft Saved</p>');
-            setTimeout(() => {
-                popupMessage.innerHTML = '';
-            }, 5000);
-        });
-
-        displayContainer.querySelector('#sendButton').addEventListener('click', e => {
-            // displayContainer.innerHTML = '';
-            // displayContainer.innerHTML = `<strong>Message sent</strong>`
-            const popupMessage = document.querySelector('#popupMessage');
-            popupMessage.innerHTML='';
-            popupMessage.insertAdjacentHTML('afterbegin', '<p>Message Sent</p>');
-            setTimeout(() => {
-                popupMessage.innerHTML = '';
-            }, 5000);
-        });
+        const composeMail = document.querySelector('.compose');
+        const sender = document.querySelector('#sender');
+        sender.innerHTML += localStorage.getItem('email');
+        displayContainer.querySelector('#draftButton').addEventListener('click', sendMessageContainer(`${messagesUrl}/messages/draft`));
+        
+        displayContainer.querySelector('#sendButton').addEventListener('click', sendMessageContainer(`${messagesUrl}/messages`));
     }
 
     return;
 
 
 });
+

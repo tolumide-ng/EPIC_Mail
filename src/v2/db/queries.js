@@ -22,7 +22,7 @@ const createTable = {
             id SERIAL PRIMARY KEY NOT NULL UNIQUE,
             createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
             subject VARCHAR(100) NOT NULL,
-            message VARCHAR(255) NOT NULL,
+            message TEXT NOT NULL,
             parentMessageId INT,
             senderEmail VARCHAR(100),
             receiverEmail VARCHAR(100),

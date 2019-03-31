@@ -1,3 +1,5 @@
+const messagesUrl = 'http://localhost:3000/api/v2/messages';
+
 const menuList = document.querySelector('#menuList');
 const displayContainer = document.querySelector('#displayContainer');
 function inboxMessagesDisplay() {
@@ -34,11 +36,11 @@ inboxMessagesDisplay();
 menuList.addEventListener('click', e => {
     if (e.target.closest('.menuListContent')) {
         const selectedContent = e.target.closest('.menuListContent').getAttribute('id');
-        console.log(selectedContent);
+        // console.log(selectedContent);
         displayContainer.innerHTML = '';
         const selectedDisplay = document.querySelector(`.${selectedContent}`);
         const clonedSelectedDisplay = selectedDisplay.cloneNode(true);
-        console.log(clonedSelectedDisplay);
+        // console.log(clonedSelectedDisplay);
         displayContainer.append(clonedSelectedDisplay);
         displayContainer.querySelector(`.${selectedContent}`).classList.toggle('visibility');
     }
@@ -90,10 +92,25 @@ menuList.addEventListener('click', async e => {
 
     } else if (selectedContent === 'sent') {
         // SENT MAIL
-        const sentMessageContainer = displayContainer.querySelector('.sentMessagesContainer');
-        const sentMessage = displayContainer.querySelectorAll('.sentMessage');
-        sentMessageContainer.addEventListener('click', e => {
-            console.log('welcome to sent mails');
+        let response = await requestResponse('GET', `${messagesUrl}/sent`);
+        // The obtained response is an array, now lets loop through it
+        const sentMessagesContainer = document.querySelector('.sentMessagesContainer');
+        response.forEach(message => {
+            // console.log(message);
+            const nd = new Date(message.createdon);
+            sentMessagesContainer.innerHTML += `
+            <div class='sentMessage'>
+                <div class='address'>${message.receiveremail}</div>
+                <div class='mailTitle'>${message.subject}</div>
+                <div class='id visibility'>${message.id}</div>
+                <div class='date' >${nd.getDate()}/${nd.getMonth()}/${nd.getFullYear()}</div>
+                <div class='parent visibility'>${message.parentmessageid}</div>
+                <div class='messageContent visibility'>${message.message}</div>
+            </div>`
+        });
+
+        // const sentMessage = displayContainer.querySelectorAll('.sentMessage');
+        sentMessagesContainer.addEventListener('click', e => {
             if (e.target.closest('.sentMessage')) {
                 e.target.closest('.sentMessage').style.backgroundColor = 'blue';
 
@@ -111,24 +128,28 @@ menuList.addEventListener('click', async e => {
 
         <div class='spaceContent'> <strong> Subject: </strong> ${e.target.closest('.sentMessage').children[1].textContent} </div>
 
+        <div class='spaceContent'><strong> Date: </strong> ${e.target.closest('.sentMessage').children[3].textContent}</div>
+
         <div class='spaceContent'> <strong> Message: </strong> <div class='theMessageDisplayed'> ${(e.target.closest('.sentMessage').lastElementChild.textContent)} </div> </div>
-        
+        <div class='spaceContent contentId'> id: <strong id='contentId'> ${(e.target.closest('.sentMessage').children[2].textContent)} </strong></div>
         <div class='buttonContainer'>
         <button class='retract'>Retract message</button>
         </div>
         `;
-                console.log((e.target.closest('.sentMessage').children));
+        // console.log((e.target.closest('.sentMessage').children));
+        const retract = document.querySelector('.retract');
+        retract.addEventListener('click', retractMessage);
             }
             return;
         });
 
     } else if (selectedContent === 'compose') {
-        const composeMail = document.querySelector('.compose');
+        // const composeMail = document.querySelector('.compose');
         const sender = document.querySelector('#sender');
         sender.innerHTML += localStorage.getItem('email');
-        displayContainer.querySelector('#draftButton').addEventListener('click', sendMessageContainer(`${messagesUrl}/messages/draft`));
-        
-        displayContainer.querySelector('#sendButton').addEventListener('click', sendMessageContainer(`${messagesUrl}/messages`));
+        displayContainer.querySelector('#draftButton').addEventListener('click', sendMessageContainer(`${messagesUrl}/draft`));
+
+        displayContainer.querySelector('#sendButton').addEventListener('click', sendMessageContainer(`${messagesUrl}/`));
     }
 
     return;

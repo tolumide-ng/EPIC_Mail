@@ -1,4 +1,4 @@
-const messagesUrl = 'http://localhost:3000/api/v2';
+// const messagesUrl = 'http://localhost:3000/api/v2/messages';
 
 const messageResponse = async (message, responseContent) => {
     const popupMessage = document.querySelector('#popupMessage');

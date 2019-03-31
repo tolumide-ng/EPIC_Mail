@@ -10,7 +10,8 @@ EPIC_Mail is a web application that empowers it's users to exchange messages/inf
 ## Epic_Mail Features
 - Users can create an account, and become Registered users
 - Registered Users can sign in
-- Registered Users can post an email 
+- Registered Users can post an email
+- Registered User can specificallu save a message as draft
 - Users can get all received emails
 - Users can get all unread emails
 - Users can get all sent emails
@@ -85,6 +86,7 @@ API is documented on **[swagger](https://inspector.swagger.io/)** can can be vie
 | POST      | User signup                         | `/api/v2/auth/signup`                   |
 | POST      | User login                          | `/api/v2/auth/login`                    |
 | POST      | Compose Mail                        | `/api/v2/messages`                      |
+| POST      | Specifically save message as draft  | `/api/v2/messages/draft`                |
 | GET       | Get all sent messages               | `/api/v2/messages/sent`                 |
 | GET       | Get all unread messages             | `/api/v2/messages/unread`               |
 | GET       | Get all received messages           | `/api/v2/messages/received`             |

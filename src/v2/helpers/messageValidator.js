@@ -34,7 +34,7 @@ const Validator = {
         }
         Object.assign(verifiedContent, { [key]: value });
       }
-      if (key === 'receiverEmail') {
+      if (key === 'receiverEmail' || key === 'receiveremail') {
         const validEmail = regEmail.test(value);
         if (!validEmail) {
           errorContents.push(`${key} must be a valid email`);

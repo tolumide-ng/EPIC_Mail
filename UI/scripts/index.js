@@ -77,7 +77,10 @@ signUpSelector.addEventListener('click', async (e) => {
         const bodyGuy= await response.json();
         console.log(bodyGuy.data[0].token);
         localStorage.setItem('token', bodyGuy.data[0].token);
-        localStorage.setItem('userDetails', bodyGuy.data[0]);
+        localStorage.setItem('firstname', bodyGuy.data[0].firstname);
+        localStorage.setItem('lastname', bodyGuy.data[0].lastname);
+        localStorage.setItem('email', bodyGuy.data[0].email);
+        localStorage.setItem('id', bodyGuy.data[0].id);
         document.location.href = 'http://127.0.0.1:5500/UI/mails.html';
         return;
     }

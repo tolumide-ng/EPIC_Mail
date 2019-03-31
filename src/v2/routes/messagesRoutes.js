@@ -10,6 +10,7 @@ const { verifyToken, validateToken } = tokenVerification;
 const { composeMailValidator } = messageValidator;
 const router = express.Router();
 
+router.post('/draft', trimmer, composeMailValidator, verifyToken, validateToken, messagesControllers.saveDraft);
 router.post('/', trimmer, composeMailValidator, verifyToken, validateToken, messagesControllers.composeMail);
 router.get('/unread', verifyToken, validateToken, messagesControllers.unreadReceivedMails);
 router.get('/received', verifyToken, validateToken, messagesControllers.allReceivedMails);

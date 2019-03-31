@@ -8,29 +8,34 @@ const Mail = {
   async composeMail(req, res) {
     const user = req.decodedToken;
     const generated = {};
-    const { receiverEmail, subject, message } = req.value.body;
+    const {
+      receiverEmail, subject, message, receiveremail,
+    } = req.value.body;
     // if (!parentMessageId) { generated.parentMessageId = null; }
+    // Please note the difference in receiverEmail and receiveremail
+    // receiveremail enabled to allow messages previously saved as draft using the saveDraft controller
+    // to be edited or and sent to user
     generated.senderEmail = user.email;
     try {
-      if (!receiverEmail) {
+      if (!receiverEmail && !receiveremail) {
         generated.receiverEmail = null;
         generated.status = 'draft';
         const text = `INSERT INTO messagesTable(subject, message, senderEmail, receiverEmail, status)
           VALUES($1, $2, $3, $4, $5) returning *`;
         const values = [subject, message, user.email, receiverEmail || generated.receiverEmail, generated.status];
         const { rows } = await db.query(text, values);
-        return res.status(201).json({ status: 201, data: [rows[0]] });
+        return res.status(201).json({ status: 201, data: [rows[0]], message: 'Message saved as draft' });
       }
 
       const searchText = 'SELECT * FROM usersTable WHERE email=$1';
-      const searchValue = [receiverEmail];
+      const searchValue = [receiverEmail || receiveremail];
       const { rows: recipient } = await db.query(searchText, searchValue);
       if (!recipient[0]) {
         return res.status(404).json({ status: 404, error: 'Receiver Not Found: Please ensure the receiverEmail is registered to epic mail' });
       }
       const text = `INSERT INTO messagesTable(subject, message, senderEmail, receiverEmail, status)
         VALUES($1,$2,$3,$4,$5) returning *`;
-      const values = [subject, message, generated.senderEmail, receiverEmail, 'inbox'];
+      const values = [subject, message, generated.senderEmail, receiverEmail || receiveremail, 'inbox'];
       const { rows: theMessage } = await db.query(text, values);
       const dbResponse = theMessage[0];
       const responseText = {};
@@ -40,7 +45,37 @@ const Mail = {
           Object.assign(responseText, { [key]: value });
         }
       });
-      return res.status(201).json({ status: 201, data: [responseText] });
+      return res.status(201).json({
+        status: 201,
+        data: [responseText],
+        message: `Message sent to ${receiverEmail}`,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: `${error.name}, ${error.message}` });
+    }
+  },
+
+  async saveDraft(req, res) {
+    const user = req.decodedToken;
+    const generated = {};
+    const { receiverEmail, subject, message } = req.value.body;
+    generated.senderEmail = user.email;
+    generated.status = 'draft';
+    const searchText = 'SELECT * FROM usersTable WHERE email=$1';
+    const searchValue = [receiverEmail];
+    const text = `INSERT INTO messagesTable(subject, message, senderEmail, receiverEmail, status)
+            VALUES($1, $2, $3, $4, $5) returning *`;
+    const values = [subject, message, generated.senderEmail, receiverEmail, 'draft'];
+
+    try {
+      if (receiverEmail) {
+        const { rows: receiverExists } = await db.query(searchText, searchValue);
+        if (!receiverExists[0]) {
+          return res.status(404).json({ status: 404, error: 'Receiver Not Found: Please ensure the receiverEmail is registered to epic mail' });
+        }
+      }
+      const { rows: theDraft } = await db.query(text, values);
+      return res.status(201).json({ status: 201, data: [theDraft[0]], message: 'Message saved as draft' });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `${error.name}, ${error.message}` });
     }

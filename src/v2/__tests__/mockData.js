@@ -44,6 +44,13 @@ export default {
     secondaryEmail: 'talk@talki.com',
   },
 
+  oneMissingDetail: {
+    firstName: 'Habeeb',
+    lastName: 'Whyte', 
+    password: 'toii123',
+    secondaryEmail: 'talk@talki.com',
+  },
+
   incompleteLogin: {
     password: 'efetogbore',
   },

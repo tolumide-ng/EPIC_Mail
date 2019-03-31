@@ -9,7 +9,7 @@ const should = chai.should();
 const { expect } = chai;
 
 const {
-  user, incompleteUser, wrongRegExpName, userLogin, faileduserLogin, incompleteLogin, invalidEmailLogin, userInputLessThan3,
+  user, incompleteUser, wrongRegExpName, oneMissingDetail, userLogin, faileduserLogin, incompleteLogin, invalidEmailLogin, userInputLessThan3,
 } = mockData;
 const userRoute = '/api/v2/auth';
 
@@ -90,6 +90,22 @@ describe('Failed User actions', () => {
         res.body.should.have.property('error');
         res.body.should.be.a('object');
         expect(res.body).to.have.own.property('error', 'Please ensure email is a valid email');
+        done();
+      });
+  });
+
+  // A required parameter is required during signup
+  it('should return a 400 status code for incomplete paramters', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(oneMissingDetail)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        res.body.should.be.a('object');
+        expect(res.body).to.have.own.property('error', 'email is required');
         done();
       });
   });

@@ -126,6 +126,18 @@ body {
     justify-content: space-between;
 }
 
+.displaySentMessagesContainer{
+    padding: 2em;
+}
+
+.displaySentTime{
+    display: flex;
+}
+
+.displaySentHrs{
+    margin-right: 1em;
+}
+
 .buttonDisplay {
     all: unset;
     border-radius: 3px;
@@ -140,7 +152,11 @@ body {
 .buttonContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-between;
+    width: 100%;
+    /* background: orange; */
+    padding: 1em 1em;
+    padding-top: 0;
 }
 
 .buttonContainer > *:hover {
@@ -164,7 +180,7 @@ body {
     color: black;
 }
 
-.retract {
+.retract, .deleteSentMessage {
     all: unset;
     border-radius: 3px;
     cursor: pointer;
@@ -217,9 +233,11 @@ body {
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
-    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-columns: 30% 50% 10% 10%;
     cursor: pointer;
-    justify-items: start;
+    /* justify-items: start; */
+    /* width: 100%; */
+    /* background: yellow; */
 }
 
 .sentMessage:hover {
@@ -230,10 +248,20 @@ body {
     margin-right: 40px;
     grid-column: 1;
     margin-left: 2em;
+    overflow: hidden;
 }
 
 .mailTitle {
     grid-column: 2;
+    overflow: hidden;
+}
+
+.sentTime {
+    grid-column: 3;
+}
+
+.sentDate {
+    grid-column: 4;
 }
 
 /* display content on js file */

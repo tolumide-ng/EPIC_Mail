@@ -266,11 +266,10 @@ describe('Get mail', () => {
   });
 
   // Sender deletes specific message
-  it('should return a 200 status code on getting a specific message', (done) => {
+  it('should return a 200 status code on deleting a specific message', (done) => {
     chai.request(server)
       .delete(`${messagesRoute}/${container.brendaMessageId}`)
       .set('Authorization', `bearer ${container.brendaToken}`)
-      .send(brendaMessage)
       .end((req, res) => {
         res.should.have.status(200);
         res.should.be.json;
@@ -284,7 +283,7 @@ describe('Get mail', () => {
     chai.request(server)
       .delete(`${messagesRoute}/${container.brendaMessageId}`)
       .set('Authorization', `bearer ${container.brendaToken}`)
-      .send(brendaMessage)
+      // .send(brendaMessage)
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;
@@ -298,7 +297,6 @@ describe('Get mail', () => {
     chai.request(server)
       .delete(`${messagesRoute}/${container.brendaMessageId}`)
       .set('Authorization', `bearer ${globalDetail.alfredToken}`)
-      .send(brendaMessage)
       .end((req, res) => {
         res.should.have.status(200);
         res.should.be.json;
@@ -321,7 +319,7 @@ describe('Get mail', () => {
   });
 });
 
-describe('Sign up a new user', () => {
+describe('Brenda posts a new message to Alfred', () => {
   const container = {};
   before((done) => {
     chai.request(server)
@@ -346,4 +344,32 @@ describe('Sign up a new user', () => {
         done();
       });
   });
+
+  // Brenda retracts message sent to Alfred
+  it('should return a 200 status code', (done)=> {
+    chai.request(server)
+      .delete(`${messagesRoute}/retract/${container.brendaMessageToAlfredId}`)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('data');
+        res.body.should.have.property('message');
+        done();
+      })
+  })
+
+  // User cannot delete a message that does not exist/ no longer exists
+  it('should return a 404 status code', (done)=> {
+    chai.request(server)
+      .delete(`${messagesRoute}/retract/${container.brendaMessageToAlfredId}`)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        expect(res.body).to.have.own.property('error', `You do not have a mail with id=${container.brendaMessageToAlfredId}`);
+        done();
+      })
+  })
 });

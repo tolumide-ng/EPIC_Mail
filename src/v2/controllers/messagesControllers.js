@@ -210,17 +210,46 @@ const Mail = {
   },
 
   async allSentMails(req, res) {
-    const user = req.decodedToken; const
-      values = [user.email];
-    const text = 'SELECT * FROM messagesTable WHERE senderEmail=$1';
+    const user = req.decodedToken;
+    const values = [user.email, 'draft'];
+    const text = 'SELECT * FROM messagesTable WHERE senderEmail=$1 AND status<>$2 ORDER BY id DESC';
     try {
       const { rows } = await db.query(text, values);
+      const dbResponse = [];
+      for (const obj of rows) {
+        Object.keys(obj).forEach((key) => {
+          const value = obj[key];
+          if (key === 'senderstatus' && value !== 'deleted') {
+            dbResponse.push(obj);
+          }
+        });
+      }
       if (!rows[0] || rows[0].senderstatus === 'deleted') {
         return res.status(404).json({ status: 404, error: 'Not Found, You do not have any sent emails at the moment' });
       }
-      return res.status(200).json({ status: 200, data: rows });
+      return res.status(200).json({ status: 200, data: dbResponse });
     } catch (error) {
       return res.status(400).json({ status: 400, error });
+    }
+  },
+
+  async retractMessage(req, res) {
+    const user = req.decodedToken;
+    if (isNaN(Number(req.params.id))) {
+      return res.status(400).json({ status: 400, error: 'Please ensure the messageId is an integer' });
+    }
+    const searchText = 'SELECT * FROM messagesTable WHERE senderemail=$1 AND id=$2';
+    const value = [user.email, req.params.id];
+    const text = 'DELETE FROM messagesTable WHERE senderemail=$1 AND id=$2';
+    try {
+      const { rows: messageExist } = await db.query(searchText, value);
+      if (!messageExist[0]) {
+        return res.status(404).json({ status: 404, error: `You do not have a mail with id=${req.params.id}` });
+      }
+      await db.query(text, value);
+      return res.status(200).json({ status: 200, data: 'Message deleted', message: 'Message retracted succesfully' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: `${err.name} ${err.message}` });
     }
   },
 };

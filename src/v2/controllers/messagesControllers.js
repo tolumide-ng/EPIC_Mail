@@ -215,10 +215,19 @@ const Mail = {
     const text = 'SELECT * FROM messagesTable WHERE senderEmail=$1 AND status<>$2 ORDER BY id DESC';
     try {
       const { rows } = await db.query(text, values);
+      const dbResponse = [];
+      for (const obj of rows) {
+        Object.keys(obj).forEach((key) => {
+          const value = obj[key];
+          if (key === 'senderstatus' && value !== 'deleted') {
+            dbResponse.push(obj);
+          }
+        });
+      }
       if (!rows[0] || rows[0].senderstatus === 'deleted') {
         return res.status(404).json({ status: 404, error: 'Not Found, You do not have any sent emails at the moment' });
       }
-      return res.status(200).json({ status: 200, data: rows });
+      return res.status(200).json({ status: 200, data: dbResponse });
     } catch (error) {
       return res.status(400).json({ status: 400, error });
     }

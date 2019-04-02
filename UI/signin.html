@@ -5,44 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./styles/nav.css">
     <link rel="stylesheet" href="./styles/signin.css">
     <title>EPIC_Mail-Login</title>
 </head>
 
 <body>
-    <header id="header">
-        <h1 class="logo">
-            <img src="./img/transfer.svg" alt="" class="logo">
-        </h1>
+    <form id="loginForm" onsubmit="event.preventDefault()">
+        <div class="introductionContainer">
+            <div class="title_content" id="mail_name">E<span id="two">P</span><span id="three">I</span><span id="four">C</span><span id="five">_Mail</span> </div>
+            <img src="./img/network.svg" alt="" class="logo">
+        </div>
+        <div id="indication"></div>
+        <div id="emailContainer" class="loginContainer">
+            <label for="email" class="visibility emailLabel">Email:</label>
+            <input type="email" name="email" id="email" class="formInput" placeholder="email">
+        </div>
 
-        <input type="checkbox" name="nav-toggle" class="nav-toggle" id="nav-toggle" class="nav-toggle">
+        <div id="passwordContainer" class="loginContainer">
+            <label for="password" class="visibility passwordLabel">Password:</label>
+            <input type="password" name="password" id="password" class="formInput" placeholder="password">
+        </div>
 
-        <nav>
-            <ul>
-                <!-- <li><a href="#">EPIC_Mail</a></li> -->
-                <li><a href="./index.html">SIGNUP</a></li>
-            </ul>
-        </nav>
+        <div class="buttonContainer loginContainer">
+            <input type="button" value="signup" class="actionButton" id="signupButton">
+            <input type="button" value="login" class="actionButton" id="loginButton">
+        </div>
 
-        <label for="nav-toggle" class="nav-toggle-label">
-            <span></span>
-        </label>
-
-    </header>
-
-    <div id="sign_in-body">
-        <section id="form">
-            <div id="text">Sign In to your EPIC_Mail account</div>
-            <div id="input_details">
-                <input type="text" name="username" class="form_input" id="username" placeholder="Username">
-                <input type="password" name="password" class="form_input" id="password" placeholder="password">
-                <button type="submit" id="submit_button" class="submit_button">Sign in</button>
-                <div id="indication"></div>
-                <a href="./reset.html" id="reset_password">Reset password</a>
-            </div>
-        </section>
-    </div>
+        <div class="resetContainer loginContainer">
+            <input type="button" value="reset password" class="actionButton" id="resetButton">
+        </div>
+    </form>
     <script src="./scripts/login.js"></script>
 </body>
 

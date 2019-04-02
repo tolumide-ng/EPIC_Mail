@@ -46,34 +46,3 @@ const sendMessageContainer = (url) => {
         return;
     }
 }
-
-
-
-
-
-// const saveMessageAsDraft = async (e) => {
-//     let theMail = {};
-//     const receiverEmail = document.querySelector('#recipient').value, subject = document.querySelector('#subject').value, 
-//     message = document.querySelector('#composedMessage').value;
-//     if (!receiverEmail) {
-//         theMail = { subject, message }
-//     } else if (receiverEmail) {
-//         theMail = { receiverEmail, subject, message };
-//     }
-//     let response = await fetch(`${messagesUrl}/messages/draft`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8',
-//             'Authorization': `bearer ${localStorage.getItem('token')}`
-//         },
-//         body: JSON.stringify(theMail)
-//     });
-
-//     const popupMessage = document.querySelector('#popupMessage');
-//     popupMessage.innerHTML='';
-//     popupMessage.insertAdjacentHTML('afterbegin', '<p>Draft Saved</p>');
-//     setTimeout(() => {
-//         popupMessage.innerHTML = '';
-//     }, 5000);
-//     return;
-// }

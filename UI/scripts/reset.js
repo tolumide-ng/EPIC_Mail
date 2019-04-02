@@ -1,4 +1,6 @@
-const resetButton = document.querySelector('#submit_button');
+const resetButton = document.querySelector('#resetButton');
+const indication = document.querySelector('#indication');
+const signupButton = document.querySelector('#signupButton');
 
 function checkValidity(input) {
     const regexCheck = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/ig;
@@ -13,6 +15,10 @@ function checkValidity(input) {
 }
 
 resetButton.addEventListener('click', e => {
-    const userName = document.querySelector('#username').value;
-    checkValidity(userName);
+    const email = document.querySelector('#email').value;
+    checkValidity(email);
 });
+
+signupButton.addEventListener('click', e => {
+    return location.href = './index.html'
+})

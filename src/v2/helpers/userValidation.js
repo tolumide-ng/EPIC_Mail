@@ -89,9 +89,10 @@ const Validator = {
     Object.keys(body).forEach((key) => {
       const value = body[key];
       if (key === 'password') {
-        const validPassword = regAlphanumeric.test(value);
-        if (!validPassword) {
-          errorContents.push(`${key} must be alphanumeric and length nust be more than 6`);
+        // const validPassword = regAlphanumeric.test(value);
+        if (!value) {
+          errorContents.push(`${key} cannot be empty`);
+          // errorContents.push(`${key} must be alphanumeric and length nust be more than 6`);
         }
         Object.assign(verfiedContent, { [key]: value });
       }
@@ -111,7 +112,6 @@ const Validator = {
     }
     if (!req.value) { req.value = {}; }
     req.value.body = req.body;
-    console.log(req.value.body);
     next();
   },
 };

@@ -25,7 +25,7 @@ export default {
     password: 'fakepassword',
   },
 
-  invalidEmailLogin: { 
+  invalidEmailLogin: {
     email: 'toluwani@epicmailcom',
     password: 'fakepassword',
   },
@@ -39,14 +39,14 @@ export default {
   wrongRegExpName: {
     email: 'toluwani@epic.',
     firstName: 'Habeeb',
-    lastName: 'Whyte', 
+    lastName: 'Whyte',
     password: 'toii123',
     secondaryEmail: 'talk@talki.com',
   },
 
   oneMissingDetail: {
     firstName: 'Habeeb',
-    lastName: 'Whyte', 
+    lastName: 'Whyte',
     password: 'toii123',
     secondaryEmail: 'talk@talki.com',
   },
@@ -106,7 +106,7 @@ export default {
   eichsInvalidMessage: {
     subject: 'Burundi of the future',
     receiverEmail: 'kolawsi@gmailcom',
-    message: 'Welcome to Burundi, the land of the future'
+    message: 'Welcome to Burundi, the land of the future',
   },
 
   brenda: {
@@ -127,6 +127,23 @@ export default {
     subject: 'Meet me in Brazil Eich now ',
     message: 'Lets live life together, You know we could actually make this more than a dev-meetup in Brazil, it would be my first time there',
     receiverEmail: 'alfred@epicmail.com',
+  },
+
+  brendaSavesDraft: {
+    subject: 'This is a draft message',
+    message: 'I brenda, decided to test the functionality of the draft endpoint at the this moment and see how effective this draft endpoint is at saving messages',
+  },
+
+  FailedUpdateBrendasDraft: {
+    subject: 'This is a draft message, haha',
+    message: 'I brenda, decided to test the functionality of the draft endpoint at the this moment and see how effective this draft endpoint is at saving messages',
+    receiveremail: 'alfred@epicmail.com',
+  },
+
+  updateBrendasDraft: {
+    subject: 'This is a draft message, haha',
+    message: 'I brenda, decided to test the functionality of the draft endpoint at the this moment and see how effective this draft endpoint is at saving messages',
+    receiveremail: 'tolu@epicmail.com',
   },
 
   tolumide: {

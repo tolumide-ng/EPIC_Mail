@@ -41,7 +41,7 @@ const Validator = {
         }
       }
       if (key === 'subject') {
-        Object.assign(key, { [key]: value });
+        Object.assign(verifiedContent, { [key]: value });
       }
     });
     if (errorContents.length > 0) {

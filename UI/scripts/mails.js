@@ -61,41 +61,44 @@ menuList.addEventListener('click', async e => {
         inboxMessagesDisplay();
     } else if (selectedContent === 'draft') {
         // DRAFT MAIL
-        const draftMessageContainer = displayContainer.querySelector('.draftMessagesContainer');
-        const draftMessage = displayContainer.querySelectorAll('.draftMessage');
-        draftMessageContainer.addEventListener('click', e => {
-            console.log('welcome to drafts');
-            const theDraftMessage = e.target.closest('.draftMessage');
-            if (theDraftMessage) {
-                theDraftMessage.style.backgroundColor = 'blue';
-
-                setTimeout(() => {
-                    theDraftMessage.style.backgroundColor = '';
-                }, 0);
+        function displayBlank(value) {
+            if (!value) {
+                return '';
             }
-
-            displayContainer.innerHTML = '';
-            theDraftMessage.lastElementChild.classList.toggle('visibility');
-            displayContainer.innerHTML = `
-        <div class='spaceContent'><strong> To: </strong> ${theDraftMessage.children[0].textContent} </div>
-
-        <div class='spaceContent'> <strong> Subject: </strong> ${theDraftMessage.children[1].textContent} </div>
-
-        <div class='spaceContent'> <strong> Message: </strong> <div class='theMessageDisplayed'> ${theDraftMessage.lastElementChild.textContent} </div> </div>
-
-        <div class='buttonContainer'>
-        <button class='buttonsOfDraft'>send</button> <button class='buttonsOfDraft'>Delete</button>
-        </div>
-        `;
-            console.log(theDraftMessage.children);
+            return value;
+        }
+        const draftMessagesContainer = displayContainer.querySelector('.draftMessagesContainer');
+        let response = await requestResponse('GET', `${messagesUrl}/draft`);
+        // console.log(response);
+        if (response.status === 404) {
+            draftMessagesContainer.innerHTML = '';
+            draftMessagesContainer.innerHTML += `
+            <div>${response.error}`;
+            return;
+        }
+        
+        draftMessagesContainer.innerHTML = '';
+        response.forEach((content) => {
+            const nd = new Date(content.createdon);
+            draftMessagesContainer.innerHTML += `
+            <div class='draftMessage'>
+                <div class='address'>${displayBlank(content.receiveremail)}</div>
+                <div class='mailTitle'>${displayBlank(content.subject)}</div>
+                <div class='id visibility'>${displayBlank(content.id)}</div>
+                <div class='sentTime'>${nd.getHours()}:${nd.getMinutes()}</div>
+                <div class='sentDate'>${nd.getDate()}/${nd.getMonth()}/${nd.getFullYear()}</div>
+                <div class='parent visibility'>${content.parentmessageid}</div>
+                <div class='messageContent visibility'>${displayBlank(content.message)}</div>
+            </div>`
         });
+        displayContainer.addEventListener('click', viewDraft);
 
     } else if (selectedContent === 'sent') {
         // SENT MAIL
         let response = await requestResponse('GET', `${messagesUrl}/sent`);
         // The obtained response is an array, now lets loop through it
         const sentMessagesContainer = document.querySelector('.sentMessagesContainer');
-        if(response.status === 404){
+        if (response.status === 404) {
             sentMessagesContainer.innerHTML = '';
             sentMessagesContainer.innerHTML += `
             <div> ${response.error} </div>`;
@@ -148,11 +151,11 @@ menuList.addEventListener('click', async e => {
         <div class='sentMessageFeedbackContainer></div class='sentMessageFeedback'></div></div>
         </div>
         `;
-        // console.log((e.target.closest('.sentMessage').children));
-        const retract = document.querySelector('.retract');
-        const deleteSentMessage = document.querySelector('.deleteSentMessage');
-        retract.addEventListener('click', retractMessage);
-        deleteSentMessage.addEventListener('click', deleteThisSentMessage);
+                // console.log((e.target.closest('.sentMessage').children));
+                const retract = document.querySelector('.retract');
+                const deleteSentMessage = document.querySelector('.deleteSentMessage');
+                retract.addEventListener('click', retractMessage);
+                deleteSentMessage.addEventListener('click', deleteThisSentMessage);
             }
             return;
         });

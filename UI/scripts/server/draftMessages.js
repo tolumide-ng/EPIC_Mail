@@ -1,3 +1,39 @@
+const draftMessagesDisplay = async () => {
+    function displayBlank(value) {
+        if (!value) {
+            return '';
+        }
+        return value;
+    }
+    const draftMessagesContainer = displayContainer.querySelector('.draftMessagesContainer');
+    let response = await requestResponse('GET', `${messagesUrl}/draft`);
+    // console.log(response);
+    if (response.status === 404) {
+        draftMessagesContainer.innerHTML = '';
+        draftMessagesContainer.innerHTML += `
+        <div class='responseError>${response.error}</div>`;
+        return;
+    }
+    
+    draftMessagesContainer.innerHTML = '';
+    response.forEach((content) => {
+        const nd = new Date(content.createdon);
+        draftMessagesContainer.innerHTML += `
+        <div class='draftMessage'>
+            <div class='address'>${displayBlank(content.receiveremail)}</div>
+            <div class='mailTitle'>${displayBlank(content.subject)}</div>
+            <div class='id visibility'>${displayBlank(content.id)}</div>
+            <div class='sentTime'>${nd.getHours()}:${nd.getMinutes()}</div>
+            <div class='sentDate'>${nd.getDate()}/${nd.getMonth()}/${nd.getFullYear()}</div>
+            <div class='parent visibility'>${content.parentmessageid}</div>
+            <div class='messageContent visibility'>${displayBlank(content.message)}</div>
+        </div>`
+    });
+    displayContainer.addEventListener('click', viewDraft);
+}
+
+
+
 const viewDraft = e => {
     const draftMessagesContainer = displayContainer.querySelector('.draftMessagesContainer');
     function confirmBlank(content) {
@@ -37,7 +73,6 @@ const viewDraft = e => {
             <button class='sendDraft'>send</button>
         </div>
     </div>`
-    // console.log(displayBlank(e.target.closest('.address')))
     const deleteDraftButton = document.querySelector('.deleteDraft');
     const updateDraftButton = document.querySelector('.updateDraft');
     const sendDraftButton = document.querySelector('.sendDraft');
@@ -45,7 +80,6 @@ const viewDraft = e => {
     const alertDraft = async (message, theResponse) => {
         const draftIndication = document.querySelector('.draftIndication');
         draftIndication.innerHTML = '';
-        console.log(theResponse[message])
         draftIndication.innerHTML = `<p>${theResponse[message]}</p>`;
         setTimeout(() => {
             draftIndication.innerHTML = '';
@@ -78,12 +112,8 @@ const viewDraft = e => {
             },
             body: JSON.stringify(draftDetails)
         });
-        console.log('here now');
-        console.log(response);
         let theResponseCont
         ent = await response.json();
-        console.log('before we start')
-        console.log(theResponseContent);
         if (response.ok) {
             const contentId = document.querySelector('.draftIdContainer');
             const theId = Number(contentId.children[0].value);
@@ -102,7 +132,6 @@ const viewDraft = e => {
         const contentId = document.querySelector('.draftIdContainer');
         const id = Number(contentId.children[0].value);
         const draftDetails = { receiveremail, subject, message};
-        console.log(draftDetails);
 
         let response = await fetch(`${messagesUrl}/draft/${id}`, {
             method: 'PUT',
@@ -112,7 +141,6 @@ const viewDraft = e => {
             },
             body: JSON.stringify(draftDetails)
         });
-        console.log(response);
         let responseContent = await response.json();
         if (response.ok) {
             alertDraft('message', responseContent);

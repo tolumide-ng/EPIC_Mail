@@ -219,8 +219,6 @@ body {
     display: none;
 }
 
-
-
 /* SENT MAIL PART */
 .sentMessagesContainer {
     overflow: auto;
@@ -229,7 +227,7 @@ body {
 .sentMessage {
     display: grid;
     padding: 0.5rem;
-    background: #92D1C8;
+    background: #FAFAB7;
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
@@ -241,13 +239,18 @@ body {
 }
 
 .sentMessage:hover {
-    background: pink;
+    background: rgb(242, 227, 164);
+}
+
+.responseError{
+    text-align: center;
 }
 
 .address {
     margin-right: 40px;
     grid-column: 1;
     margin-left: 2em;
+    /* width: 100%; */
     overflow: hidden;
 }
 
@@ -282,15 +285,61 @@ body {
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
-    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-columns: 30% 50% 10% 10%;
     cursor: pointer;
-    justify-items: start;
 }
 
-.inboxMessage:hover {
-    background: pink;
+.inboxMessage:hover, .inboxMessage.unRead:hover {
+    background: rgb(242, 227, 164)
 }
 
+.inboxMessage.unRead {
+    background: whitesmoke;
+}
+
+.inboxContainer{
+    margin-bottom: 1em;
+}
+
+.inboxDateContainer {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+
+.inboxTime {
+    padding-left: 3em;
+}
+
+.inboxReceivedMessage {
+    display: flex;
+    flex-direction: column;
+}
+
+.theInboxReceivedMessage{
+    padding-top: 0.5em;
+}
+
+.inboxButtonContainer {
+    margin-top: 4em;
+}
+
+.deleteInboxMessage {
+    all: unset;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #FF0044;
+    color: white;
+}
+
+.deleteInboxMessage:active {
+    background: rgb(200, 10, 20);
+}
 
 /* DRAFT MESSAGE */
 .draftMessagesContainer {
@@ -309,7 +358,7 @@ body {
 }
 
 .draftMessage:hover {
-    background: pink;
+    background: rgb(242, 227, 164);
 }
 
 #popupMessage {

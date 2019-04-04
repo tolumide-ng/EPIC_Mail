@@ -12,7 +12,8 @@ const { expect } = chai;
 const messagesRoute = '/api/v2/messages';
 const userRoute = '/api/v2/auth';
 const {
-  eichUser, loginEich, eichsMessage, alfred, eichsDraft, eichsBadMessage, eichsInvalidMessage, eichsOtherMessage, alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide
+  eichUser, loginEich, eichsMessage, alfred, eichsDraft, eichsBadMessage, eichsInvalidMessage, eichsOtherMessage,
+  alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide, brendaSavesDraft, updateBrendasDraft, FailedUpdateBrendasDraft
 } = mockData;
 
 const globalDetail = {};
@@ -30,7 +31,7 @@ describe('ComposeMail Scenario', () => {
         done();
       });
   });
-  
+
   // get sent messages when you have not sent any
   it('should return a 404 status code', (done) => {
     chai.request(server)
@@ -116,7 +117,7 @@ describe('ComposeMail Scenario', () => {
       });
   });
 
-  // Draft sent to the draft endpoint
+  // Draft sent to the draft endpoint (SAVE DRAFT)
   it('should return a 201 status code on succesful draft post', (done) => {
     chai.request(server)
       .post(`${messagesRoute}/draft`)
@@ -171,7 +172,7 @@ describe('Get mail', () => {
         done();
       });
   });
-  
+
   // brenda sends one more message
   before((done) => {
     chai.request(server)
@@ -222,7 +223,7 @@ describe('Get mail', () => {
       .end((req, res) => {
         res.should.have.status(200);
         res.should.be.json;
-        expect(res.body.data[0]).to.have.own.property('status', 'inbox')
+        expect(res.body.data[0]).to.have.own.property('status', 'inbox');
         done();
       });
   });
@@ -235,7 +236,7 @@ describe('Get mail', () => {
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;
-        expect(res.body).to.have.own.property('error', 'Not Found, You do not have any unread emails at the moment')
+        expect(res.body).to.have.own.property('error', 'Not Found, You do not have any unread emails at the moment');
         done();
       });
   });
@@ -288,7 +289,7 @@ describe('Get mail', () => {
         res.should.have.status(404);
         res.should.be.json;
         expect(res.body).to.have.property('error');
-        expect(res.body).to.have.own.property('error', `You do not have a mail with id=${container.brendaMessageId}`)
+        expect(res.body).to.have.own.property('error', `You do not have a mail with id=${container.brendaMessageId}`);
         done();
       });
   });
@@ -346,7 +347,7 @@ describe('Brenda posts a new message to Alfred', () => {
   });
 
   // Brenda retracts message sent to Alfred
-  it('should return a 200 status code', (done)=> {
+  it('should return a 200 status code', (done) => {
     chai.request(server)
       .delete(`${messagesRoute}/retract/${container.brendaMessageToAlfredId}`)
       .set('Authorization', `bearer ${globalDetail.brendaToken}`)
@@ -356,11 +357,11 @@ describe('Brenda posts a new message to Alfred', () => {
         res.body.should.have.property('data');
         res.body.should.have.property('message');
         done();
-      })
-  })
+      });
+  });
 
   // User cannot delete a message that does not exist/ no longer exists
-  it('should return a 404 status code', (done)=> {
+  it('should return a 404 status code', (done) => {
     chai.request(server)
       .delete(`${messagesRoute}/retract/${container.brendaMessageToAlfredId}`)
       .set('Authorization', `bearer ${globalDetail.brendaToken}`)
@@ -370,6 +371,47 @@ describe('Brenda posts a new message to Alfred', () => {
         res.body.should.have.property('error');
         expect(res.body).to.have.own.property('error', `You do not have a mail with id=${container.brendaMessageToAlfredId}`);
         done();
-      })
-  })
+      });
+  });
+
+  // Brenda creates a draft message
+  before((done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/draft`)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .send(brendaSavesDraft)
+      .end((req, res) => {
+        globalDetail.brendaSavesDraftId = res.body.data[0].id;
+        done();
+      });
+  });
+
+  // Brenda update the draft saved by brenda
+  it('should return a 200 status code on succesful draft update', (done) => {
+    chai.request(server)
+      .put(`${messagesRoute}/draft/${globalDetail.brendaSavesDraftId}`)
+      .set('Authorization', `bearer ${globalDetail.brendaToken}`)
+      .send(updateBrendasDraft)
+      .end((req, res) => {
+        console.log(res.body)
+        res.should.have.status(200);
+        res.should.be.json;
+        // globalDetail.firstMessageId = res.body.data[0].id;
+        done();
+      });
+  });
+
+  // eich fails to update a draft he did not create
+  it('should return a 404 status code since eich did not create that draft', (done) => {
+    chai.request(server)
+      .put(`${messagesRoute}/draft/${globalDetail.brendaSavesDraftId}`)
+      .set('Authorization', `bearer ${globalDetail.eichToken}`)
+      .send(updateBrendasDraft)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        expect(res.body).to.have.own.property('error', 'Not Found, you do not have a draft with this id')
+        done();
+      });
+  });
 });

@@ -105,7 +105,7 @@ body {
     margin-bottom: 10px;
 }
 
-.formInput {
+.formInput, .addressDraft, .mailTitleDraft {
     border-style: none;;
     width: 100%;
     padding: 10px;
@@ -149,7 +149,7 @@ body {
     font-size: 1rem;
 }
 
-.buttonContainer {
+.buttonContainer, .buttonDraftContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -293,16 +293,19 @@ body {
 
 
 /* DRAFT MESSAGE */
+.draftMessagesContainer {
+    margin-bottom: 20px;
+    overflow: auto;
+}
 .draftMessage {
     display: grid;
     padding: 0.5rem;
-    background: #92D1C8;
+    background: #FAFAB7;
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
-    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-columns: 30% 50% 10% 10%;
     cursor: pointer;
-    justify-items: start;
 }
 
 .draftMessage:hover {
@@ -311,6 +314,64 @@ body {
 
 #popupMessage {
     color: peru;
+}
+
+.displayDraftMessagesContainer {
+    /* background: orange; */
+    margin: 2em;
+    font-size: 1.1em;
+}
+
+.draftDivContainer {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+.messageDraftContainer {
+    flex-direction: column;
+}
+
+.draftDivContainer strong {
+    margin-right: 1em;
+}
+
+.draftAddressContainer, .draftMailTitleContainer {
+    align-items: center;
+}
+
+.messageDraft {
+    padding: 0.5em;
+    font-size: 1.1em;
+}
+
+.messageDraftContainer strong {
+    padding-bottom: 0.5em;
+}
+
+.updateDraft, .deleteDraft, .sendDraft {
+    all: unset;
+    background: #FFC6A8;
+    color: black;
+    padding: 0.5em;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.deleteDraft:active {
+    background: #FF3526;
+    color: white;
+}
+
+.updateDraft:active {
+    background: #272F32;
+    color: white;
+}
+
+.sendDraft:active {
+    background: #4FE86E;
 }
 
 /* Adjust composeMail, inbox e.t.c menu when screen is at this size */

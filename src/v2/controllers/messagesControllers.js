@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { isNull } from 'util';
 import db from '../db/index';
 
 dotenv.config();
@@ -45,10 +46,19 @@ const Mail = {
           Object.assign(responseText, { [key]: value });
         }
       });
+      const theReceiver = () => {
+        if (!receiveremail) {
+          return receiverEmail;
+        }
+        if (!receiverEmail) {
+          return receiveremail;
+        }
+      };
+
       return res.status(201).json({
         status: 201,
         data: [responseText],
-        message: `Message sent to ${receiverEmail}`,
+        message: `Message sent to ${theReceiver()}`,
       });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `${error.name}, ${error.message}` });
@@ -174,19 +184,6 @@ const Mail = {
       if (!rows[0] || rows[0].receiverstatus === 'deleted') {
         return res.status(404).json({ status: 404, error: 'Not Found, You do not have any unread emails at the moment' });
       }
-      // const responseText = [];
-      // const dbResponse = rows;
-      // for (let obj of dbResponse) {
-      //   const temporaryContainer = {};
-      //   Object.keys(obj).forEach((key) => {
-      //     const value = obj[key];
-      //     if (value) {
-      //       Object.assign(temporaryContainer, { [key]: value })
-      //     }
-      //   });
-      //   responseText.push(temporaryContainer);
-      //  }
-
       return res.status(200).json({ status: 200, data: rows });
     } catch (error) {
       return res.status(500).json({ status: 500, error });
@@ -209,12 +206,39 @@ const Mail = {
     }
   },
 
+  async getDraftMessages(req, res) {
+    const user = req.decodedToken;
+    const values = [user.email, 'draft'];
+    const text = 'SELECT * FROM messagesTable WHERE senderEmail=$1 AND status=$2 ORDER BY id DESC';
+    try {
+      const { rows: draftMessages } = await db.query(text, values);
+      if (!draftMessages[0]) {
+        return res.status(404).json({ status: 404, error: 'Not Found: You do not have any draft messages at the moment' });
+      }
+      const dbResponse = [];
+      for (const obj of draftMessages) {
+        Object.keys(obj).forEach((key) => {
+          const value = obj[key];
+          if (key === 'senderstatus' && value !== 'deleted') {
+            dbResponse.push(obj);
+          }
+        });
+      }
+      return res.status(200).json({ status: 200, data: dbResponse });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: err });
+    }
+  },
+
   async allSentMails(req, res) {
     const user = req.decodedToken;
     const values = [user.email, 'draft'];
     const text = 'SELECT * FROM messagesTable WHERE senderEmail=$1 AND status<>$2 ORDER BY id DESC';
     try {
       const { rows } = await db.query(text, values);
+      if (!rows) {
+        return res.status(404).json({ status: 404, error: 'Not Found, You do not have any sent emails at the moment' });
+      }
       const dbResponse = [];
       for (const obj of rows) {
         Object.keys(obj).forEach((key) => {
@@ -224,7 +248,7 @@ const Mail = {
           }
         });
       }
-      if (!rows[0] || rows[0].senderstatus === 'deleted') {
+      if (dbResponse.length < 1) {
         return res.status(404).json({ status: 404, error: 'Not Found, You do not have any sent emails at the moment' });
       }
       return res.status(200).json({ status: 200, data: dbResponse });
@@ -250,6 +274,39 @@ const Mail = {
       return res.status(200).json({ status: 200, data: 'Message deleted', message: 'Message retracted succesfully' });
     } catch (err) {
       return res.status(500).json({ status: 500, error: `${err.name} ${err.message}` });
+    }
+  },
+
+  async updateDraftMessage(req, res) {
+    const user = req.decodedToken;
+    if (isNaN(Number(req.params.id))) {
+      return res.status(400).json({ status: 400, error: 'Please ensure the messageId is an integer' });
+    }
+    const { receiveremail, message, subject } = req.value.body;
+    const searchText = 'SELECT * FROM messagesTable WHERE id=$1 AND senderEmail=$2';
+    const searchValue = [req.params.id, user.email];
+    const searchReceiverText = `SELECT * FROM usersTable WHERE email=$1`;
+    const searchReceiverValue = [receiveremail];
+    try {
+      // if user updated receiver
+      if (receiveremail) {
+        const { rows: receiverExists } = await db.query(searchReceiverText, searchReceiverValue);
+        if (!receiverExists[0]) {
+          return res.status(404).json({ status: 404, error: 'Receiver Not Found: Please ensure the receiverEmail is registered to epic mail' });
+        }
+      }
+      const { rows: searchRow } = await db.query(searchText, searchValue);
+      if (!searchRow[0] || searchRow[0].status !== 'draft') {
+        return res.status(404).json({ status: 404, error: 'Not Found, you do not have a draft with this id' })
+      }
+      const updateText = `UPDATE messagesTable 
+      SET message=$1, receiveremail=$2, subject=$3 WHERE id=$4 AND senderemail=$5 returning *`;
+      const updateValue = [message, receiveremail, subject, req.params.id, user.email];
+      const { rows: readMail } = await db.query(updateText, updateValue);
+      return res.status(200).json({ status: 200, data: readMail, message: 'Draft Updated' })
+
+    } catch (error) {
+      return res.status(500).json({ status: 500, error })
     }
   },
 };

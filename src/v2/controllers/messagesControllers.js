@@ -177,7 +177,7 @@ const Mail = {
 
   async unreadReceivedMails(req, res) {
     const user = req.decodedToken;
-    const text = 'SELECT * FROM messagesTable WHERE receiverEmail=$1 AND status=$2';
+    const text = 'SELECT * FROM messagesTable WHERE receiverEmail=$1 AND status=$2 ORDER BY id DESC';
     const values = [user.email, 'inbox'];
     try {
       const { rows } = await db.query(text, values);
@@ -193,7 +193,7 @@ const Mail = {
   async allReceivedMails(req, res) {
     const user = req.decodedToken;
     const text = `SELECT * FROM messagesTable 
-      WHERE receiverEmail=$1 AND receiverstatus IS NULL`;
+      WHERE receiverEmail=$1 AND receiverstatus IS NULL ORDER BY id DESC`;
     const values = [user.email];
     try {
       const { rows } = await db.query(text, values);

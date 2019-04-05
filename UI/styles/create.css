@@ -109,8 +109,14 @@ body {
     padding: 1em;
     overflow: hidden;
     /* overflow-x: hidden; */
-    background: lemonchiffon;
+    background: rgba(242, 184, 113, 0.2);
     width: 30%;
+    cursor: pointer;
+    border-radius: 0.5em;
+}
+
+.theGroup:active {
+    background: rgba(242, 184, 113, 0.1);
 }
 
 .theGroup>* {

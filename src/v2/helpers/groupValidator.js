@@ -1,6 +1,6 @@
 const regString = (/^([a-zA-Z\s]){3,}$/);
 const regEmail = (/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-const regAlphanumeric = (/^([a-zA-Z0-9\-.\s]{3,})$/);
+const regAlphanumeric = (/^([a-zA-Z0-9\-.,\s]{3,})$/);
 
 const Validator = {
   createGroupValidator(req, res, next) {
@@ -32,9 +32,9 @@ const Validator = {
         return res.status(400).json({ status: 400, error: `Length of ${key} cannot be less than 3` });
       }
       if (strings) {
-        const validString = regString.test(value);
+        const validString = regAlphanumeric.test(value);
         if (!validString) {
-          errorContents.push(`${key} can only be string`);
+          errorContents.push(`${key} can only contain letters numbers, letters, (-), (.), and (,) `);
         }
         Object.assign(verifiedContent, { [key]: value });
       }

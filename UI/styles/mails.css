@@ -26,7 +26,7 @@ body {
     background: #FFFFE9;
     /* background: yellow; */
     grid-column: 1;
-    margin-top: 3em;
+    padding-top: 3em;
     grid-row: 1;
     /* height: (100% -3em); */
 }
@@ -106,7 +106,7 @@ body {
 }
 
 .formInput, .addressDraft, .mailTitleDraft {
-    border-style: none;;
+    border-style: none;
     width: 100%;
     padding: 10px;
     font-size: 1em;

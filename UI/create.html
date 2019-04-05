@@ -28,69 +28,356 @@
         </label>
     </header>
 
-    <div class="form_container">
+    <div class="formContainer">
+        <form class="createGroupContainer" onsubmit="event.preventDefault()">
+            <div class="textContainer createContainer">Create group here</div>
+            <div class="createdByContainer createContainer">
+                <label for="groupCreator" class="groupCreatedBy groupTitle">Created By: </label>
+                <div class="groupCreator">tolumide@epicmail.com</div>
+            </div>
+            <div class="groupNameContainer createContainer">
+                <label for="groupName" class="groupNameLabel groupTitle">Group Name: </label>
+                <input type="text" class="groupName valueInput" id="groupName" placeholder="e.g. Lagos Devs">
+            </div>
+            <div class="groupRoleContainer createContainer">
+                <label for="groupRole" class="groupRoleLabel groupTitle">Group Role: </label>
+                <input type="text" class="groupRole valueInput" id="groupRole"
+                    placeholder="brief description of the group">
+            </div>
+            <div class="createGroupButtonContainer createContainer">
+                <button class="createGroupButton">Create</button>
+            </div>
+        </form>
 
-        <section id="description">Please register a valid email address, then register it in an already existing or a new group 
-        </section>
-
-        <section id="user_container">
-            <p class="howToUse">Register username (valid email) here</p>
-            <label for="add_new_user" id="add_user_flex">
-                <input type="text" id="add_new_user" placeholder="Username">
-                <button type="submit" id="add_user">Add User</button>
-            </label>
-            <ul id="list">
-                <!-- <div class="list_flex_container">
-                    <li class="each_user"> Okadigbo@gmail.com </li>
-                    <button class="remove_name">Remove</button>
+        <div class="displayGroupContainer">
+            <div class="groupFlexContainer">
+                <div class="theGroup">
+                    <div class="theGroupDetails">
+                        <!-- <img src="./img/team.svg" alt="" class="theGroupImage"> -->
+                        <p class='theGroupName'>Lagos Devs</p>
+                    </div>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList'>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopein@gmail.com
+                        </option>
+                    </select>
                 </div>
 
-                <div class="list_flex_container">
-                    <li class="each_user"> Opeoluwa@epic_mail.com </li>
-                    <button class="remove_name">Remove</button>
-                </div> -->
-            </ul>
-        </section>
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList'>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopein@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList'>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopein@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList'>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopein@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList'>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopein@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+
+                <div class="theGroup">
+                    <p class='theGroupName'>Ibadan Devs</p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                    <select name='north carli' id="northcarli" class='theGroupList '>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            tolumideshopeinenilolobo@gmail.com
+                        </option>
+                        <option class='groupMember' value='tolumideshopein@gmail.com'>
+                            akanbiolawale@gmail.com
+                        </option>
+                    </select>
+                </div>
+            </div>
 
 
-
-        <section id="groupsAndDisplay">
-            <section id="group_table">
-                <p class="howToUse">Enter a group name and registered username</p>
-                <div id='groupsAndName'>
-                    <!-- <div id='groupNameDiv' class="groupTitle"> Name of Group -->
-                    <input type='text' id='groupNameInput' class="groupInput form_input" placeholder="Group Name">
-                    <!-- </div> -->
-
-                    <!-- <div id='groupUserNameDiv' class="groupTitle"> UserName -->
-                    <input type='text' id='groupUserNameInput' class="groupInput form_input" placeholder="Username">
-                    <!-- </div> -->
-                    <button type='submit' id='submitGroupAndName'>Add to List </button>
-                    </div>
-                <p class="epic_text">- EPIC_Mail  -     <span id='information'></span></p>
-
-
-
-
-                <section id='groupsAndUsersSection'>
-                    <form action=''>
-                        <div class='groupsAndUsersList'>
-                            <div class="groupContainer">
-                                <p class='groupnameAndUsername'>North Carli</p>
-                                <select name='north carli' id="northcarli" class='userNameContainer'>
-                                    <option class='userNameInformation' value='tolumideshopein@gmail.com'>
-                                        tolumideshopein@gmail.com
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </section>
-        </section>
-
-
-
+        </div>
 
     </div>
 

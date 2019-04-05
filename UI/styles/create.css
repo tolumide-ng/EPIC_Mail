@@ -8,269 +8,111 @@
 }
 
 body {
-    background: #EEF5F1;
-}
-
-
-.form_container {
+    background: #FAFAE4;
     height: 100vh;
-    width: 100%;
-    padding: 60px;
-    padding-top: 70px;
-    display: grid;
-    grid-template-columns: 0.3fr 0.7fr;
-    grid-template-rows: 0.1 fr 0.9fr;
-    margin-bottom: 3%;
 }
 
-#description {
-    grid-column: 1 / span 2;
-    grid-row: 1;
-    margin-bottom: 0.5em;
-    color: #45183C;
-    text-align: center;
-    padding: 0.4em;
-} 
-
-/* REGISTER USERS CONTAINERS */
-#user_container {
-    grid-column: 1;
-    grid-row: 2;
-    /* box-shadow: 3px 3px 1px 1px #ccc; */
-    width: 100%;
-    padding: 1em;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    height: 100%;
-    background: #EAEBED;
-    margin-bottom: 1em;
+.theGroupImage {
+    height: 50px;
+    margin-right: 10%;
 }
 
-#add_user_flex {
-    display: flex;
-    padding: 10px;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#add_new_user {
-    border-style: none;
-    border-radius: 3px;
-    border: 1px solid rgb(221, 209, 209);
-    height: 30px;
-    width: 60%;
-    padding: 2px;
-    padding-left: 5px;
-    margin-right: 1.5em;
-}
-
-#add_user {
-    border-style: none;
-    background: #FF6138;
-    font-weight: bold;
-    padding: 0.5em;
-    color: white;
-    font-weight: bold;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.howToUse {
-    margin-bottom: 0.6em;
-    font-style: oblique;
-    text-align: start;
-    color: black;
-}
-
-#list {
-    list-style: none;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.list_flex_container {
-    display: flex;
-    width: 100%;
-    background: #F1E4B3;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 0.3em;
-    padding-left: 10px;
-    padding-right: 3px;
-    border-radius: 8px;
-}
-
-.each_user {
-    font-weight: bold;
-}
-
-.remove_name {
-    all: unset;
-    background: #2F3440;
-    padding: 0.1em;
-    padding-bottom: 0.2em;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-
-/* GROUP TABLE AND DISPLAY */
-
-#groupsAndDisplay {
-    margin-left: 3%;
-    grid-row: 2;
-    grid-column: 2;
-    display: grid;
-    height: 100%;
-    grid-template-rows: 0.1fr 0.9fr;
-    grid-template-columns: 1fr;
-    /* box-shadow: 3px 3px 3px 3px #ccc; */
-    padding: 1em;
-    padding-top: 1.5em;
-    margin-bottom: 3%;
-    background: #EAEBED;
-}
-
-#groupsAndName {
-    grid-row: 1;
-    display: flex;
-    margin-bottom: 1em;
-    justify-content: center;
-    align-items: center;
-}
-
-.groupInput {
-    border-style: none;
-    border-radius: 3px;
-    border: 1px solid rgb(221, 209, 209);
-    height: 30px;
-    width: 28%;
-    padding: 2px;
-    padding-left: 5px;
-    margin-right: 1.5em;
-}
-
-#submitGroupAndName {
-    all: unset;
-    color: white;
-    background: #FF6138;
-    padding: 5px;
-    font-weight: bold;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.epic_text {
-    color: green;
-}
-
-#information {
-    color: red;
-    font-weight: bold;
-}
-
-#groupsAndUsersSection {
-    grid-template-columns: 1;
-    grid-template-rows: 2;
-    margin-top: 2em;
-}
-
-.groupsAndUsersList {
+.theGroupDetails {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+
+.formContainer {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 0.3fr 0.7fr;
+    grid-template-rows: 100%;
+}
+
+.createGroupContainer {
+    background: rgba(242, 184, 113, 0.1);
+    padding: 4em 0.5em;
+    grid-row: 1;
+    grid-column: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.createContainer {
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.valueInput {
+    border-style: none;
+    width: 70%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid rgba(0,0,0,0.3);
+    height: 30px;
+}
+
+.groupTitle {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.createGroupButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.createGroupButton {
+    all: unset;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    background: rgba(242, 218, 99, 0.5);
+    width: 30%;
+}
+
+.createGroupButton:active {
+    background: rgba(242, 218, 99, 0.9);
+}
+
+.displayGroupContainer {
+    grid-row: 1;
+    grid-column: 2;
+    padding: 4em 0.5em 2em;
+    height: 100%;
+    background: rgba(242, 184, 113, 0.1);
+    margin-left: 0.5em;
+    overflow: scroll;
+}
+
+.groupFlexContainer {
+    /* background: rgba(10, 10, 10, 0.2); */
+    /* height: 100%; */
+    display: flex;
     flex-wrap: wrap;
 }
 
-.groupContainer {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background: #F0F8FF;
-    padding: 5px;
-    padding-bottom: 12px;
-    margin: 0.2em;
+.visibility {
+    display: none;
 }
 
-.groupnameAndUsername {
-    margin-bottom: 0.5em;
+.theGroup {
+    margin: 0.5em;
+    padding: 1em;
+    overflow: hidden;
+    /* overflow-x: hidden; */
+    background: lemonchiffon;
+    width: 30%;
 }
 
-@media screen and (max-width: 1070px) {
-    #description {
-        grid-column: 1 / span 2;
-        grid-row: 1;
-        /* text-align: center; */
-        padding: 0.4em;
-    }
-    .form_container {
-        height: 100vh;
-        width: 100%;
-        padding: 60px;
-        padding-top: 70px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.1fr 0.4fr 0.5fr;
-    }
-    
-    #user_container .howToUse {
-        text-align: center;
-    }
-
-    #user_container {
-        grid-row: 2;
-        grid-column: 1;
-    }
-
-    #groupsAndDisplay {
-        grid-row: 3;
-        grid-column: 1;
-        margin-top: 2em;
-        margin-left: 0;
-    }
-    
-    #add_user_flex {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    #list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between
-    }
-
-    .list_flex_container {
-        width: 40%;
-        margin: 10px;
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 10px;
-    }
-
-    .each_user {
-        margin-bottom: 6px;
-    }
-}
-
-
-@media screen and (max-width: 790px) {
-    #list {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2em;
-        border-radius: 5px;
-    }
-
-    .list_flex_container {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-    }
+.theGroup>* {
+    padding-bottom: 0.3em;
 }

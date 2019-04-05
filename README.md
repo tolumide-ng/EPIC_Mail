@@ -11,13 +11,17 @@ EPIC_Mail is a web application that empowers it's users to exchange messages/inf
 - Users can create an account, and become Registered users
 - Registered Users can sign in
 - Registered Users can post an email
-- Registered User can specificallu save a message as draft
+- Registered User can specifically save a message as draft
 - Users can get all received emails
+- Users can specifically request for all draft messages
 - Users can get all unread emails
 - Users can get all sent emails
+- Users can edit a draft message
+- Users can retract a sent message
 - Users can get specific email with the email's id
 - Users can delete a specific email
 - Users can create a group
+- Users can view a specific group
 - User who created the group can add new members to a group they created 
 - User who created the group can delete a member in the group
 - Users can search for all groups present on epicmail
@@ -34,7 +38,7 @@ User interface for EPIC_Mail is hosted with [GitHub pages](https://tolumide-ng.g
 ***
 
 ## Testing tools
-EPIC_Mail is tested with [Mocha](https://mochajs.org/) and [Chai-http][https://www.chaijs.com/plugins/chai-http/]
+EPIC_Mail is tested with [Mocha](https://mochajs.org/) and [Chai-http](https://www.chaijs.com/plugins/chai-http/)
 
 ***
 
@@ -88,12 +92,15 @@ API is documented on **[swagger](https://inspector.swagger.io/)** can can be vie
 | POST      | Compose Mail                        | `/api/v2/messages`                      |
 | POST      | Specifically save message as draft  | `/api/v2/messages/draft`                |
 | GET       | Get all sent messages               | `/api/v2/messages/sent`                 |
+| GET       | Get all draft messages              | `/api/v2/messages/draft`                |
 | GET       | Get all unread messages             | `/api/v2/messages/unread`               |
 | GET       | Get all received messages           | `/api/v2/messages/received`             |
 | GET       | Get a specific message              | `/api/v2/messages/:msd-id`              |
+| PUT       | Edit a draft message                | `/api/v2/messages/:id`                  | 
 | DELETE    | Delete a specific message           | `/api/v2/messages/:msd-id`              |
 | POST      | Create a group                      | `/api/v2/groups/`                       |
 | GET       | Get all groups on epicMail          | `/api/v2/groups/`                       |
+| GET       | Get a specific group                | `/api/v2/groups/:id`                    |
 | PATCH     | Edit a group                        | `/api/v2/groups/:id/name`               |
 | DELETE    | Delete a created group              | `/api/v2/groups/:id`                    |
 | POST      | Send Broadcast message to group     | `/api/v2/groups/:groupId/messages`      |

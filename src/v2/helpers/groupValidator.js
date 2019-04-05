@@ -81,7 +81,7 @@ const Validator = {
         Object.assign(verifiedContent, { [key]: value });
       }
       if (key === 'userRole') {
-        const validString = regString.test(value);
+        const validString = regAlphanumeric.test(value);
         if (!validString) {
           return res.status(400).json({ status: 400, error: `${key} must be a valid string` });
         }
@@ -125,7 +125,8 @@ const Validator = {
       }
       if (strings) {
         const validStrings = regAlphanumeric.test(value);
-        if (validStrings) {
+        console.log(validStrings);
+        if (!validStrings) {
           errorContents.push(`${key} can only be string`);
         }
         Object.assign(verifiedContent, { [key]: value });

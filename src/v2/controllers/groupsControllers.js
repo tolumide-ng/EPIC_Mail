@@ -26,7 +26,7 @@ const Group = {
       }
       return res.status(200).json({ status: 200, data: rows });
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -40,6 +40,9 @@ const Group = {
     try {
       const { rows: theGroup } = await db.query(requestText, requestValue);
       console.log(theGroup);
+      if(!theGroup[0]){
+        return res.status(404).json({ status: 404, error: `There is no group with id=${req.params.id}`})
+      }
       return res.status(200).json({ status: 200, data: theGroup });
     } catch (error) {
       return res.status(500).json({ status: 500, error });
@@ -71,7 +74,7 @@ const Group = {
         return res.status(200).json({ status: 200, data: [updated[0]] });
       }
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -98,7 +101,7 @@ const Group = {
         return res.status(200).json({ status: 200, data: 'Group has been successfully deleted' });
       }
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -146,7 +149,7 @@ const Group = {
 
       return res.status(403).json({ status: 403, error: 'Unauthorized: You do not have the authority to add a user to this group' });
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -183,7 +186,7 @@ const Group = {
       }
       return res.status(403).json({ status: 403, error: 'Unauthorized: You do not have authority to delete users from this group' });
     } catch (error) {
-      res.status(400).json({ status: 400, error });
+      res.status(500).json({ status: 500, error });
     }
   },
 
@@ -229,7 +232,7 @@ const Group = {
         }
       });
     } catch (error) {
-      return res.status(400).json({ error: 400, error });
+      return res.status(500).json({ error: 500, error });
     }
   },
 

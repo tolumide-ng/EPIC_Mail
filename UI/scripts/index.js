@@ -65,7 +65,7 @@ signUpSelector.addEventListener('click', async (e) => {
         firstName: firstName.value, lastName: lastName.value, password: password.value,
         email: epicUserName, secondaryEmail: secondaryEmail.value,
     };
-    console.log(newUser);
+    // console.log(newUser);
     let response = await fetch('http://localhost:3000/api/v2/auth/signup', {
         method: 'POST',
         headers: {

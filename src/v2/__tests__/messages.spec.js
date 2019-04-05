@@ -393,7 +393,6 @@ describe('Brenda posts a new message to Alfred', () => {
       .set('Authorization', `bearer ${globalDetail.brendaToken}`)
       .send(updateBrendasDraft)
       .end((req, res) => {
-        console.log(res.body)
         res.should.have.status(200);
         res.should.be.json;
         // globalDetail.firstMessageId = res.body.data[0].id;

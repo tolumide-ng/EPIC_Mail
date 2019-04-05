@@ -9,7 +9,7 @@ const Group = {
     const values = [role, name, user.email];
     try {
       const { rows } = await db.query(text, values);
-      return res.status(201).json({ status: 201, data: [rows[0]] });
+      return res.status(201).json({ status: 201, data: [rows[0]], message: `${rows[0].name} created` });
     } catch (error) {
       return res.status(500).json({ status: 500, error });
     }
@@ -17,7 +17,7 @@ const Group = {
 
   async getAllGroups(req, res) {
     const user = req.decodedToken;
-    const text = 'SELECT * FROM groupTable';
+    const text = 'SELECT * FROM groupTable ORDER BY id DESC';
     // const values = [user[0].email];
     try {
       const { rows } = await db.query(text);
@@ -26,7 +26,26 @@ const Group = {
       }
       return res.status(200).json({ status: 200, data: rows });
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
+    }
+  },
+
+  async viewSpecificGroup(req, res) {
+    if (isNaN(Number(req.params.id))) {
+      return res.status(400).json({ status: 400, error: 'Please ensure the messageId is an integer' });
+    }
+    const user = req.decodedToken;
+    const requestText = 'SELECT * FROM groupMembersTable WHERE groupId=$1';
+    const requestValue = [req.params.id];
+    try {
+      const { rows: theGroup } = await db.query(requestText, requestValue);
+      console.log(theGroup);
+      if(!theGroup[0]){
+        return res.status(404).json({ status: 404, error: `There is no group with id=${req.params.id}`})
+      }
+      return res.status(200).json({ status: 200, data: theGroup });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -55,7 +74,7 @@ const Group = {
         return res.status(200).json({ status: 200, data: [updated[0]] });
       }
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -82,7 +101,7 @@ const Group = {
         return res.status(200).json({ status: 200, data: 'Group has been successfully deleted' });
       }
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -130,7 +149,7 @@ const Group = {
 
       return res.status(403).json({ status: 403, error: 'Unauthorized: You do not have the authority to add a user to this group' });
     } catch (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(500).json({ status: 500, error });
     }
   },
 
@@ -167,7 +186,7 @@ const Group = {
       }
       return res.status(403).json({ status: 403, error: 'Unauthorized: You do not have authority to delete users from this group' });
     } catch (error) {
-      res.status(400).json({ status: 400, error });
+      res.status(500).json({ status: 500, error });
     }
   },
 
@@ -213,7 +232,7 @@ const Group = {
         }
       });
     } catch (error) {
-      return res.status(400).json({ error: 400, error });
+      return res.status(500).json({ error: 500, error });
     }
   },
 

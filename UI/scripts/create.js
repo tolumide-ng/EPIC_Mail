@@ -1,6 +1,12 @@
 const groupsUrl = 'http://localhost:3000/api/v2/groups';
 
 const groupFlexContainer = document.querySelector('.groupFlexContainer');
+const displayGroupContainer = document.querySelector('.displayGroupContainer');
+// const specificGroup = document.querySelector('.specificGroup');
+const modalGroup = document.querySelector('.modalGroup');
+const groupName = document.querySelector('.groupName');
+const indicateServerResponse = document.querySelector('.indicateServerResponse');
+const serverResponseContainer = document.querySelector('.serverResponseContainer');
 
 const requestServer = async (type, url) => {
     const theResponse = await fetch(url, {
@@ -44,25 +50,33 @@ const populateView = async () => {
             groupFlexContainer.innerHTML += `
             <div class='theGroup'>
                 <div class='theGroupDetails'>
-                    <p class='theGroupName'><strong>${content.name}</strong></p>
+                    <p class='theGroupName'><strong>${reduceLength(content.name)}</strong></p>
                 </div>
                 <p class='theGroupRole'><em>${reduceLength(content.role)}</em></p>
                 <p class='theGroupId visibility'>${content.id}</p>
+                <div class='actionButtons'>
+                    <button class='deleteGroup'>Delete</button>
+                    <button class='editGroupName'>Edit Name</button>
+                    <button class='sendMessage'>Send Broadcast</button>
+                    <button class='members'>Members</button>
+                </div>
                 <p class='theGroupCreator'><strong>Created By: </strong>${reduceEmail(content.createdby)}</div>
             </div>`
         });
 
         const theGroup = Array.from(document.querySelectorAll('.theGroup'));
-        theGroup.forEach((element) => {
-            element.addEventListener('click', async (e) => {
-                const children = Array.from(element.children);
-                const theId = children.find(elem => elem.classList.contains('theGroupId'));
-                console.log(`${groupsUrl}/${theId.innerHTML}`)
-                const theResponse = await requestServer('GET', `${groupsUrl}/${theId.innerHTML}`);
-                const theJsonResponse = await theResponse.json();
-                console.log(theJsonResponse.data.length);
-            });
-        });
+        const deleteGroup = Array.from(document.querySelectorAll('.deleteGroup'));
+        const sendMessage = Array.from(document.querySelectorAll('.sendMessage'));
+        const editName = Array.from(document.querySelectorAll('.editGroupName'));
+        const members = Array.from(document.querySelectorAll('.members'));
+
+        members.forEach((group) => editMembersFunction(group));
+
+        editName.forEach((group) => editGroupFunction(group));
+        deleteGroup.forEach((element) => { deletGroupFunction(element) });
+        sendMessage.forEach((group) => sendBroadcastFunction(group));
+
+
         return;
     }
     return;
@@ -70,9 +84,7 @@ const populateView = async () => {
 
 populateView();
 
-
-
-const serverResponse = async (type, url, requestBody) => {
+const serverPostResponse = async (type, url, requestBody) => {
     const response = await fetch(url, {
         method: type,
         headers: {
@@ -92,7 +104,7 @@ const createGroupFunction = async (e) => {
     const role = document.querySelector('#groupRole').value;
 
     const createGroupDetails = { name, role };
-    const createGroupResponse = await serverResponse('POST', `${groupsUrl}/`, createGroupDetails);
+    const createGroupResponse = await serverPostResponse('POST', `${groupsUrl}/`, createGroupDetails);
     console.log(createGroupResponse);
     indication.innerHTML = '';
     if (createGroupResponse.status === 201) {
@@ -114,3 +126,13 @@ const createGroupFunction = async (e) => {
 const createButton = document.querySelector('.createGroupButton');
 createButton.addEventListener('click', createGroupFunction);
 const indication = document.querySelector('.indication');
+
+
+const hideModal = () => {
+    if (!modalGroup.classList.contains('.visibility')) {
+        modalGroup.classList.add('visibility');
+    }
+    return;
+}
+
+

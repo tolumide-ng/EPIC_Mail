@@ -82,7 +82,7 @@ const Validator = {
       }
     });
     if (missingKeys.length > 0) {
-      return res.status(400).json({ status: 400, error: `${missingKeys} is required` });
+      return res.status(400).json({ status: 400, error: `${missingKeys[0]} is required` });
     }
 
     // Ensure the content of each key is a valid entry
@@ -102,6 +102,46 @@ const Validator = {
           errorContents.push(`Please ensure ${key} is a valid email`);
         }
         Object.assign(verfiedContent, { [key]: value.toLowerCase() });
+      }
+    });
+    if (errorContents.length > 0) {
+      return res.status(400).json({
+        status: 400,
+        error: `${errorContents}`,
+      });
+    }
+    if (!req.value) { req.value = {}; }
+    req.value.body = req.body;
+    next();
+  },
+
+  resetValidator(req, res, next) {
+    const verifiedContent = {};
+    const errorContents = [];
+    const { body } = req;
+    const missingKeys = [];
+
+    // Ensure all details are supplied
+    const requiredDetail = ['email'];
+    requiredDetail.forEach((detail) => {
+      const found = Object.keys(body).find(objectKey => objectKey === detail);
+      if (!found) {
+        missingKeys.push(detail);
+      }
+    });
+    if (missingKeys.length > 0) {
+      return res.status(400).json({ status: 400, error: `${missingKeys} is required` });
+    }
+
+    // Ensure the content of each key is a valid entry
+    Object.keys(body).forEach((key) => {
+      const value = body[key];
+      if (key === 'email') {
+        const validEmail = regEmail.test(value);
+        if (!validEmail) {
+          errorContents.push(`Please ensure ${key} is a valid email`);
+        }
+        Object.assign(verifiedContent, { [key]: value.toLowerCase() });
       }
     });
     if (errorContents.length > 0) {

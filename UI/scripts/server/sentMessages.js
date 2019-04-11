@@ -1,4 +1,10 @@
 const sentMessagesDisplay = async () => {
+    function displayBlank(value) {
+        if (!value) {
+            return '';
+        }
+        return value;
+    }
     let response = await requestResponse('GET', `${messagesUrl}/sent`);
         // The obtained response is an array, now lets loop through it
         const sentMessagesContainer = document.querySelector('.sentMessagesContainer');
@@ -13,13 +19,13 @@ const sentMessagesDisplay = async () => {
             const nd = new Date(message.createdon);
             sentMessagesContainer.innerHTML += `
             <div class='sentMessage'>
-                <div class='address'>${message.receiveremail}</div>
-                <div class='mailTitle'>${message.subject}</div>
+                <div class='address'>${displayBlank(message.receiveremail)}</div>
+                <div class='mailTitle'>${displayBlank(message.subject)}</div>
                 <div class='id visibility'>${message.id}</div>
                 <div class='sentTime'>${nd.getHours()}:${nd.getMinutes()}</div>
                 <div class='sentDate'>${nd.getDate()}/${nd.getMonth()}/${nd.getFullYear()}</div>
                 <div class='parent visibility'>${message.parentmessageid}</div>
-                <div class='messageContent visibility'>${message.message}</div>
+                <div class='messageContent visibility'>${displayBlank(message.message)}</div>
             </div>`
         });
 

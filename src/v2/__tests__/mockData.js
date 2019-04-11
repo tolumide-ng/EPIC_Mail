@@ -179,6 +179,13 @@ export default {
     role: 'Admin',
   },
 
+  roleLength: {
+    name: 'Michigan developers',
+    role: `The purpose of this test is to ascertain 
+    that the validation can easily reject any group 
+    length than is more than over fifty. Hopefully this would be`,
+  },
+
   basheerGroup: {
     name: 'Arab Money',
     role: 'Admin',
@@ -240,6 +247,9 @@ export default {
 
   broadcastMessageValidation: {
     subject: 'Arkansas',
+  },
+
+  emptyBroadcastMessage: {
   },
 
   shortBroadcastMessage: {

@@ -17,9 +17,9 @@ body {
     grid-template-columns: 0.1fr 0.9fr;
     grid-template-rows: 1fr;
     height: 100%;
+    width: 100%;
     /* background: orange; */
     /* height: (100% -3em); */
-
 }
 
 #menuList {
@@ -50,7 +50,6 @@ body {
     font-family: 'lato', sans-serif;
     /* border-bottom: 1px solid grey; */
     margin-bottom: 0.7em;
-    /* background: #393E46; */
 }
 
 .menuListContent:hover{
@@ -247,9 +246,9 @@ body {
 }
 
 .address {
-    margin-right: 40px;
+    /* margin-right: 40px; */
     grid-column: 1;
-    margin-left: 2em;
+    /* margin-left: 2em; */
     /* width: 100%; */
     overflow: hidden;
 }
@@ -421,89 +420,4 @@ body {
 
 .sendDraft:active {
     background: #4FE86E;
-}
-
-/* Adjust composeMail, inbox e.t.c menu when screen is at this size */
-@media screen and (max-width: 1200px) {
-    #menuList {
-        all: unset;
-        grid-column: 2;
-        grid-row: 1;
-        height: 7vh;
-        background: rgb(207, 207, 190);
-        width: 100%;
-    }
-    .sentMessage, .draftMessage {
-        display: grid;
-        grid-template-columns: 0.5fr 0.5fr;
-        justify-items: start;
-    }
-    .draftMessage {
-        display: grid;
-        grid-template-columns: 0.5fr 0.5fr;
-        justify-items: start;
-    }
-    .address {
-        grid-column: 1;
-        font-weight: bold;
-        overflow-x: hidden;
-    }
-    .mailTitle {
-        grid-column: 2;
-        overflow: hidden;
-        background: #92D1C8;
-        margin-left: 10px;
-    }
-
-    #menuListContainer {
-        all: unset;
-        list-style: none;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-    }
-
-    .menuListContent {
-        all: unset;
-        padding: 10px;
-        cursor: pointer;
-        text-align: center;
-        color: black;
-        font-size: 1.5em;
-        font-family: 'lato', sans-serif;
-        font-weight: bolder;
-    }
-
-    .menuListContent:hover {
-        background: #003542;
-        color: white;
-    }
-}
-
-
-@media screen and (max-width: 800px) {
-    .inboxMessage {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start
-    }
-
-    .draftMessage {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start
-    }
-
-    .sentMessage {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start
-    }
-
-    .messageContent {
-        height: 30vh;
-    }
 }

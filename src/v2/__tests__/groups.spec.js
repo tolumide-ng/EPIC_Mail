@@ -11,7 +11,7 @@ const { expect } = chai;
 const {
   Basheer, chwuks, chwuksGroup, incompleteGroupDetails, basheerGroup, editBasheerGroupName, tomiwa, bambam, shortBroadcastMessage,
   validationMember, anotherBroadcastMessage, unRegisteredMember, tomiwaAddToGroup, bambamAddToGroup, alfredAddToGroup,
-  broadcastMessageValidation, broadcastMessage,
+  broadcastMessageValidation, broadcastMessage, roleLength, emptyBroadcastMessage
 } = mockData;
 
 const groupRoute = '/api/v2/groups';
@@ -92,6 +92,20 @@ describe('User Interaction with groups', () => {
       });
   });
 
+  // It should encounter validation error because the length of the group role is too long
+  it('should successfully create a group', (done) => {
+    chai.request(server)
+      .post(`${groupRoute}/`)
+      .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
+      .send(roleLength)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
   it('should successfully create a group', (done) => {
     chai.request(server)
       .post(`${groupRoute}/`)
@@ -118,7 +132,7 @@ describe('User Interaction with groups', () => {
         res.should.be.json;
         res.should.have.status(404);
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property( 'error', `There is no group with id=79`)
+        expect(res.body).to.have.own.property('error', 'There is no group with id=79');
         done();
       });
   });
@@ -132,7 +146,7 @@ describe('User Interaction with groups', () => {
         res.should.be.json;
         res.should.have.status(400);
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property( 'error', `Please ensure the messageId is an integer`)
+        expect(res.body).to.have.own.property('error', 'Please ensure the messageId is an integer');
         done();
       });
   });
@@ -194,7 +208,7 @@ describe('User Interaction with groups', () => {
       });
   });
 
-  
+
   it('should get a specific group through the group id', (done) => {
     chai.request(server)
       .get(`${groupRoute}/${globalContainer.chwuksGroupId}/`)
@@ -219,6 +233,20 @@ describe('User Interaction with groups', () => {
         res.should.be.json;
         res.body.should.have.property('error');
         expect(res.body).to.have.own.property('error', 'message is required');
+        done();
+      });
+  });
+
+  // Empty broadcast message should encounter validation error 
+  it('should encounter validation error while trying to send broadcast message', (done) => {
+    chai.request(server)
+      .post(`${groupRoute}/${globalContainer.chwuksGroupId}/messages`)
+      .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
+      .send(emptyBroadcastMessage)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
         done();
       });
   });

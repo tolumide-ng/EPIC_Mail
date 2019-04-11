@@ -1,43 +1,49 @@
 const resetButton = document.querySelector('#resetButton');
 const indication = document.querySelector('#indication');
 const signupButton = document.querySelector('#signupButton');
+const modalContainer = document.querySelector('.modalContainer');
+const modalContent = document.querySelector('.modalContent');
 
-// function checkValidity(input) {
-//     const regexCheck = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/ig;
-//     const validInput = regexCheck.test(input);
-//     if (validInput) {
-//         indication.innerHTML = '';
-//         return location.href = './signin.html';
-//         // console.log(validInput);
-//     }
-//     indication.innerHTML = 'Please enter a valid email address';
-//     return ;
-// }
-
-// resetButton.addEventListener('click', e => {
-//     const email = document.querySelector('#email').value;
-//     checkValidity(email);
-// });
-
-// signupButton.addEventListener('click', e => {
-//     return location.href = './index.html'
-// })
-
+const hideModal = () => {
+    if(!modalContainer.classList.contains('visibility')) {
+        return modalContainer.classList.add('visibility');
+    }
+    return;
+}
 
 const resetPasswordFunction = async () => {
     const email = document.querySelector('.email').value;
     const resetDetails = { email };
-    console.log(resetDetails);
     const fetchResponse = await fetch('http://localhost:3000/api/v2/auth/reset', {
-        method: 'POST', 
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(resetDetails)
     });
     const response = await fetchResponse.json();
-    console.log(response);
+    if (response.status === 200) {
+        modalContainer.classList.remove('visibility');
+        modalContent.innerHTML = '';
+        modalContent.innerHTML = response.data;
+        setTimeout(() => {
+            return window.addEventListener('click', hideModal)
+        }, 3000);
+        return;
+    }
+    modalContainer.classList.remove('visibility');
+    modalContent.innerHTML = '';
+    modalContent.innerHTML = response.error;
+    setTimeout(() => {
+        return window.addEventListener('click', hideModal)
+    }, 3000);
+    return;
+};
+
+const signupPageFunction = async () => {
+    return document.location.href = 'http://127.0.0.1:5500/UI/signup.html';
 }
 
 
 resetButton.addEventListener('click', resetPasswordFunction);
+signupButton.addEventListener('click', signupPageFunction)

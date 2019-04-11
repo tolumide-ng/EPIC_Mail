@@ -116,9 +116,33 @@ export default class User {
       if (!resetPassword) {
         return res.status(400).json({ status: 400, error: 'Password reset failed' });
       }
-      async function(){
-        
+
+      const output = `Here is your new password for <strong>${email}:</strong> ${newPassword}`;
+
+      async function main() {
+        const testAccount = await nodemailer.createTestAccount();
+
+        // create reusable transporter object using the default SMTP transport
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          secure: false,
+          auth: {
+            user: process.env.SENDER_EMAIL,
+            pass: process.env.SENDER_PASSWORD,
+          },
+        });
+
+        const info = await transporter.sendMail({
+          from: '"EPICMai Password reset" <tolumideshopein@gmail.com>',
+          to: secondaryemail,
+          subject: 'Password Reset',
+          html: output,
+        });
+        // console.log('Message sent to: %s', info.messageId);
+        // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
       }
+      main().catch(console.error);
       return res.status(200).json({ status: 200, data: 'Please check the secondary email you used to register for your new password' });
     } catch (error) {
       return res.status(500).json({ status: 500, error });

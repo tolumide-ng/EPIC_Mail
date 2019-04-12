@@ -1,5 +1,3 @@
-import { error } from 'util';
-
 const regString = (/^([a-zA-Z\s]){3,}$/);
 const regEmail = (/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
 const regAlphanumeric = (/^([a-zA-Z0-9\-.,\s]{3,})$/);

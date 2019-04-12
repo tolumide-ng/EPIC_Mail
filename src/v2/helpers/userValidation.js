@@ -92,7 +92,6 @@ const Validator = {
         // const validPassword = regAlphanumeric.test(value);
         if (!value) {
           errorContents.push(`${key} cannot be empty`);
-          // errorContents.push(`${key} must be alphanumeric and length nust be more than 6`);
         }
         Object.assign(verfiedContent, { [key]: value });
       }

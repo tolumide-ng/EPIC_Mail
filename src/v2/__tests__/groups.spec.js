@@ -11,7 +11,7 @@ const { expect } = chai;
 const {
   Basheer, chwuks, chwuksGroup, incompleteGroupDetails, basheerGroup, editBasheerGroupName, tomiwa, bambam, shortBroadcastMessage,
   validationMember, anotherBroadcastMessage, unRegisteredMember, tomiwaAddToGroup, bambamAddToGroup, alfredAddToGroup,
-  broadcastMessageValidation, broadcastMessage, roleLength, emptyBroadcastMessage
+  broadcastMessageValidation, broadcastMessage, roleLength, emptyBroadcastMessage, invalidEmailToTheGroup, invalidGroupRole
 } = mockData;
 
 const groupRoute = '/api/v2/groups';
@@ -192,6 +192,32 @@ describe('User Interaction with groups', () => {
       });
   });
 
+  it('should fail to add member to the group for invalid email', (done) => {
+    chai.request(server)
+      .post(`${groupRoute}/${globalContainer.chwuksGroupId}/users`)
+      .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
+      .send(invalidEmailToTheGroup)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
+  it('should fail to add member to the group for invalid group role', (done) => {
+    chai.request(server)
+      .post(`${groupRoute}/${globalContainer.chwuksGroupId}/users`)
+      .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
+      .send(invalidGroupRole)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
   // Add bambam to chwuks group
   it('should successfully add bambam to the group', (done) => {
     chai.request(server)
@@ -234,7 +260,7 @@ describe('User Interaction with groups', () => {
       });
   });
 
-  // Empty broadcast message should encounter validation error 
+  // Empty broadcast message should encounter validation error
   it('should encounter validation error while trying to send broadcast message', (done) => {
     chai.request(server)
       .post(`${groupRoute}/${globalContainer.chwuksGroupId}/messages`)
@@ -255,7 +281,6 @@ describe('User Interaction with groups', () => {
       .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
       .send(broadcastMessage)
       .end((req, res) => {
-        console.log(res.error);
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.have.property('data');
@@ -270,8 +295,6 @@ describe('User Interaction with groups', () => {
       .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
       .send(shortBroadcastMessage)
       .end((req, res) => {
-        console.log(res.body);
-        console.log(res.error)
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');

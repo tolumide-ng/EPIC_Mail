@@ -14,7 +14,7 @@ const hideModal = () => {
 const resetPasswordFunction = async () => {
     const email = document.querySelector('.email').value;
     const resetDetails = { email };
-    const fetchResponse = await fetch('http://localhost:3000/api/v2/auth/reset', {
+    const fetchResponse = await fetch('https://epicmail-ng.herokuapp.com/api/v2/auth/reset', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -41,7 +41,7 @@ const resetPasswordFunction = async () => {
 };
 
 const signupPageFunction = async () => {
-    return document.location.href = 'http://127.0.0.1:5500/UI/signup.html';
+    return document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/index.html';
 }
 
 

@@ -40,7 +40,7 @@ const editMembersFunction = (group) => {
                 // setTimeout(() => {
                 //     memberIndication.innerHTML = '';
                 // }, 5000);
-                return document.location.href = 'http://127.0.0.1:5500/UI/create.html';
+                return document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/create.html';
             }
             memberIndication.innerHTML = '';
             memberIndication.innerHTML = postResponse.error;
@@ -52,7 +52,7 @@ const editMembersFunction = (group) => {
         const closeButton = document.querySelector('.closeButton');
         closeButton.addEventListener('click', e => {
             hideModal();
-            return document.location.href = 'http://127.0.0.1:5500/UI/create.html';
+            return document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/create.html';
         });
 
 
@@ -85,7 +85,7 @@ const editMembersFunction = (group) => {
                     setTimeout(() => {
                         memberIndication.innerHTML = '';
                     }, 5000);
-                    return document.location.href = 'http://127.0.0.1:5500/UI/create.html';
+                    return document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/create.html';
                 }
                 memberIndication.innerHTML = '';
                 memberIndication.innerHTML = theResponse.error;

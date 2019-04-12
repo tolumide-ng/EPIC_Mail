@@ -11,7 +11,7 @@ const checkValidity = async (input, password) => {
     if (validInput) {
         const loginDetails = { email: input, password };
         indication.innerHTML = '';
-        const fetchResponse = await fetch('http://localhost:3000/api/v2/auth/login', {
+        const fetchResponse = await fetch('https://epicmail-ng.herokuapp.com/api/v2/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -25,7 +25,7 @@ const checkValidity = async (input, password) => {
             localStorage.setItem('firstname', serverResponse.data[0].firstname);
             localStorage.setItem('lastname', serverResponse.data[0].lastname);
             localStorage.setItem('email', serverResponse.data[0].email);
-            document.location.href = 'http://127.0.0.1:5500/UI/mails.html';
+            document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/mails.html';
             return indication.innerHTML = 'success'
         }
         return indication.innerHTML = serverResponse.error;
@@ -46,11 +46,11 @@ loginButton.addEventListener('click', e => {
 });
 
 resetPassword.addEventListener('click', e => {
-    document.location.href = 'http://127.0.0.1:5500/UI/reset.html';
+    document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/reset.html';
 })
 
 signupButton.addEventListener('click', e => {
-    document.location.href = 'http://127.0.0.1:5500/UI/index.html'
+    document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/reset.html'
 })
 
 const email = document.querySelector('#email');

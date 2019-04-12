@@ -1,4 +1,4 @@
-const groupsUrl = 'http://localhost:3000/api/v2/groups';
+const groupsUrl = 'https://epicmail-ng.herokuapp.com/api/v2/groups';
 
 const groupFlexContainer = document.querySelector('.groupFlexContainer');
 const displayGroupContainer = document.querySelector('.displayGroupContainer');
@@ -105,7 +105,6 @@ const createGroupFunction = async (e) => {
 
     const createGroupDetails = { name, role };
     const createGroupResponse = await serverPostResponse('POST', `${groupsUrl}/`, createGroupDetails);
-    console.log(createGroupResponse);
     indication.innerHTML = '';
     if (createGroupResponse.status === 201) {
         indication.innerHTML += `<p class='indicationText'>${createGroupResponse.message}</p>`

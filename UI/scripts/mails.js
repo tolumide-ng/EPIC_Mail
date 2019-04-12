@@ -1,4 +1,4 @@
-const messagesUrl = 'http://localhost:3000/api/v2/messages';
+const messagesUrl = 'https://epicmail-ng.herokuapp.com/api/v2/messages';
 
 const menuList = document.querySelector('#menuList');
 const displayContainer = document.querySelector('#displayContainer');

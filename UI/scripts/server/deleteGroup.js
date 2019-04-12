@@ -26,19 +26,19 @@ const deletGroupFunction = (element) => {
                 indicateServerResponse.innerHTML = theResponse.data;
                 modalGroup.classList.remove('visibility');
                 window.addEventListener('click', hideModal);
-                document.location.href = 'http://127.0.0.1:5500/UI/create.html';
+                document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/create.html';
                 return;
             }
             indicateServerResponse.innerHTML = '';
             indicateServerResponse.innerHTML = theResponse.error;
             setTimeout(() => {
                 modalGroup.classList.remove('visibility');
-                document.location.href = 'http://127.0.0.1:5500/UI/create.html';
+                document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/create.html';
 
             }, 5000);
             window.addEventListener('click', e => {
                 hideModal();
-                document.location.href = 'http://127.0.0.1:5500/UI/create.html';
+                document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/create.html';
             });
             return;
         });

@@ -66,7 +66,7 @@ signUpSelector.addEventListener('click', async (e) => {
         email: epicUserName, secondaryEmail: secondaryEmail.value,
     };
     // console.log(newUser);
-    let response = await fetch('http://localhost:3000/api/v2/auth/signup', {
+    let response = await fetch('https://epicmail-ng.herokuapp.com/api/v2/auth/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -81,7 +81,7 @@ signUpSelector.addEventListener('click', async (e) => {
         localStorage.setItem('lastname', bodyGuy.data[0].lastname);
         localStorage.setItem('email', bodyGuy.data[0].email);
         localStorage.setItem('id', bodyGuy.data[0].id);
-        document.location.href = 'http://127.0.0.1:5500/UI/mails.html';
+        document.location.href = 'https://tolumide-ng.github.io/EPIC_Mail/UI/mails.html';
         return;
     }
     const errorBody = await response.json();

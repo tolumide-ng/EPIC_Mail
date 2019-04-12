@@ -6,7 +6,6 @@ const populateViewWithGroup = async (id) => {
         const theResponse = await response.json();
         if (theResponse.status === 200) {
                 const data = Array.from(theResponse.data);
-                console.log(data);
                 // Use the group id to choose which group to display
                 groupInformation.theGroup = data.find(content => content.id === Number(id));
                 console.log(groupInformation.theGroup);

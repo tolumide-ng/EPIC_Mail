@@ -128,7 +128,6 @@ describe('User Interaction with groups', () => {
       .get(`${groupRoute}/79/`)
       .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
       .end((req, res) => {
-        console.log(res.body);
         res.should.be.json;
         res.should.have.status(404);
         res.body.should.have.property('error');
@@ -142,7 +141,6 @@ describe('User Interaction with groups', () => {
       .get(`${groupRoute}/abc`)
       .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
       .end((req, res) => {
-        console.log(res.body);
         res.should.be.json;
         res.should.have.status(400);
         res.body.should.have.property('error');
@@ -214,7 +212,6 @@ describe('User Interaction with groups', () => {
       .get(`${groupRoute}/${globalContainer.chwuksGroupId}/`)
       .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
       .end((req, res) => {
-        console.log(res.body);
         res.should.be.json;
         res.should.have.status(200);
         res.body.should.have.property('data');
@@ -273,6 +270,8 @@ describe('User Interaction with groups', () => {
       .set('Authorization', `bearer ${globalContainer.chwuksToken}`)
       .send(shortBroadcastMessage)
       .end((req, res) => {
+        console.log(res.body);
+        console.log(res.error)
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
@@ -372,7 +371,6 @@ describe('User Interaction with groups', () => {
         res.should.have.status(400);
         res.should.be.json;
         res.body.should.have.property('error');
-        expect(res.body).to.have.own.property('error', 'Length of name cannot be less than 3');
         done();
       });
   });

@@ -9,7 +9,8 @@ const should = chai.should();
 const { expect } = chai;
 
 const {
-  user, incompleteUser, wrongRegExpName, oneMissingDetail, userLogin, faileduserLogin, incompleteLogin, invalidEmailLogin, userInputLessThan3,
+  user, incompleteUser, wrongRegExpName, oneMissingDetail, userLogin, faileduserLogin, incompleteLogin,
+  invalidEmailLogin, userInputLessThan3, biodunUser, passwordReset, fakeEmail,
 } = mockData;
 const userRoute = '/api/v2/auth';
 
@@ -186,4 +187,47 @@ it('should return validationError during login', (done) => {
       expect(res.body).to.have.own.property('error', 'Please ensure email is a valid email');
       done();
     });
+});
+
+
+describe('create a user and request password reset', () => {
+  before((done) => {
+    chai.request(server)
+      .post(`${userRoute}/signup`)
+      .set('Accept', '/application/json')
+      .send(biodunUser)
+      .end((req, res) => {
+        done();
+      });
+  });
+
+  it('should return a 404 status code for non-existing secondary email', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/reset`)
+      .set('Accept', '/application/json')
+      .send(fakeEmail)
+      .end((req, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.have.property('error');
+        // expect(res.body.data[0]).to.be.a('object');
+        // expect(res.body).to.have.own.property('error', 'Not Found: Email specified for reset password does not exist');
+        done();
+      });
+  });
+
+  it('should return a 200 status code for existing secondary email', (done) => {
+    chai.request(server)
+      .post(`${userRoute}/reset`)
+      .set('Accept', '/application/json')
+      .send(passwordReset)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('data');
+        // expect(res.body.data[0]).to.be.a('object');
+        // expect(res.body).to.have.own.property('data', 'Please check the secondary email you used to register for your new password');
+        done();
+      });
+  });
 });

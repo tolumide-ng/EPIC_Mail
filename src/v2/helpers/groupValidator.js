@@ -1,4 +1,4 @@
-import { error } from "util";
+import { error } from 'util';
 
 const regString = (/^([a-zA-Z\s]){3,}$/);
 const regEmail = (/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
@@ -79,19 +79,19 @@ const Validator = {
     Object.keys(body).forEach((key) => {
       const value = body[key];
       if (value.length < 3) {
-        errorContents.push(`Length of the ${key} cannot be less than 3`)
+        errorContents.push(`Length of the ${key} cannot be less than 3`);
       }
       if (key === 'userEmailAddress') {
         const validEmail = regEmail.test(value);
         if (!validEmail) {
-          errorContents.push(`${key} must be a valid email`)
+          errorContents.push(`${key} must be a valid email`);
         }
         Object.assign(verifiedContent, { [key]: value });
       }
       if (key === 'userRole') {
         const validString = regAlphanumeric.test(value);
         if (!validString) {
-          errorContents.push(`${key} must be a valid string`)
+          errorContents.push(`${key} must be a valid string`);
         }
         Object.assign(verifiedContent, { [key]: value });
       }
@@ -129,7 +129,7 @@ const Validator = {
       const value = body[key];
       const strings = (key === 'subject' || key === 'message');
       if (value.length < 3) {
-        return res.status(400).json({ status: 400, error: `You cannot send an empty ${key} to a group` });
+        errorContents.push(`You cannot send an empty ${key} to a group`);
       }
       if (strings) {
         const validStrings = regAlphanumeric.test(value);

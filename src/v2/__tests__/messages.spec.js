@@ -13,7 +13,7 @@ const messagesRoute = '/api/v2/messages';
 const userRoute = '/api/v2/auth';
 const {
   eichUser, loginEich, eichsMessage, alfred, eichsDraft, eichsBadMessage, eichsInvalidMessage, eichsOtherMessage,
-  alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide, brendaSavesDraft, updateBrendasDraft, FailedUpdateBrendasDraft
+  alfredLogin, brendaMessage, brenda, brendaMessageToAlfred, tolumide, brendaSavesDraft, updateBrendasDraft, FailedUpdateBrendasDraft,
 } = mockData;
 
 const globalDetail = {};
@@ -113,6 +113,19 @@ describe('ComposeMail Scenario', () => {
         res.should.have.status(201);
         res.should.be.json;
         expect(res.body.data[0]).to.have.own.property('status', 'draft');
+        done();
+      });
+  });
+
+  // 401 status codes
+  it('should return a 401 status when authorization details are not included', (done) => {
+    chai.request(server)
+      .post(`${messagesRoute}/`)
+      .send(eichsDraft)
+      .end((req, res) => {
+        res.should.have.status(401);
+        res.should.be.json;
+        expect(res.body).to.have.own.property('error', 'Unauthorized, Please include token in the header and prepend with `bearer `');
         done();
       });
   });
@@ -409,7 +422,7 @@ describe('Brenda posts a new message to Alfred', () => {
       .end((req, res) => {
         res.should.have.status(404);
         res.should.be.json;
-        expect(res.body).to.have.own.property('error', 'Not Found, you do not have a draft with this id')
+        expect(res.body).to.have.own.property('error', 'Not Found, you do not have a draft with this id');
         done();
       });
   });

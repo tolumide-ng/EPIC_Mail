@@ -63,6 +63,22 @@ export default {
     password: 'cinwel',
   },
 
+  biodunUser: {
+    email: 'Biodun@epicmail.com',
+    secondaryEmail: 'goodguy@gmail.com',
+    firstName: 'Abiodun',
+    lastName: 'forWhat',
+    password: 'eleniyan',
+  },
+
+  passwordReset: {
+    email: 'Biodun@epicmail.com',
+  },
+
+  fakeEmail: {
+    email: 'brisket@gmail.com',
+  },
+
   loginEich: {
     email: 'EeichBalkmna@epicmail.com',
     password: 'cinwel',

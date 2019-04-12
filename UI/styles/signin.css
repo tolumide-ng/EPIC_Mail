@@ -13,168 +13,126 @@
 }
 
 body {
-    background: #EEF5F1;
+    display: grid;
+    grid-template-columns: 0.34fr 0.32fr 0.34fr;
+    grid-template-rows: 0.3fr 0.4fr 0.3fr;
+    height: 100%;
+    background: #282B40;
 }
 
+#loginForm {
+    height: 100%;
+    grid-column: 2;
+    grid-row: 2;
+    background: rgba(238, 248, 241, 0.9);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1em;
+}
 
 .logo {
     height: 50px;
 }
 
-
-#sign_in-body {
-    display: grid;
-    grid-template-columns: 0.3fr 0.4fr 0.3fr;
-    grid-template-rows: 0.1fr 0.9fr;
-    justify-content: center;
-    padding-top: 40px;
-    align-content: center;
+#indication {
+    margin-top: 0.5em;
+    color: red;
 }
 
-#form {
-    grid-column: 2;
-    grid-row: 2;
-    align-items: center;
-    margin: 5%;
-    box-shadow: 3px 3px 5px 6px #ccc;
-    border-radius: 5px;
-    padding-bottom: 10px;
-    padding-top: 30px;
-    width: 80%;
-    height: 100%;
-    background: #EAEBED;
-    /* background: green; */
+.visibility {
+    display: none;
 }
 
-.form_input {
-    border-style: none;
-    height: 35px;
-    border-radius: 3px;
-    width: 68%;
-    padding: 2px;
-    /* margin-left: var(--form_margin-left); */
-    border: 1px solid rgba(0,0,0,0.3)
-}
-
-#text {
-    margin-left: var(--form_margin-left);
+.introductionContainer {
     display: flex;
     flex-direction: row;
-    padding: 15px;
-    justify-content: center;
+    font-weight: bold;
+    color: orange;
+    font-size: 1.5em;
+    width: 100%;
+    justify-content: space-evenly;
     align-items: center;
-    font-size: large;
-    font-style: oblique;
-    text-align: center;
-    color: rgba(10, 60, 25, 0.8)
+    padding: 1em 2em 0 2em;
 }
 
-#submit_button {
-    all: unset;
-    background: #FF0044;
-    color: white;
-    padding: 5px;
-    border-radius: 3px;
-    cursor: pointer;
-    width: 13%;
-    text-align: center;
-    margin-left: var(--form_margin-left);
+#mail_name {
+    color: orange;
+    letter-spacing: 3px;
+    font-size: x-large;
+    margin-bottom: 10px;
 }
 
-#submit_button a {
-    all: unset;
-    color: white;
+#mail_name::first-letter{
+    color: rgb(38, 46, 158);
 }
 
-#reset_password {
-    all: unset;
-    color: blue;
-    margin-left: 10px;
-    cursor: pointer;
+#three {
+    color: rgb(81, 161, 81);
 }
 
-#submit_button:hover, #reset_password:hover {
-    animation: userAction 1s ease-in-out 0s;
+#four {
+    color: rgb(216, 18, 18);
 }
 
-@keyframes userAction {
-    0% {
-        opacity: 0.8;
-        transform: scale(1.0);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1.0);
-    }
+#five {
+    color: black;
 }
 
-#input_details {
+.loginContainer {
+    margin-top: 2em;
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    justify-content: center;
-    align-items: center;
+    width: 70%;
 }
 
-#input_details > * {
-    margin-bottom: 30px;
-    flex-shrink: 100px;
+.formInput {
+    all: unset;
+    /* background: #EEF5F1; */
+    background: white;
+    height: 2em;
+    padding-left: 0.3em;
+    margin-top: 0.2em;
+    /* font-weight: bold; */
     text-align: center;
 }
 
-#indication {
+.buttonContainer {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.actionButton {
+    all: unset;
+    color: white;
+    padding: 0.3em;
+    padding-bottom: 0.4em;
+    border-radius: 3px;
     text-align: center;
-    margin-bottom: 1em;
-    color: red;
     font-weight: bold;
+    cursor: pointer;
+    background: #0E6681;
+    width: 40%;
 }
 
-
-@media screen and (max-width: 1200px) {
-    #submit_button {
-        all: unset;
-        background: #FF0044;
-        color: white;
-        padding: 5px;
-        border-radius: 3px;
-        cursor: pointer;
-        width: 23%;
-        text-align: center;
-        margin-left: var(--form_margin-left);
-    }
-    
+#resetButton:active {
+    background: #FC4349;
+    color: white;
 }
 
-@media screen and (max-width: 1050px) {
-    #sign_in-body {
-        display: grid;
-        grid-template-columns: 0.2fr 0.6fr 0.2fr;
-        grid-template-rows: 0.1fr 0.9fr;
-        justify-content: center;
-        padding-top: 40px;
-        align-content: center;
-    }
-    
+#loginButton:active, #signupButton:active {
+    background: #3CFE9B;
+    color: black;
 }
 
-@media screen and (max-width: 700px) {
-    #sign_in-body {
-        display: grid;
-        grid-template-columns: 0.1fr 0.9fr;
-        grid-template-rows: 0.1fr 0.9fr;
-        justify-content: center;
-        padding-top: 20px;
-        align-content: center;
-    }
+#resetButton {
+    background: #70CCD8;
+    color: black;
+    width: 50%;
+}
 
-    #indication {
-        padding: 0 10px;
-    }
-
-    .form_input {
-        width: 88%;
-    }
+.resetContainer {
+    align-items: center;
+    margin-bottom: 2em;
 }

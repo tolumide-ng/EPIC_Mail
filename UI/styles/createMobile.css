@@ -1,0 +1,71 @@
+@media screen and (max-width: 1200px) {
+    .formContainer {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 1fr;
+        grid-template-rows: 40% 60%;
+    }
+
+    .textContainer {
+        text-align: center;
+    }
+
+    .createGroupContainer {
+        grid-row: 1;
+        grid-column: 1;
+        display: flex;
+        overflow: auto;
+        /* background: orange; */
+    }
+
+    .createContainer {
+        margin-bottom: 0.5em;
+    }
+
+    .createContainer > * {
+        margin-bottom: 0.2em;
+    }
+
+    .displayGroupContainer {
+        grid-row: 2;
+        grid-column: 1;
+        margin-bottom: 0;
+    }
+
+    .createGroupButton {
+        margin-bottom: 2em;
+    }
+
+    .groupFlexContainer {
+        margin-bottom: 2em;
+    }
+
+    .modalGroup {
+        padding-top: 100px;
+    }
+
+    .membersContainer {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    .displayGroupContainer {
+        margin-top: 0.3em;
+        padding: 0.4em;
+    }
+    .groupFlexContainer {
+        align-items: space-between;
+        justify-content: space-evenly;
+    }
+
+    .theGroup {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .theGroup {
+        width: 80%;
+    }
+}

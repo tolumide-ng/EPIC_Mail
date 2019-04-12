@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./styles/nav.css">
     <link rel="stylesheet" href="./styles/create.css">
+    <link rel="stylesheet" href="./styles/createMobile.css">
     <title>EPIC_Mail</title>
 </head>
 
@@ -28,73 +29,59 @@
         </label>
     </header>
 
-    <div class="form_container">
+    <div class="formContainer">
+        <form class="createGroupContainer" onsubmit="event.preventDefault()">
+            <div class="textContainer createContainer"><strong>Create group here</strong></div>
+            <div class="createdByContainer createContainer">
+                <label for="groupCreator" class="groupCreatedBy groupTitle">Created By: </label>
+                <div class="groupCreator">tolumide@epicmail.com</div>
+            </div>
+            <div class="groupNameContainer createContainer">
+                <label for="groupName" class="groupNameLabel groupTitle">Group Name: </label>
+                <input type="text" class="groupName valueInput" id="groupName" placeholder="e.g. Lagos Devs">
+            </div>
+            <div class="groupRoleContainer createContainer">
+                <label for="groupRole" class="groupRoleLabel groupTitle">Group Role: </label>
+                <input type="text" class="groupRole valueInput" id="groupRole"
+                    placeholder="brief description of the group">
+            </div>
+            <div class="createGroupButtonContainer createContainer">
+                <button class="createGroupButton">Create</button>
+            </div>
 
-        <section id="description">Please regsiter a valid email address, then register it in an already existing or a new group 
-        </section>
+            <div class="createContainer indication"></div>
+        </form>
 
-        <section id="user_container">
-            <p class="howToUse">Register username (valid email) here</p>
-            <label for="add_new_user" id="add_user_flex">
-                <input type="text" id="add_new_user" placeholder="Username">
-                <button type="submit" id="add_user">Add User</button>
-            </label>
-            <ul id="list">
-                <!-- <div class="list_flex_container">
-                    <li class="each_user"> Okadigbo@gmail.com </li>
-                    <button class="remove_name">Remove</button>
-                </div>
-
-                <div class="list_flex_container">
-                    <li class="each_user"> Opeoluwa@epic_mail.com </li>
-                    <button class="remove_name">Remove</button>
-                </div> -->
-            </ul>
-        </section>
-
-
-
-        <section id="groupsAndDisplay">
-            <section id="group_table">
-                <p class="howToUse">Enter a group name and registered username</p>
-                <div id='groupsAndName'>
-                    <!-- <div id='groupNameDiv' class="groupTitle"> Name of Group -->
-                    <input type='text' id='groupNameInput' class="groupInput form_input" placeholder="Group Name">
-                    <!-- </div> -->
-
-                    <!-- <div id='groupUserNameDiv' class="groupTitle"> UserName -->
-                    <input type='text' id='groupUserNameInput' class="groupInput form_input" placeholder="Username">
-                    <!-- </div> -->
-                    <button type='submit' id='submitGroupAndName'>Add to List </button>
+        <div class="displayGroupContainer">
+            <div class="groupFlexContainer">
+                <!-- <div class="theGroup">
+                    <div class="theGroupDetails">
+                        <img src="./img/team.svg" alt="" class="theGroupImage">
+                        <p class='theGroupName'>Lagos Devs</p>
                     </div>
-                <p class="epic_text">- EPIC_Mail  -     <span id='information'></span></p>
+                    <p class="theGroupCreator"> <strong>Created By: </strong> alani@epicmail.com</p>
+                    <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
+                </div> -->
+            </div>
+        </div>
 
-
-
-
-                <section id='groupsAndUsersSection'>
-                    <form action=''>
-                        <div class='groupsAndUsersList'>
-                            <div class="groupContainer">
-                                <p class='groupnameAndUsername'>North Carli</p>
-                                <select name='north carli' id="northcarli" class='userNameContainer'>
-                                    <option class='userNameInformation' value='tolumideshopein@gmail.com'>
-                                        tolumideshopein@gmail.com
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </section>
-        </section>
-
-
-
-
+        <div class="visibility modalGroup">
+            <div class="serverResponseContainer">
+                <!-- <div class="groupName">Welcome to the specific group View </div> -->
+                <div class="indicateServerResponse"></div>
+            </div>
+        </div>
     </div>
 
+
+
+
     <script src="./scripts/create.js"></script>
+    <script src="./scripts/server/deleteGroup.js"></script>
+    <script src="./scripts/server/editGroupName.js"></script>
+    <script src="./scripts/server/sendBroadCast.js"></script>
+    <script src="./scripts/server/editMembers.js"></script>
+    <!-- <script src="./scripts/server/specificGroup.js"></script> -->
 </body>
 
 </html>

@@ -13,68 +13,64 @@
     <header id="head-content">
     </header>
     <div class="sign_up-body">
-        <section id="carousel">
-            <button class="carousel_button carousel_button-left">
-                <img src="./img/back.svg" alt="">
-            </button>
-            <div class="carousel_track-container">
-                <ul class="carousel_track">
-                    <li class="carousel_slide current-slide">
-                        <img class="carousel_image" src="./img/slide (1).jpg" alt=""></li>
-                    <li class="carousel_slide">
-                        <img class="carousel_image" src="./img/slide (2).jpg" alt=""></li>
-                    <li class="carousel_slide">
-                        <img class="carousel_image" src="./img/slide (3).jpg" alt=""></li>
-                    <li class="carousel_slide">
-                        <img class="carousel_image" src="./img/slide (4).jpg" alt=""></li>
-                    <li class="carousel_slide">
-                        <img class="carousel_image" src="./img/slide (5).jpg" alt=""></li>
-                </ul>
-            </div>
-            <button class="carousel_button carousel_button-right">
-                <img src="./img/next.svg" alt="">
-            </button>
-        </section>
-
 
         <section id='form_display'>
             <div class="all_form_content">
-                <div id="form">
+                <form id="form" onsubmit="event.preventDefault()">
                     <div class="title_part">
-                        <div class="title_content" id="mail_name">E<span id="two">P</span><span id="three">I</span><span id="four">C</span><span id="five">_Mail</span> </div>
-                        <p class="title_content">Create your EPIC_Mail account</p>
+                        <div class="titleWords">
+                            <div class="title_content" id="mail_name">E<span id="two">P</span><span id="three">I</span><span id="four">C</span><span id="five">_Mail</span> </div>
+                            <p class="title_content">Create your EPIC_Mail account</p>
+                        </div>
+                        <img src="./img/network.svg" alt="" class="image">
                     </div>
 
                     <div class="first_part-input">
-                        <input type="text" class="form_text" id="firstName" name="firstName" placeholder="First name"  >
-                        <input type="text" class="form_text" id="lastName" name="lastName" placeholder="Last name" >
+                        <div class="firstNameContainer">
+                            <label for="firstName" class="label invincible">First Name:</label>
+                            <input type="text" class="form_text" id="firstName" name="firstName" placeholder="First name" required >
+                        </div>
+                        <div class="lastNameContainer">
+                            <label for="lastName" class="label invincible">Last Name:</label>
+                            <input type="text" class="form_text" id="lastName" name="lastName" placeholder="Last name" required >                            
+                        </div>
                     </div>
 
                     <div class="second_part-input">
+                        <label for="userName" class="label invincible"> userName</label>
                         <input type="text" class="form_text" id="userName" name="userName"
-                            placeholder="Username @epic_mail" >
+                            placeholder="Username" required>
+                    <p class="inputValidation invincible">only numbers and letters are allowed</p>
                     </div>
-                    <p class="input_definition">You can use letters, numbers & periods</p>
-
 
                     <div class="third_part-input">
-                        <input type="password" class="form_text" id="password" name="password" placeholder="Password" >
-                        <input type="password" class="form_text" id="confirm_password" name="confirm_password"
-                            placeholder="Confirm" >
-                        <img src="./img/visibility.svg" alt="password not visible" id="not_visible">
+                            <label for="secondaryEmail" class="label invincible"> secondary Email</label>
+                        <input type="text" name="secondaryEmail" id="secondaryEmail" class="form_text" placeholder="secondaryEmail" required>
                     </div>
 
-
-                    <p class="input_definition">Use 8 or more characters with a mix of letters, numbers & symbols</p>
+                    <div class="fourth_part-input">
+                        <div class="passwordContainer">
+                            <label for="password" class="label invincible">Password:</label>
+                            <input type="password" class="form_text password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="confirmPasswordContainer">
+                                <label for="firstName" class="label invincible">Confirm password:</label>
+                            <input type="password" class="form_text password" id="confirmPassword" name="confirmPassword" placeholder="Confirm" required>
+                        </div>
+                    </div>
+                    <div class="passwordAlertContainer">
+                        <p class="passwordAlert invincible">Password does not match</p>
+                        <p class="passwordValidation invincible">Password must contain at least 6 characters</p>
+                    </div>
 
                     <div id="indication"></div>
 
 
                     <div class="fourth_part-action">
                         <a href="./signin.html">Sign in instead</a>
-                        <button class="sign_up">Sign up</button>
+                        <input type='submit' class="signUp" value='Sign up' >
                     </div>
-                </div>
+                </form>
             </div>
         </section>
     </div>
@@ -82,6 +78,7 @@
     <script src="./scripts/validations.js"></script>
     
     <script src="./scripts/index.js"></script>
+   
 </body>
 </html>
 

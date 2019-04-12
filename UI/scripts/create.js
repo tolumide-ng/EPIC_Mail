@@ -1,201 +1,137 @@
+const groupsUrl = 'https://epicmail-ng.herokuapp.com/api/v2/groups';
 
-const listOfUsers = document.querySelector('#list');
-const addUser = document.querySelector('#add_user');
+const groupFlexContainer = document.querySelector('.groupFlexContainer');
+const displayGroupContainer = document.querySelector('.displayGroupContainer');
+// const specificGroup = document.querySelector('.specificGroup');
+const modalGroup = document.querySelector('.modalGroup');
+const groupName = document.querySelector('.groupName');
+const indicateServerResponse = document.querySelector('.indicateServerResponse');
+const serverResponseContainer = document.querySelector('.serverResponseContainer');
 
-// ONLY EMAIL ADDRESS CAN BE ADDED AS USERS
-function checkValidity(input) {
-    const regexCheck = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/ig;
-    const validInput = regexCheck.test(input);
-    if (!validInput || input.length < 1) {
-        throw err;
-    }
-    return validInput;
-}
-
-// function to check that the user is not already on the list
-function checkNameAlreadyExist(name) {
-    const emailAddresses = [];
-    const eachUser = document.querySelectorAll('.each_user');
-    eachUser.forEach(theUser => emailAddresses.push(theUser.innerHTML));
-    const foundEmailAddress = emailAddresses.find(email => email === name);
-
-    if (foundEmailAddress) {
-        throw err;
-    }
-    return;
-}
-
-
-// EVENT LISTENER TO ADD NAME
-addUser.addEventListener('click', e => {
-    // Content of the input element
-    const newUser = document.querySelector('#add_new_user').value;
-
-    checkValidity(newUser);
-
-    checkNameAlreadyExist(newUser);
-    // Create flex_container
-    const flex_container = document.createElement('div');
-    flex_container.classList.add('list_flex_container');
-
-    // Create List
-    const list = document.createElement('li');
-    list.classList.add('each_user');
-    list.innerHTML = newUser;
-
-    //Create Button
-    const button = document.createElement('button');
-    button.classList.add('remove_name');
-    button.innerHTML = 'Remove'
-
-    // Append list and button to flex_container
-    flex_container.prepend(list);
-    flex_container.append(button);
-
-    // append flex_container to the list of users
-    listOfUsers.prepend(flex_container);
-});
-
-
-// EVENT LISTENER TO REMOVE NAME
-
-listOfUsers.addEventListener('click', e => {
-    if (e.target.classList.contains('remove_name')) {
-        e.target.closest('.list_flex_container').remove();
-    }
-    return;
-});
-
-
-
-
-
-
-
-
-
-
-
-
-// Check if the name is a registered user
-function checkEmailIsRegistered(name) {
-    const emailAddresses = [];
-    const eachUser = document.querySelectorAll('.each_user');
-    eachUser.forEach(theUser => emailAddresses.push(theUser.innerHTML));
-    const foundEmailAddress = emailAddresses.find(email => email === name);
-
-    if (!foundEmailAddress) {
-        information.innerHTML += 'Please register the userName first';
-        throw err;
-    }
-    return;
-}
-
-// Create the group
-function createTheGroup(group, name) {
-    // Create the new group container 
-    const groupContainer = document.createElement('div');
-    groupContainer.classList.add('groupContainer');
-
-    // Creat the Group name
-    const groupName = document.createElement('p');
-    groupName.classList.add('groupnameAndUsername');
-    groupName.innerText = group;
-
-    //create the select element
-    const createSelectTag = document.createElement('select');
-    createSelectTag.classList.add('userNameContainer');
-    const selectId = group.match(/\w/g).join('').toLowerCase();
-    createSelectTag.setAttribute('id', selectId);
-
-    // Create the option and its content
-    const createOption = new Option(name, name);
-    createOption.classList.add('userNameInformation');
-    createSelectTag.append(createOption);
-
-    // Append the all to the groupContainer
-    groupContainer.prepend(groupName);
-    groupContainer.append(createSelectTag);
-
-
-    // listContainer declared here to get full information about registered groups
-    const listContainer = document.querySelector('.groupsAndUsersList');
-
-    // Now attach to frontEnd body
-    listContainer.prepend(groupContainer);
-
-}
-
-
-const nameOfTheGroup = document.querySelector('#groupNameInput');
-const nameOfTheUser = document.querySelector('#groupUserNameInput');
-const submitGroupAndName = document.querySelector('#submitGroupAndName');
-const information = document.querySelector('#information');
-const userNameInformation = document.querySelectorAll('.userNameInformation');
-
-submitGroupAndName.addEventListener('click', e => {
-    groupAndNameCheck(nameOfTheGroup.value, nameOfTheUser.value);
-})
-
-
-function groupAndNameCheck(group, name) {
-    //Remove previous error message
-    information.innerHTML = '';
-
-    // Has the user input anything ?
-    if (group.length === 0 || name.length === 0) {
-        information.innerText += 'Username or groupname cannot be empty';
-        return;
-    }
-    // Check the title of all the groupNames everytime this function is called
-    const groupNameInformation = document.querySelectorAll('.groupnameAndUsername');
-    // Check if the groupName has been registered
-    const allGroupNames = [];
-    console.log(allGroupNames);
-    console.log(groupNameInformation);
-    groupNameInformation.forEach(theGroup => allGroupNames.push(theGroup.textContent));
-    const foundGroup = allGroupNames.find(theGroup => theGroup === group);
-    if (foundGroup) {
-        console.log('group exists');
-        // Confirm if the user has been registered
-        checkEmailIsRegistered(name);
-
-        // does the user already exist in this group?
-        console.log('WE ARE HERE NOW');
-        //constant declared here to get an updated version of the variable;
-        const userNameContainer = document.querySelector('.userNameContainer');
-        const userExistInThisGroup = Array.from(userNameContainer.options).find(option => option.value === name);
-        if (userExistInThisGroup) {
-            console.log('THE USER ALREADY EXISTS HERE')
-            information.innerHTML = 'This user already exists in the group';
-            return;
+const requestServer = async (type, url) => {
+    const theResponse = await fetch(url, {
+        method: type,
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': `bearer ${localStorage.getItem('token')}`
         }
-        let findTheSelect;
-        // Get the group div to properly add the new option/name
+    });
+    return theResponse;
+}
 
-        // Find the tag with this id attribute
-        const idAttribute = foundGroup.match(/\w/g).join('').toLowerCase();
-        // console.log(idAttribute);
-        findTheSelect = document.querySelector(`#${idAttribute}`);
+const populateView = async () => {
+    const response = await requestServer('GET', `${groupsUrl}/`);
 
-        // Add the user to the group 
-        const newOption = new Option(name, name);
-        newOption.classList.add('userNameInformation');
-        findTheSelect.append(newOption);
-        return;
-    } else {
-        //Create the group!
-        createTheGroup(group, name);
-        return;
-
+    function reduceLength(element) {
+        if (!element) {
+            return element;
+        }
+        if (element.length > 35) {
+            return element.substring(0, 35) + '...'
+        }
+        return element;
     }
 
+    function reduceEmail(element) {
+        if (!element) {
+            return element;
+        }
+        if (element.length > 15) {
+            return element.substring(0, 15) + '...'
+        }
+        return element;
+    }
 
-    // const validInputIntegers = input.match(/\d/g);
-    // // all usernames already added to the group
-    // const allUserNames = [];
-    // userNameInformation.forEach(theUser => allUserNames.push(theUser.innerText));
-    // console.log(allUserNames);
-    // const userExistInGroup = allUserNames.find(theUser => theUser === name);
+    const jsonResponse = await response.json();
+    if (jsonResponse.status === 200) {
+        groupFlexContainer.innerHTML = '';
+        const data = jsonResponse.data;
+        data.forEach((content) => {
+            groupFlexContainer.innerHTML += `
+            <div class='theGroup'>
+                <div class='theGroupDetails'>
+                    <p class='theGroupName'><strong>${reduceLength(content.name)}</strong></p>
+                </div>
+                <p class='theGroupRole'><em>${reduceLength(content.role)}</em></p>
+                <p class='theGroupId visibility'>${content.id}</p>
+                <div class='actionButtons'>
+                    <button class='deleteGroup'>Delete</button>
+                    <button class='editGroupName'>Edit Name</button>
+                    <button class='sendMessage'>Send Broadcast</button>
+                    <button class='members'>Members</button>
+                </div>
+                <p class='theGroupCreator'><strong>Created By: </strong>${reduceEmail(content.createdby)}</div>
+            </div>`
+        });
+
+        const theGroup = Array.from(document.querySelectorAll('.theGroup'));
+        const deleteGroup = Array.from(document.querySelectorAll('.deleteGroup'));
+        const sendMessage = Array.from(document.querySelectorAll('.sendMessage'));
+        const editName = Array.from(document.querySelectorAll('.editGroupName'));
+        const members = Array.from(document.querySelectorAll('.members'));
+
+        members.forEach((group) => editMembersFunction(group));
+
+        editName.forEach((group) => editGroupFunction(group));
+        deleteGroup.forEach((element) => { deletGroupFunction(element) });
+        sendMessage.forEach((group) => sendBroadcastFunction(group));
+
+
+        return;
+    }
+    return;
+};
+
+populateView();
+
+const serverPostResponse = async (type, url, requestBody) => {
+    const response = await fetch(url, {
+        method: type,
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': `bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(requestBody)
+    });
+    const jsonResponse = await response.json();
+    return jsonResponse;
 }
+
+
+
+const createGroupFunction = async (e) => {
+    const name = document.querySelector('#groupName').value;
+    const role = document.querySelector('#groupRole').value;
+
+    const createGroupDetails = { name, role };
+    const createGroupResponse = await serverPostResponse('POST', `${groupsUrl}/`, createGroupDetails);
+    indication.innerHTML = '';
+    if (createGroupResponse.status === 201) {
+        indication.innerHTML += `<p class='indicationText'>${createGroupResponse.message}</p>`
+        setTimeout(() => {
+            indication.innerHTML = '';
+        }, 5000);
+        populateView();
+        return;
+    }
+    indication.innerHTML += `<p class='indicationText'>${createGroupResponse.error}</p>`
+
+    setTimeout(() => {
+        indication.innerHTML = '';
+    }, 5000);
+    return;
+}
+
+const createButton = document.querySelector('.createGroupButton');
+createButton.addEventListener('click', createGroupFunction);
+const indication = document.querySelector('.indication');
+
+
+const hideModal = () => {
+    if (!modalGroup.classList.contains('.visibility')) {
+        modalGroup.classList.add('visibility');
+    }
+    return;
+}
+
 

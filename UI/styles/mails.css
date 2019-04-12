@@ -8,25 +8,27 @@
 }
 
 body {
-    background: #EEF5F1;
+    height: 100vh;
 }
 
 /* MAILS CONTAINER */
 #mailsContainer {
-    padding: 15px;
-    padding-top: 60px;
-    margin: 0 2%;
-    margin-bottom: 2%;
     display: grid;
-    grid-template-columns: 0.3fr 0.7fr;
-    grid-template-rows: 0.1fr 0.9fr;
+    grid-template-columns: 0.1fr 0.9fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    width: 100%;
+    /* background: orange; */
+    /* height: (100% -3em); */
 }
 
 #menuList {
+    background: #FFFFE9;
+    /* background: yellow; */
     grid-column: 1;
-    grid-row: 2;
-    height: 70vh;
-    margin: 0 3em;
+    padding-top: 3em;
+    grid-row: 1;
+    /* height: (100% -3em); */
 }
 
 #menuListContainer {
@@ -34,19 +36,20 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin: 20% 25%;
+    align-items: flex-start;
+    padding-right: 1.3em;
+    /* background: purple; */
 }
 
 .menuListContent {
     padding: 0.4em;
     cursor: pointer;
-    text-align: center;
-    color: white;
+    width: 100%;
+    /* color: white; */
     font-size: 1.5em;
     font-family: 'lato', sans-serif;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
     margin-bottom: 0.7em;
-    background: #393E46;
 }
 
 .menuListContent:hover{
@@ -71,35 +74,38 @@ body {
 }
 
 #displayContainer {
-    grid-row: 2;
+    /* grid-row: 2; */
     grid-column: 2;
-    height: 80vh;
-    box-shadow: 3px 3px 5px 6px #ccc;
-    padding: 20px 40px;
+    margin-top: 3em;
     overflow: auto;
+    background: #FAFAE4;
+    width: 100%;
+    /* background: #CFDBC9; */
 }
 
 .mailContent {
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 2em;
 }
 
 #messageTitle {
-    background: #000;
+    background: #0E6681;
     color: white;
-    padding: 9px;
+    padding: 10px;
     padding-left: 2%;
     font-weight: bolder;
     letter-spacing: 1px;
+    font-size: 1.3em;
 }
 
 .composeMailContent {
     margin-bottom: 10px;
 }
 
-.formInput {
-    border-style: none;;
+.formInput, .addressDraft, .mailTitleDraft {
+    border-style: none;
     width: 100%;
     padding: 10px;
     font-size: 1em;
@@ -119,6 +125,18 @@ body {
     justify-content: space-between;
 }
 
+.displaySentMessagesContainer{
+    padding: 2em;
+}
+
+.displaySentTime{
+    display: flex;
+}
+
+.displaySentHrs{
+    margin-right: 1em;
+}
+
 .buttonDisplay {
     all: unset;
     border-radius: 3px;
@@ -130,10 +148,14 @@ body {
     font-size: 1rem;
 }
 
-.buttonContainer {
+.buttonContainer, .buttonDraftContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-between;
+    width: 100%;
+    /* background: orange; */
+    padding: 1em 1em;
+    padding-top: 0;
 }
 
 .buttonContainer > *:hover {
@@ -142,12 +164,12 @@ body {
 }
 
 #draftButton {
-    background: #FF0044;
+    background: #395043;
     color: white;
 }
 
 #sendButton {
-    background: rgb(83, 81, 192);
+    background: #547562;
     color: white;
     padding: 5px 10px;
 }
@@ -157,7 +179,7 @@ body {
     color: black;
 }
 
-.retract {
+.retract, .deleteSentMessage {
     all: unset;
     border-radius: 3px;
     cursor: pointer;
@@ -196,8 +218,6 @@ body {
     display: none;
 }
 
-
-
 /* SENT MAIL PART */
 .sentMessagesContainer {
     overflow: auto;
@@ -206,26 +226,44 @@ body {
 .sentMessage {
     display: grid;
     padding: 0.5rem;
-    background: #92D1C8;
+    background: #FAFAB7;
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
-    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-columns: 30% 50% 10% 10%;
     cursor: pointer;
-    justify-items: start;
+    /* justify-items: start; */
+    /* width: 100%; */
+    /* background: yellow; */
 }
 
 .sentMessage:hover {
-    background: pink;
+    background: rgb(242, 227, 164);
+}
+
+.responseError{
+    text-align: center;
 }
 
 .address {
-    margin-right: 40px;
+    /* margin-right: 40px; */
     grid-column: 1;
+    /* margin-left: 2em; */
+    /* width: 100%; */
+    overflow: hidden;
 }
 
 .mailTitle {
     grid-column: 2;
+    overflow: hidden;
+}
+
+.sentTime {
+    grid-column: 3;
+}
+
+.sentDate {
+    grid-column: 4;
 }
 
 /* display content on js file */
@@ -242,101 +280,144 @@ body {
 .inboxMessage {
     display: grid;
     padding: 0.5rem;
-    background: #92D1C8;
+    background: #FAFAB7;
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
-    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-columns: 30% 50% 10% 10%;
     cursor: pointer;
-    justify-items: start;
 }
 
-.inboxMessage:hover {
-    background: pink;
+.inboxMessage:hover, .inboxMessage.unRead:hover {
+    background: rgb(242, 227, 164)
 }
 
+.inboxMessage.unRead {
+    background: whitesmoke;
+}
+
+.inboxContainer{
+    margin-bottom: 1em;
+}
+
+.inboxDateContainer {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+
+.inboxTime {
+    padding-left: 3em;
+}
+
+.inboxReceivedMessage {
+    display: flex;
+    flex-direction: column;
+}
+
+.theInboxReceivedMessage{
+    padding-top: 0.5em;
+}
+
+.inboxButtonContainer {
+    margin-top: 4em;
+}
+
+.deleteInboxMessage {
+    all: unset;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #FF0044;
+    color: white;
+}
+
+.deleteInboxMessage:active {
+    background: rgb(200, 10, 20);
+}
 
 /* DRAFT MESSAGE */
+.draftMessagesContainer {
+    margin-bottom: 20px;
+    overflow: auto;
+}
 .draftMessage {
     display: grid;
     padding: 0.5rem;
-    background: #92D1C8;
+    background: #FAFAB7;
     font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0.2rem;
-    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-columns: 30% 50% 10% 10%;
     cursor: pointer;
-    justify-items: start;
 }
 
 .draftMessage:hover {
-    background: pink;
+    background: rgb(242, 227, 164);
 }
 
 #popupMessage {
     color: peru;
 }
 
-/* Adjust composeMail, inbox e.t.c menu when screen is at this size */
-@media screen and (max-width: 1200px) {
-    #menuList {
-        all: unset;
-        grid-column: 2;
-        grid-row: 1;
-        height: 7vh;
-        background: rgb(207, 207, 190);
-        width: 100%;
-    }
-
-    #menuListContainer {
-        all: unset;
-        list-style: none;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-    }
-
-    .menuListContent {
-        all: unset;
-        padding: 10px;
-        cursor: pointer;
-        text-align: center;
-        color: black;
-        font-size: 1.5em;
-        font-family: 'lato', sans-serif;
-        font-weight: bolder;
-    }
-
-    .menuListContent:hover {
-        background: #003542;
-        color: white;
-    }
+.displayDraftMessagesContainer {
+    /* background: orange; */
+    margin: 2em;
+    font-size: 1.1em;
 }
 
+.draftDivContainer {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
 
-@media screen and (max-width: 800px) {
-    .inboxMessage {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start
-    }
+.messageDraftContainer {
+    flex-direction: column;
+}
 
-    .draftMessage {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start
-    }
+.draftDivContainer strong {
+    margin-right: 1em;
+}
 
-    .sentMessage {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start
-    }
+.draftAddressContainer, .draftMailTitleContainer {
+    align-items: center;
+}
 
-    .messageContent {
-        height: 30vh;
-    }
+.messageDraft {
+    padding: 0.5em;
+    font-size: 1.1em;
+}
+
+.messageDraftContainer strong {
+    padding-bottom: 0.5em;
+}
+
+.updateDraft, .deleteDraft, .sendDraft {
+    all: unset;
+    background: #FFC6A8;
+    color: black;
+    padding: 0.5em;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.deleteDraft:active {
+    background: #FF3526;
+    color: white;
+}
+
+.updateDraft:active {
+    background: #272F32;
+    color: white;
+}
+
+.sendDraft:active {
+    background: #4FE86E;
 }

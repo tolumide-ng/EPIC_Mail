@@ -120,3 +120,27 @@ body {
 #resetButton:active {
     background: #F29B00;
 }
+
+.visibility {
+    display: none;
+}
+
+.modalContainer {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+.modalContent {
+    background: #ccc;
+    margin: 5% auto;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+    /* margin-top: 100px; */
+    width: 50%;
+    height: 10%;
+    padding-top: 2em;
+}

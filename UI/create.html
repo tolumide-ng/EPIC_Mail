@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./styles/nav.css">
     <link rel="stylesheet" href="./styles/create.css">
+    <link rel="stylesheet" href="./styles/createMobile.css">
     <title>EPIC_Mail</title>
 </head>
 
@@ -30,7 +31,7 @@
 
     <div class="formContainer">
         <form class="createGroupContainer" onsubmit="event.preventDefault()">
-            <div class="textContainer createContainer">Create group here</div>
+            <div class="textContainer createContainer"><strong>Create group here</strong></div>
             <div class="createdByContainer createContainer">
                 <label for="groupCreator" class="groupCreatedBy groupTitle">Created By: </label>
                 <div class="groupCreator">tolumide@epicmail.com</div>
@@ -62,13 +63,25 @@
                     <p class='theGroupRole visibility'>Enhance communication about Lasgidi devs and its environ</p>
                 </div> -->
             </div>
-
-
         </div>
 
+        <div class="visibility modalGroup">
+            <div class="serverResponseContainer">
+                <!-- <div class="groupName">Welcome to the specific group View </div> -->
+                <div class="indicateServerResponse"></div>
+            </div>
+        </div>
     </div>
 
+
+
+
     <script src="./scripts/create.js"></script>
+    <script src="./scripts/server/deleteGroup.js"></script>
+    <script src="./scripts/server/editGroupName.js"></script>
+    <script src="./scripts/server/sendBroadCast.js"></script>
+    <script src="./scripts/server/editMembers.js"></script>
+    <!-- <script src="./scripts/server/specificGroup.js"></script> -->
 </body>
 
 </html>

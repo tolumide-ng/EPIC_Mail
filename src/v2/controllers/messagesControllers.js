@@ -102,10 +102,14 @@ const Mail = {
     }
     try {
       const { rows } = await db.query(text, values);
+      console.log(rows[0]);
+
+      // If the message does not exist
       if (!rows[0]) {
         return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${idToNum}` });
       }
 
+      // Message exists but this is the first time the receiver is viewing it
       if (rows[0].status === 'inbox' && rows[0].receiveremail === user.email && rows[0].receiverstatus !== 'deleted') {
         const updateText = `UPDATE messagesTable
           SET status=$1 WHERE id=$2 AND receiverEmail=$3 returning *`;
@@ -120,7 +124,11 @@ const Mail = {
           }
         });
         return res.status(200).json({ status: 200, data: [responseText] });
-      } if (rows[0].senderemail === user.email && rows[0].senderstatus !== 'deleted') {
+      }
+      if (rows[0].senderemail === user.email && rows[0].senderstatus !== 'deleted') {
+        return res.status(200).json({ status: 200, data: [rows[0]] });
+      }
+      if (rows[0].receiveremail === user.email && rows[0].receiverstatus !== 'deleted') {
         return res.status(200).json({ status: 200, data: [rows[0]] });
       }
       return res.status(404).json({ status: 404, error: `Not Found, you do not have a message with id=${idToNum}` });
@@ -285,7 +293,7 @@ const Mail = {
     const { receiveremail, message, subject } = req.value.body;
     const searchText = 'SELECT * FROM messagesTable WHERE id=$1 AND senderEmail=$2';
     const searchValue = [req.params.id, user.email];
-    const searchReceiverText = `SELECT * FROM usersTable WHERE email=$1`;
+    const searchReceiverText = 'SELECT * FROM usersTable WHERE email=$1';
     const searchReceiverValue = [receiveremail];
     try {
       // if user updated receiver
@@ -297,16 +305,16 @@ const Mail = {
       }
       const { rows: searchRow } = await db.query(searchText, searchValue);
       if (!searchRow[0] || searchRow[0].status !== 'draft') {
-        return res.status(404).json({ status: 404, error: 'Not Found, you do not have a draft with this id' })
+        return res.status(404).json({ status: 404, error: 'Not Found, you do not have a draft with this id' });
       }
       const updateText = `UPDATE messagesTable 
       SET message=$1, receiveremail=$2, subject=$3 WHERE id=$4 AND senderemail=$5 returning *`;
       const updateValue = [message, receiveremail, subject, req.params.id, user.email];
       const { rows: readMail } = await db.query(updateText, updateValue);
-      return res.status(200).json({ status: 200, data: readMail, message: 'Draft Updated' })
+      return res.status(200).json({ status: 200, data: readMail, message: 'Draft Updated' });
 
     } catch (error) {
-      return res.status(500).json({ status: 500, error })
+      return res.status(500).json({ status: 500, error });
     }
   },
 };

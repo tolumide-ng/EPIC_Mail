@@ -110,7 +110,7 @@ body {
     overflow: hidden;
     /* overflow-x: hidden; */
     background: rgba(242, 184, 113, 0.2);
-    width: 30%;
+    width: 31%;
     cursor: pointer;
     border-radius: 0.5em;
 }
@@ -121,4 +121,225 @@ body {
 
 .theGroup>* {
     padding-bottom: 0.3em;
+}
+
+
+/* MODALS */
+
+input {
+    border-style: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid rgba(0,0,0,0.3);
+    height: 35px;
+}
+
+.modalGroup {
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    z-index: 2;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.serverResponseContainer {
+    background: #ccc;
+    margin: 5% auto;
+    width: 70%;
+    padding: 1.5em;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.serverResponseContainer > * {
+    text-align: center;
+}
+
+.confirmRequest, .indicateServerResponse {
+    background: rgba(0,0,0,0.2);
+    padding: 1em 0.5em;
+}
+.confirmButtonContainer {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.yesDelete, .noDelete, .editNameButton,
+.cancelEdit, .sendBroadcast, .cancelBroadcast, 
+.removeMemberButton, .addMemberButton, .closeButton {
+    all: unset;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    background: rgb(255, 149, 131);
+    font-weight: bold;
+}
+
+.yesDelete:active, .noDelete:active {
+    background: rgba(255, 149, 132, 0.2);
+}
+
+.theEditContainer {
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+}
+
+.editGroupNameContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom:1em;
+}
+
+.inputEditName {
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.editGroupNameButtonContainer {
+    display: flex;
+    /* background: green; */
+    justify-content: space-around;
+}
+
+/* BROADCAST MESSAGE */
+.sendBroadCastContainer {
+    font-size: 0.9em;
+}
+.theBroadCastMessage {
+    width: 100%;
+}
+
+.sendBroadCastContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.messageToSend {
+    display: flex;
+    flex-direction: column;
+}
+
+.subjectContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+    margin-top: 0.3em;
+}
+
+.subjectLabel {
+    margin-right: 0.3em;
+}
+
+.subjectMessage{
+    all: unset;
+    border-bottom: 1px solid grey;
+    transform-origin: left;
+}
+
+.messageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.messageLabel {
+    margin-bottom: 0.3em;
+}
+
+.sendBroadCastButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.3em;
+}
+
+
+/* MEMBERS ACTION */
+
+.membersContainer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100%;
+    width: 70%;
+    grid-template-rows: 1fr;
+}
+
+.membersContainer > * {
+    margin-right: 1em;
+}
+
+.displayTheMembers{
+    background: rgba(0,0,0,0.1);
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* align-items: space-between; */
+}
+
+.displayTheMembers > * {
+    margin: 0.3em;
+    padding: 0.3em;
+    background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: auto;
+}
+
+.removeMember {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.theMembersActions {
+    height: 100%;
+    width: 100%;
+    padding: 1em;
+}
+
+.theMembersActions > * {
+    margin-bottom: 1em;
+}
+
+.addMemberContainer, .removeMemberContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.addMemberContainer > *, .removeMemberContainer > * {
+    margin-bottom: 0.5em;
+}
+
+.userid, .groupid {
+    display: none;
+}
+
+/* GROUPS BUTTONS */
+.actionButtons {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    justify-content: space-between;
+    align-items: space-between;
+}
+
+.actionButtons > * {
+    margin-right: 1em;
+    margin-top: 0.5em;
 }

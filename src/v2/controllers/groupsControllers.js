@@ -35,13 +35,20 @@ const Group = {
       return res.status(400).json({ status: 400, error: 'Please ensure the messageId is an integer' });
     }
     const user = req.decodedToken;
+    const groupText = 'SELECT * FROM groupTable WHERE id=$1';
+    const groupValue = [req.params.id];
+
     const requestText = 'SELECT * FROM groupMembersTable WHERE groupId=$1';
     const requestValue = [req.params.id];
     try {
+      const { rows: groupExist } = await db.query(groupText, groupValue);
+
+      if (!groupExist[0]) {
+        return res.status(404).json({ status: 404, error: `There is no group with id=${req.params.id}` });
+      }
       const { rows: theGroup } = await db.query(requestText, requestValue);
-      console.log(theGroup);
-      if(!theGroup[0]){
-        return res.status(404).json({ status: 404, error: `There is no group with id=${req.params.id}`})
+      if (!theGroup[0]) {
+        return res.status(404).json({ status: 404, error: 'There are no members in this group' });
       }
       return res.status(200).json({ status: 200, data: theGroup });
     } catch (error) {
@@ -67,12 +74,13 @@ const Group = {
       if (rows[0].createdby !== user.email) {
         return res.status(403).json({ status: 403, error: 'Unauthorized, You do not have the authority to rename this group' });
       }
-      if (rows[0].createdby === user.email) {
-        const updateText = 'UPDATE groupTable SET name=$1 WHERE id=$2 returning *';
-        const updateValues = [name, idToNum];
-        const { rows: updated } = await db.query(updateText, updateValues);
-        return res.status(200).json({ status: 200, data: [updated[0]] });
-      }
+      // if (rows[0].createdby === user.email) {
+      const updateText = 'UPDATE groupTable SET name=$1 WHERE id=$2 returning *';
+      const updateValues = [name, idToNum];
+      const { rows: updated } = await db.query(updateText, updateValues);
+
+      return res.status(200).json({ status: 200, data: [updated[0]], message: `Group name changed to ${updated[0].name}` });
+      // }
     } catch (error) {
       return res.status(500).json({ status: 500, error });
     }
@@ -84,7 +92,7 @@ const Group = {
     const text = 'SELECT * FROM groupTable WHERE id=$1';
     const idToNum = Number(req.params.id);
     if (isNaN(idToNum)) {
-      return res.status(400).json({ status: 400, data: 'Bad request, Please ensure that the groupId supplied is an integer' });
+      return res.status(400).json({ status: 400, error: 'Bad request, Please ensure that the groupId supplied is an integer' });
     }
     const value = [idToNum];
     try {
@@ -140,11 +148,11 @@ const Group = {
           return res.status(409).json({ status: 409, error: 'Conflict: The email already exists in this group' });
         }
         // If the email does not already exist in the group
-        const addMemberText = `INSERT INTO groupMembersTable(groupId, userId, userRole)
-                            VALUES($1,$2,$3) returning *`;
-        const addMemberValue = [idToNum, userExists[0].id, userRole];
+        const addMemberText = `INSERT INTO groupMembersTable(groupId, userId, userRole, userEmail)
+                            VALUES($1,$2,$3,$4) returning *`;
+        const addMemberValue = [idToNum, userExists[0].id, userRole, userExists[0].email];
         const { rows: addMemberToGroup } = await db.query(addMemberText, addMemberValue);
-        return res.status(201).json({ status: 201, data: addMemberToGroup });
+        return res.status(201).json({ status: 201, data: addMemberToGroup, message: `${userEmailAddress} added` });
       }
 
       return res.status(403).json({ status: 403, error: 'Unauthorized: You do not have the authority to add a user to this group' });
@@ -228,33 +236,13 @@ const Group = {
 
         // Response is sent when the last email as been sent
         if (member === allMembers[allMembers.length - 1]) {
-          return res.status(201).json({ status: 201, data: emailContainer });
+          return res.status(201).json({ status: 201, data: emailContainer, message: 'Message sent to all group members' });
         }
       });
     } catch (error) {
       return res.status(500).json({ error: 500, error });
     }
   },
-
-  // async passwordReset(req, res) {
-  //   const resetEmail = req.body.email;
-  //   const findSecondaryText = 'SELECT * FROM  usersTable WHERE email=$1';
-  //   const findSecondaryValue = [resetEmail];
-
-  //   const { rows: findSecondaryEmail } = await db.query(findSecondaryText, findSecondaryValue);
-  //   if (!findSecondaryEmail[0]) {
-  //     return res.status(404).json({ status: 404, error: 'Not Found: Email specified for reset password does not exist' });
-  //   }
-  //   const { email, secondaryemail } = findSecondaryEmail;
-
-  //   const resetText = 'INSERT INTO resetPassword(message, secondaryEmail, userEmail) VALUES($1, $2, $3) returning *';
-  //   const message = 'Please find the link to reset your password here: bit.ly, link expires in 24 hours, goodluck'
-  //   const resetValue = [message, secondaryemail, email];
-
-  //   // Insert the message the database
-  //   await db.query(resetText, resetValue);
-  //   return res.status(201).json({ status: 201, data: { message, email } });
-  // },
 };
 
 export default Group;

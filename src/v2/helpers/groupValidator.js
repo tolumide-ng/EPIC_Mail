@@ -29,7 +29,13 @@ const Validator = {
       const value = body[key];
       const strings = (key === 'name' || key === 'role');
       if (value.length < 3) {
-        return res.status(400).json({ status: 400, error: `Length of ${key} cannot be less than 3` });
+        errorContents.push(`Length of ${key} cannot be less than 3`);
+      }
+      if (key === 'name' && value.length > 20) {
+        errorContents.push(`Length of ${key} cannot be more than 20`);
+      }
+      if (key === 'role' && value.length > 50) {
+        errorContents.push(`Length of ${key} cannot be more than 50`);
       }
       if (strings) {
         const validString = regAlphanumeric.test(value);
@@ -42,7 +48,7 @@ const Validator = {
     if (errorContents.length > 0) {
       return res.status(400).json({
         status: 400,
-        error: `${errorContents}`,
+        error: `${errorContents[0]}`,
       });
     }
     if (!req.value) { req.value = {}; }
@@ -71,19 +77,19 @@ const Validator = {
     Object.keys(body).forEach((key) => {
       const value = body[key];
       if (value.length < 3) {
-        return res.status(400).json({ status: 400, error: 'Length of the value cannot be less than 3' });
+        errorContents.push(`Length of the ${key} cannot be less than 3`);
       }
       if (key === 'userEmailAddress') {
         const validEmail = regEmail.test(value);
         if (!validEmail) {
-          return res.status(400).json({ status: 400, error: `${key} must be a valid email` });
+          errorContents.push(`${key} must be a valid email`);
         }
         Object.assign(verifiedContent, { [key]: value });
       }
       if (key === 'userRole') {
         const validString = regAlphanumeric.test(value);
         if (!validString) {
-          return res.status(400).json({ status: 400, error: `${key} must be a valid string` });
+          errorContents.push(`${key} must be a valid string`);
         }
         Object.assign(verifiedContent, { [key]: value });
       }
@@ -91,7 +97,7 @@ const Validator = {
     if (errorContents.length > 0) {
       return res.status(400).json({
         status: 400,
-        error: `${errorContents}`,
+        error: `${errorContents[0]}`,
       });
     }
     if (!req.value) { req.value = {}; }
@@ -121,7 +127,7 @@ const Validator = {
       const value = body[key];
       const strings = (key === 'subject' || key === 'message');
       if (value.length < 3) {
-        return res.status(400).json({ status: 400, error: `Length of the ${value} cannot be less than 3` });
+        errorContents.push(`You cannot send an empty ${key} to a group`);
       }
       if (strings) {
         const validStrings = regAlphanumeric.test(value);
@@ -145,7 +151,7 @@ const Validator = {
 
   renameGroupValidator(req, res, next) {
     const verifiedContent = {};
-    // const errorContents = [];
+    const errorContents = [];
     const { body } = req;
     const missingKeys = [];
 
@@ -160,28 +166,29 @@ const Validator = {
     if (missingKeys.length > 0) {
       return res.status(400).json({ status: 400, error: `${missingKeys} is required` });
     }
-
     // Ensure the content of each key is a valid entry
     Object.keys(body).forEach((key) => {
       const value = body[key];
 
       if (value.length < 3) {
-        return res.status(400).json({ status: 400, error: `Length of ${key} cannot be less than 3` });
+        errorContents.push(`Length of ${key} cannot be less than 3`);
+      }
+      if (key === 'name' && value.length > 20) {
+        errorContents.push(`Length of ${key} cannot be more than 20`);
       }
       if (key === 'name') {
         const validAlphaNumeric = regAlphanumeric.test(value);
-        // if (!validAlphaNumeric) {
-        //   errorContents.push(`Please ensure ${key} is a valid group name`);
-        // }
-        Object.assign(verifiedContent, { [key]: value });
+        if (!validAlphaNumeric) {
+          errorContents.push(`Please ensure ${key} is a valid group name`);
+          // break;
+        }
+        // return;
+        // Object.assign(verifiedContent, { [key]: value });
       }
     });
-    // if (errorContents.length > 0) {
-    //   return res.status(400).json({
-    //     status: 400,
-    //     error: `${errorContents}`,
-    //   });
-    // }
+    if (errorContents.length > 0) {
+      return res.status(400).json({ status: 400, error: `  ${errorContents[0]}` });
+    }
     if (!req.value) { req.value = {}; }
     req.value.body = req.body;
     next();

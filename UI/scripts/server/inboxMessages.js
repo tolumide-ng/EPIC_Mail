@@ -13,7 +13,7 @@ const inboxMessagesDisplay = async () => {
     if (inboxResponse.status === 404) {
         inboxMessageContainer.innerHTML = '';
         inboxMessageContainer.innerHTML += `
-        </div class='responseError'>${response.error}</div>`;
+        </div class='responseError'>${inboxResponse.error}</div>`;
         return;
     }
     function whatStatus() {
@@ -59,6 +59,7 @@ const viewInbox = async (e) => {
 
     const inboxMessage = await requestResponse('GET', `${messagesUrl}/${theId}`);
     const theInboxMessage = inboxMessage[0];
+    console.log(inboxMessage);
     function nd(date){
         return new Date(date.createdon);
     }

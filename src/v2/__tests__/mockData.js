@@ -7,6 +7,22 @@ export default {
     password: 'efetogbore12',
   },
 
+  shortPasswordLength: {
+    email: 'eleniyan@epicmail.com',
+    secondaryEmail: 'Chuks@gmail.com',
+    firstName: 'runeleniyan',
+    lastName: 'now',
+    password: '1234@$%#',
+  },
+
+  noFirstName: {
+    email: 'jedidiah@epicmail.com',
+    secondaryEmail: 'Okanlawon@gmail.com',
+    firstName: 'to1234',
+    lastName: 'Jude',
+    password: 'efetogbore12',
+  },
+
   userInputLessThan3: {
     email: 'toluwani@epicmail.com',
     secondaryEmail: 'Okanlawon@gmail.com',
@@ -23,6 +39,10 @@ export default {
   faileduserLogin: {
     email: 'toluwani@epicmail.com',
     password: 'fakepassword',
+  },
+
+  noPasswordLogin: {
+    email: 'toluwani@epicmail.com',
   },
 
   invalidEmailLogin: {
@@ -61,6 +81,26 @@ export default {
     firstName: 'Malcolm',
     lastName: 'Balkman',
     password: 'cinwel',
+  },
+
+  biodunUser: {
+    email: 'Biodun@epicmail.com',
+    secondaryEmail: 'goodguy@gmail.com',
+    firstName: 'Abiodun',
+    lastName: 'forWhat',
+    password: 'eleniyan',
+  },
+
+  passwordReset: {
+    email: 'Biodun@epicmail.com',
+  },
+
+  invalidEmailReset: {
+    email: 'Biodunepicmail.com',
+  },
+
+  fakeEmail: {
+    email: 'brisket@gmail.com',
   },
 
   loginEich: {
@@ -179,6 +219,13 @@ export default {
     role: 'Admin',
   },
 
+  roleLength: {
+    name: 'Michigan developers',
+    role: `The purpose of this test is to ascertain 
+    that the validation can easily reject any group 
+    length than is more than over fifty. Hopefully this would be`,
+  },
+
   basheerGroup: {
     name: 'Arab Money',
     role: 'Admin',
@@ -214,6 +261,16 @@ export default {
     userRole: 'Guest',
   },
 
+  invalidEmailToTheGroup: {
+    userEmailAddress: 'tomiwasepicmail.com',
+    userRole: 'Guest',
+  },
+
+  invalidGroupRole: {
+    userEmailAddress: 'bambam@epicmail.com',
+    userRole: '@#$%^&*()_',
+  },
+
   unRegisteredMember: {
     userEmailAddress: 'oladele@gmail.com',
     userRole: 'Guest',
@@ -240,6 +297,9 @@ export default {
 
   broadcastMessageValidation: {
     subject: 'Arkansas',
+  },
+
+  emptyBroadcastMessage: {
   },
 
   shortBroadcastMessage: {

@@ -9,9 +9,10 @@ EPIC_Mail is a web application that empowers it's users to exchange messages/inf
 
 ## Epic_Mail Features
 - Users can create an account, and become Registered users
-- Registered Users can sign in
-- Registered Users can post an email
-- Registered User can specifically save a message as draft
+- Users can sign in
+- Users can post an email
+- Users can specifically save a message as draft
+- Users can reset there password
 - Users can get all received emails
 - Users can specifically request for all draft messages
 - Users can get all unread emails
@@ -80,23 +81,26 @@ $ npm run test
 ***
 
 ### API Information 
-EPIC_Mail is hosted on [heroku](https://epic--mail.herokuapp.com/)
-EPIC_Mail version 2 is hosted on [heroku](https://the-epicmail.herokuapp.com)
+EPIC_Mail version 1 is hosted on [heroku](https://epic--mail.herokuapp.com/)
+EPIC_Mail version 2 is hosted on [heroku](https://epicmail-ng.herokuapp.com/)
 
-API is documented on **[swagger](https://inspector.swagger.io/)** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis/tolumide-ng/EPIC_Mail/1)
+API for version 1 is documented on **[swagger](https://inspector.swagger.io/)** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis/tolumide-ng/EPIC_Mail/1)
+
 
 | Method    |Description                          | Endpoint                                |
 | --------  |-------------------------------------| ----------------------------------------| 
 | POST      | User signup                         | `/api/v2/auth/signup`                   |
 | POST      | User login                          | `/api/v2/auth/login`                    |
+| POST      | User can reset password             | `/api/v2/auth/reset`                    |
 | POST      | Compose Mail                        | `/api/v2/messages`                      |
 | POST      | Specifically save message as draft  | `/api/v2/messages/draft`                |
 | GET       | Get all sent messages               | `/api/v2/messages/sent`                 |
+| DELETE    | Retract a sent message              | `/api/v2/messages/retract/:id`          |
 | GET       | Get all draft messages              | `/api/v2/messages/draft`                |
 | GET       | Get all unread messages             | `/api/v2/messages/unread`               |
 | GET       | Get all received messages           | `/api/v2/messages/received`             |
 | GET       | Get a specific message              | `/api/v2/messages/:msd-id`              |
-| PUT       | Edit a draft message                | `/api/v2/messages/:id`                  | 
+| PUT       | Edit a draft message                | `/api/v2/messages/draft/:id`                  | 
 | DELETE    | Delete a specific message           | `/api/v2/messages/:msd-id`              |
 | POST      | Create a group                      | `/api/v2/groups/`                       |
 | GET       | Get all groups on epicMail          | `/api/v2/groups/`                       |

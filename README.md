@@ -86,6 +86,8 @@ EPIC_Mail version 2 is hosted on [heroku](https://epicmail-ng.herokuapp.com/)
 
 API for version 1 is documented on **[swagger](https://inspector.swagger.io/)** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis/tolumide-ng/EPIC_Mail/1)
 
+API for version 1 is documented on **[swagger](https://inspector.swagger.io/)** can can be viewed at [EPIC_Mail](https://app.swaggerhub.com/apis-docs/tolumide-ng/EpicMail_ng/1)
+
 
 | Method    |Description                          | Endpoint                                |
 | --------  |-------------------------------------| ----------------------------------------| 

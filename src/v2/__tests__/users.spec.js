@@ -11,7 +11,7 @@ const { expect } = chai;
 const {
   user, incompleteUser, wrongRegExpName, oneMissingDetail, userLogin, faileduserLogin, incompleteLogin,
   invalidEmailLogin, userInputLessThan3, biodunUser, passwordReset, fakeEmail, noFirstName, invalidEmailReset,
-  noPasswordLogin, shortPasswordLength
+  noPasswordLogin, shortPasswordLength,
 } = mockData;
 const userRoute = '/api/v2/auth';
 
@@ -139,7 +139,7 @@ describe('Failed User actions', () => {
         res.should.be.json;
         res.body.should.have.property('error');
         res.body.should.be.a('object');
-        expect(res.body).to.have.own.property('error', 'Length of the value cannot be less than 3');
+        expect(res.body).to.have.own.property('error', 'Length of the lastName cannot be less than 3');
         done();
       });
   });

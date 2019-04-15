@@ -31,7 +31,7 @@ const Validator = {
       const mails = (key === 'email' || key === 'secondaryEmail');
       const value = body[key];
       if (value.length < 3) {
-        const newLocal = 'Length of the value cannot be less than 3';
+        const newLocal = `Length of the ${key} cannot be less than 3`;
         return res.status(400).json({ status: 400, error: newLocal });
       }
       if (key === 'password') {

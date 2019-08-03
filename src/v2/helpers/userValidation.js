@@ -1,6 +1,8 @@
 const regString = (/^([a-zA-Z\s]){3,}$/);
 const regEmail = (/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-const regAlphanumeric = (/^([a-zA-Z0-9\-.\s]{6,})$/);
+// const regAlphanumeric = (/^([a-zA-Z0-9\-.\s]{6,})$/);
+const regAlphanumeric = /^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
+
 
 const Validator = {
   signUpValidator(req, res, next) {
